@@ -1,1 +1,1 @@
-Hello Yevgenii!
+Hello
