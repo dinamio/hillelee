@@ -23,27 +23,20 @@ public class Main {
     }
 
     //сортировка вставками
-    public static List<Integer> sortNosach (List<Integer> inputList){
-        List<Integer> resultList = new LinkedList<>();
-        resultList.add(inputList.get(0));
+    public static List<Integer> sortNosach (List<Integer> list){
 
-        for (int i = 1; i< inputList.size(); i++){
+        for (int i = 1; i< list.size(); i++){
 
-            int sizeResult = resultList.size(); // size - в отдельной переменной т.к. во внутреннем цикле он может поменятся
-
-            for (int j=0; j<sizeResult; j++){
-                if (inputList.get(i) < resultList.get(j)){
-                    resultList.add(j, inputList.get(i));
+            for (int j=0; j<i; j++){
+                if (list.get(i) < list.get(j)){
+                    Integer tmp = list.get(i);
+                    list.remove(i);
+                    list.add(j, tmp);
                     break;
-                }
-                if (j == resultList.size()-1){
-                    resultList.add(inputList.get(i));
                 }
             }
         }
-        inputList.clear();
-        inputList.addAll(resultList);
-        return inputList;
+        return list;
     }
 
 
