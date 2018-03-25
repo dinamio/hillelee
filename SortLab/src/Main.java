@@ -14,7 +14,7 @@ public class Main {
         list.stream().forEach(System.out::println);
 
         List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-        com.company.Main.sortSolopov(solopovList);
+        sortSolopov(solopovList);
         solopovList.stream().forEach(System.out::println);
     }
 
