@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-
 import static java.util.stream.Collectors.averagingDouble;
 import static java.util.stream.Collectors.toList;
 
@@ -16,6 +15,7 @@ public class Main {
         list.stream().forEach(System.out::println);
 
 
+
         List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
         Main.sortSolopov(solopovList);
         solopovList.stream().forEach(System.out::println);
@@ -24,6 +24,11 @@ public class Main {
 //        Main.sortNosach(nosachList);
 //        nosachList.stream().forEach(System.out::println);
 
+        List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
+        sortSolopov(solopovList);
+        solopovList.stream().forEach(System.out::println);
+
+
     }
 
     private static List<Integer> sortGodun(List<Integer> list) {
@@ -31,19 +36,6 @@ public class Main {
         return list;
     }
 
-
-    private static List<Integer> sortSolopov(List<Integer> list){ //selection sort
-        int temp, j;
-        for(int i = 0; i < list.size() - 1; i++){
-            if (list.get(i) > list.get(i+1)) {
-                temp = list.get(i+1);
-                list.set(i+1, list.get(i));
-                j = i;
-                while (j > 0 && temp < list.get(j-1)) {
-                    list.set(j,list.get(j - 1));
-                    j--;
-                }
-                list.set(j,temp);
 
     //сортировка вставками
     public static List<Integer> sortNosach (List<Integer> list){
@@ -57,8 +49,26 @@ public class Main {
                     list.add(j, tmp);
                     break;
                 }
-
             }
+        }
+        return list;
+    }
+
+
+	//selection sort
+    private static List<Integer> sortSolopov(List<Integer> list){ 
+        int temp, j;
+        for(int i = 0; i < list.size() - 1; i++){
+            if (list.get(i) > list.get(i+1)) {
+                temp = list.get(i+1);
+                list.set(i+1, list.get(i));
+                j = i;
+                while (j > 0 && temp < list.get(j-1)) {
+                    list.set(j,list.get(j - 1));
+                    j--;
+                }
+                list.set(j,temp);
+      }
         }
         return list;
     }
