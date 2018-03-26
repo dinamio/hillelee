@@ -16,12 +16,9 @@ public class Main {
 //        Main.sortNosach(nosachList);
 //        nosachList.stream().forEach(System.out::println);
 
-//        List<Integer> list = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-//        Main.sortBondarenko(list, 0, list.size() - 1);
-//        list.forEach(System.out::println);
-
-
-
+        List<Integer> unsortedList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
+        Main.sortBondarenko(unsortedList, 0, unsortedList.size() - 1);
+        unsortedList.forEach(System.out::println);
     }
 
     private static List<Integer> sortGodun(List<Integer> list) {
