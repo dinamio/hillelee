@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +17,6 @@ public class Main {
         // Main.sortKyrychenko(list);
         list.stream().forEach(System.out::println);
 
-
         List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
         sortSolopov(solopovList);
         solopovList.stream().forEach(System.out::println);
@@ -25,6 +25,13 @@ public class Main {
 //        Main.sortNosach(nosachList);
 //        nosachList.stream().forEach(System.out::println);
 
+        List<Integer> unsortedList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
+        Main.sortBondarenko(unsortedList, 0, unsortedList.size() - 1);
+        unsortedList.forEach(System.out::println);
+
+        list = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
+        list = recQuickSortKuznetsov(list);
+        list.stream().forEach(System.out::println);
     }
 
     private static List<Integer> sortGodun(List<Integer> list) {
@@ -33,8 +40,7 @@ public class Main {
     }
 
 
-
- private static List<Integer> sortSolopov(List<Integer> list){ 
+ private static List<Integer> sortSolopov(List<Integer> list){
         int temp, j;
         for(int i = 0; i < list.size() - 1; i++){
             if (list.get(i) > list.get(i+1)) {
@@ -50,7 +56,7 @@ public class Main {
         }
         return list;
     }
-  
+
     //сортировка вставками
     public static List<Integer> sortNosach (List<Integer> list){
 
@@ -83,5 +89,54 @@ public class Main {
             }
         }
         return list;
+      
+    // quick sort
+    public static void sortBondarenko(List<Integer> list, int start, int end) {
+        int i = start;
+        int j = end;
+        int pivot = list.get(start + (end - start)/2);
+        while (i <= j) {
+            while (list.get(i) < pivot) { i++; }
+            while (list.get(j) > pivot) { j--; }
+            if (i <= j) {
+                Integer tmp = list.get(i);
+                list.set(i, list.get(j));
+                list.set(j, tmp);
+                i++;
+                j--;
+            }
+        }
+        if (start < j)
+            sortBondarenko(list, start, j);
+        if (i < end)
+            sortBondarenko(list, i, end);
+    }
+
+    public static List recQuickSortKuznetsov(List<Integer> list) {
+
+        if (list.size() <= 1) {
+            return list;
+        }
+
+        ArrayList lesser = new ArrayList<>();
+        ArrayList greater = new ArrayList<>();
+        int lastElementPos = list.size()-1;
+        int pivot = list.get(lastElementPos);
+
+        for (int i = 0; i < lastElementPos; i++) {
+            if (list.get(i) < (pivot)) {
+                lesser.add(list.get(i));
+            } else {
+                greater.add(list.get(i));
+            }
+        }
+
+        lesser = (ArrayList) recQuickSortKuznetsov(lesser);
+        greater = (ArrayList) recQuickSortKuznetsov(greater);
+
+        lesser.add(pivot);
+        lesser.addAll(greater);
+
+        return lesser;
     }
 }
