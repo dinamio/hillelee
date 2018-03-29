@@ -22,6 +22,7 @@ public class Main {
         //Main.sortBondarenko(list, 0, list.size() - 1);
         //sortKyrychenko(list);
         //recQuickSortKuznetsov(list);
+        //bubbleSortBorysov(list);
 
         list.stream().forEach(System.out::println);
     }
@@ -134,4 +135,20 @@ public class Main {
 
         return lesser;
     }
+
+    public static List<Integer> bubbleSortBorysov (List<Integer> list){
+
+        for (int barrier =0; barrier < list.size() ; barrier++){
+            for (int index=0; index < barrier; index++){
+
+                if (list.get(index) > list.get(barrier)){
+                    Integer tmp = list.get(index);
+                    list.set(index,  list.get(barrier));
+                    list.set(barrier, tmp);
+                }
+            }
+        }
+        return list;
+    }
+
 }
