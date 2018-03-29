@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> list = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
         Main.sortGodun(list);
+        // Main.sortKyrychenko(list);
         list.stream().forEach(System.out::println);
 
         List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
@@ -73,6 +74,22 @@ public class Main {
         return list;
     }
 
+    // insertion sort
+    private static List<Integer> sortKyrychenko(List<Integer> list) {
+
+        for(int i = 1; i < list.size(); i++) {
+            for(int j = i; j > 0; j--)
+            {
+                if (list.get(j - 1) > list.get(j))
+                {
+                    Integer temp = list.get(j - 1);
+                    list.set(j - 1, list.get(j));
+                    list.set(j, temp);
+                }
+            }
+        }
+        return list;
+      
     // quick sort
     public static void sortBondarenko(List<Integer> list, int start, int end) {
         int i = start;
