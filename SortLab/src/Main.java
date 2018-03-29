@@ -1,3 +1,5 @@
+package SortLab.src;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -12,31 +14,25 @@ import static java.util.stream.Collectors.toList;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> list = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
+        List<Integer> list = fillingList();
         Main.sortGodun(list);
-        // Main.sortKyrychenko(list);
-        list.stream().forEach(System.out::println);
 
-        List<Integer> solopovList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-        sortSolopov(solopovList);
-        solopovList.stream().forEach(System.out::println);
+        //sortNosach(list);
+        //sortSolopov(list);
+        //Main.sortBondarenko(list, 0, list.size() - 1);
+        //sortKyrychenko(list);
+        //recQuickSortKuznetsov(list);
 
-//        List<Integer> nosachList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-//        Main.sortNosach(nosachList);
-//        nosachList.stream().forEach(System.out::println);
-
-        List<Integer> unsortedList = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-        Main.sortBondarenko(unsortedList, 0, unsortedList.size() - 1);
-        unsortedList.forEach(System.out::println);
-
-        list = IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
-        list = recQuickSortKuznetsov(list);
         list.stream().forEach(System.out::println);
     }
 
     private static List<Integer> sortGodun(List<Integer> list) {
         Collections.sort(list);
         return list;
+    }
+
+    private static List<Integer> fillingList() {
+        return IntStream.iterate(0, i -> new Random().nextInt()).limit(20).boxed().collect(toList());
     }
 
 
@@ -77,11 +73,9 @@ public class Main {
     // insertion sort
     private static List<Integer> sortKyrychenko(List<Integer> list) {
 
-        for(int i = 1; i < list.size(); i++) {
-            for(int j = i; j > 0; j--)
-            {
-                if (list.get(j - 1) > list.get(j))
-                {
+        for (int i = 1; i < list.size(); i++) {
+            for (int j = i; j > 0; j--) {
+                if (list.get(j - 1) > list.get(j)) {
                     Integer temp = list.get(j - 1);
                     list.set(j - 1, list.get(j));
                     list.set(j, temp);
@@ -89,6 +83,7 @@ public class Main {
             }
         }
         return list;
+    }
       
     // quick sort
     public static void sortBondarenko(List<Integer> list, int start, int end) {
