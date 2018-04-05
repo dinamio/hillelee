@@ -208,6 +208,35 @@ public class Main {
                 int b = last.get(j);
                 result.add(k, b);
                 j++; }
-        }   return result; } 
+        }   return result; }
+
+    public static void quickSortVS(List<Integer> arr) {
+        realQuickSortVS(arr, 0, arr.size()-1);
+    }
+
+    private static void realQuickSortVS(List<Integer> arr, int p, int r) {
+        if(p < r) {
+            /* PARTITION */
+            Integer x = arr.get(r);
+            Integer i = p - 1;
+            for(int j = p; j <= r - 1; j++) {
+                if(arr.get(j) <= x) {
+                    i++;
+                    /* EXCHANGE */
+                    int tmp = arr.get(i);
+                    arr.set(i, arr.get(j));
+                    arr.set(j, tmp);
+                }
+            }
+            /* EXCHANGE */
+            int tmp = arr.get(i+1);
+            arr.set(i+1, arr.get(r));
+            arr.set(r, tmp);
+            /* PARTITION END */
+            int q = i + 1;
+            realQuickSortVS(arr, p, q - 1);
+            realQuickSortVS(arr, q + 1, r);
+        }
+    }
 
 }
