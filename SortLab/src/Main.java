@@ -12,7 +12,6 @@ import static java.util.stream.Collectors.averagingDouble;
 import static java.util.stream.Collectors.toList;
 
 public class Main {
-
     public static void main(String[] args) {
         List<Integer> list = fillingList();
         Main.sortGodun(list);
