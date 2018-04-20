@@ -27,7 +27,7 @@
                     <td>${quizzes.subject}</td>
                     <td>${quizzes.theme}</td>
                     <td>
-                        <a href="delete?id=${quizzes.id}" content="">Delete</a>
+                        <a href="delete?id=${quizzes.id}">Delete</a>
                     </td>
                     <td></td>
                 </tr>
@@ -35,11 +35,10 @@
 
     </table>
 </div>
-<div name = "add">
 
-    <form name="add" action="add" method="post" >
-        <input type="submit" name="add" value="add" >
-    </form>
+<div class = "add">
+
+    <input type="submit" name="add" value="Add" onclick="location.href='add'">
 
 </div>
 

@@ -14,7 +14,7 @@ public class QuizAddServlet extends HttpServlet {
     QuizService ts = QuizService.QUIZ_SERVICE;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         boolean formChecked = Boolean.parseBoolean(req.getParameter("formChecked"));
 
@@ -28,5 +28,10 @@ public class QuizAddServlet extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("/view/quiz.jsp");
             rd.forward(req, resp);
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }
