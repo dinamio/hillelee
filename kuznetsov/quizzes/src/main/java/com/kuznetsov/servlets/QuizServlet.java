@@ -1,6 +1,7 @@
-package kuznetsov.quizzes.src.main.java.com.kuznetsov.servlets;
+package com.kuznetsov.servlets;
 
 
+import com.kuznetsov.services.QuizServices;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet("")
 public class QuizServlet extends HttpServlet {
-    kuznetsov.quizzes.src.main.java.services.QuizServices services = new kuznetsov.quizzes.src.main.java.services.QuizServices();
+    QuizServices services = new QuizServices();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

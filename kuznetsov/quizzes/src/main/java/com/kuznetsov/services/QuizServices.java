@@ -1,7 +1,8 @@
-package kuznetsov.quizzes.src.main.java.com.kuznetsov.services;
+package com.kuznetsov.services;
 
 
-import kuznetsov.quizzes.src.main.java.com.kuznetsov.enteties.SubjectQuiz;
+
+import com.kuznetsov.enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.List;

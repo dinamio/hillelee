@@ -1,4 +1,4 @@
-package kuznetsov.quizzes.src.main.java.com.kuznetsov.enteties;
+package com.kuznetsov.enteties;
 
 public class SubjectQuiz {
     private String id;
