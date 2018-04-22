@@ -1,7 +1,6 @@
-package com.kuznetsov.servlets;
+package servlets;
 
-
-import com.kuznetsov.services.QuizServices;
+import services.QuizServices;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +19,7 @@ public class QuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (services.getSavedCredentials().isEmpty()) {
 
-            RequestDispatcher loginDispatcher = req.getRequestDispatcher("/login.jsp");
-            loginDispatcher.include(req, resp);
-
-        } else {
             try {
                 if (services.getSavedCredentials().get(services.getLogin()).equals(services.getPwd())) {
 
@@ -46,7 +40,7 @@ public class QuizServlet extends HttpServlet {
             }catch (Exception e){
                 System.out.println("it's exeption");
 
-        }}}
+        }}
 
         @Override
         public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

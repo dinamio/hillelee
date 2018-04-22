@@ -1,4 +1,4 @@
-package com.kuznetsov.services;
+package services;
 
 
 import com.kuznetsov.enteties.SubjectQuiz;

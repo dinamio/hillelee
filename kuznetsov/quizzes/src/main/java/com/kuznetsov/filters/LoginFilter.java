@@ -13,7 +13,17 @@ public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Doing filtration...");
+        String login = servletRequest.getParameter("login");
+
+        if (login != null) {
+            System.out.println("login -> " + login);
+        RequestDispatcher logoutButton = servletRequest.getRequestDispatcher("logOutButton.jsp");
+        logoutButton.include(servletRequest, servletResponse);
+        } else {
+            System.out.println("in equals");
+            RequestDispatcher loginDispatcher = servletRequest.getRequestDispatcher("/login.jsp");
+            loginDispatcher.include(servletRequest, servletResponse);
+        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
