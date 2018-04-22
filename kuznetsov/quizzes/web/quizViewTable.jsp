@@ -7,6 +7,7 @@
         <tr align="left">
             <td width="85"> ${t.subject}</td>
             <td width="410">${t.theme}</td>
+            <td width="50">${t.login}</td>
             <td height="40">
                 <form method="POST">
                     <input type="hidden" name="Id" value="${t.id}"/>

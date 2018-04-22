@@ -16,33 +16,69 @@ import java.io.IOException;
 public class QuizServlet extends HttpServlet {
     QuizServices services = new QuizServices();
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
-        RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
-        resp.getWriter().print("<h1>Quizzes</h1>");
-        formDispatcher.include(req, resp);
 
-        req.setAttribute("list", services.getSubjectQuizList());
+        if (services.getSavedCredentials().isEmpty()) {
 
-        if (!services.getSubjectQuizList().isEmpty()) {
-            resp.getWriter().print("<h2>Added quizzes</h2>");
-        }
+            RequestDispatcher loginDispatcher = req.getRequestDispatcher("/login.jsp");
+            loginDispatcher.include(req, resp);
 
-        responseDispatcher.include(req, resp);
-    }
-
-    @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String theme = req.getParameter("Theme");
-        String subject = req.getParameter("Subject");
-        String id = req.getParameter("Id");
-
-        if (id == null) {
-            services.addNewQuiz(subject, theme);
         } else {
-            services.removeQuizById(id);
+            try {
+                if (services.getSavedCredentials().get(services.getLogin()).equals(services.getPwd())) {
+
+
+                    RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
+                    RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
+                    resp.getWriter().print("<h1>Quizzes</h1>");
+                    formDispatcher.include(req, resp);
+
+                    req.setAttribute("list", services.getSubjectQuizList());
+
+                    if (!services.getSubjectQuizList().isEmpty()) {
+                        resp.getWriter().print("<h2>Added quizzes</h2>");
+                    }
+
+                    responseDispatcher.include(req, resp);
+                }
+            }catch (Exception e){
+                System.out.println("it's exeption");
+
+        }}}
+
+        @Override
+        public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String theme = req.getParameter("Theme");
+
+            if (theme == null){
+
+                services.setLogin(req.getParameter("login"));
+            services.setPwd(req.getParameter("pwd"));
+
+            if (!services.getLogin().equals("") && (!services.getPwd().equals(""))) {
+
+
+                services.setSavedCredentials(services.getLogin(), services.getPwd());
+
+                req.getSession().setAttribute("login", services.getLogin());
+                req.getSession().setAttribute("pwd", services.getPwd());
+
+            } else {
+
+                String subject = req.getParameter("Subject");
+                String id = req.getParameter("Id");
+
+
+                if (id == null) {
+                    services.addNewQuiz(subject, theme, String.valueOf(req.getSession().getAttribute("login")));
+                } else {
+                    services.removeQuizById(id);
+                }
+            }
+                doGet(req, resp);
+
         }
-        doGet(req, resp);
-    }
-}
+
+}}

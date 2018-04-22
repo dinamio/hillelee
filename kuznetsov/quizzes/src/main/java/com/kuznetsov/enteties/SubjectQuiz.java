@@ -4,10 +4,12 @@ public class SubjectQuiz {
     private String id;
     private String subject;
     private String theme;
+    private String login;
 
-    public SubjectQuiz(String subject, String theme) {
+    public SubjectQuiz(String subject, String theme, String login) {
         this.subject = subject;
         this.theme = theme;
+        this.login = login;
         id = this.toString();
     }
 
