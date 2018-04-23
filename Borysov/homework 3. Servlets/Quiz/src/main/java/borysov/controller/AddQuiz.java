@@ -22,11 +22,6 @@ public class AddQuiz extends HttpServlet {
         Quiz quiz = new Quiz(subject, theme);
         listOfQuizzes.add(quiz);
         request.getSession().setAttribute("listOfQuizzes", listOfQuizzes);
-        System.out.println("add" + listOfQuizzes);
         response.sendRedirect("showQuizzes.jsp");
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

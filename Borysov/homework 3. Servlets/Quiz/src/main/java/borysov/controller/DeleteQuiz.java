@@ -16,12 +16,8 @@ public class DeleteQuiz extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<Quiz> loadedQuizzes = (ArrayList<Quiz>) req.getSession().getAttribute("listOfQuizzes");
         int id = Integer.valueOf(req.getParameter("id_for_delete_field"));
-        System.out.println(loadedQuizzes);
-        System.out.println("id " + id);
         loadedQuizzes.remove(id);
-        System.out.println("after" + loadedQuizzes);
         req.getSession().setAttribute("listOfQuizzes", loadedQuizzes);
         resp.sendRedirect("showQuizzes.jsp");
-
     }
 }
