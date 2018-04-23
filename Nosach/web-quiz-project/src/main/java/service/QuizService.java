@@ -3,7 +3,9 @@ package service;
 import entity.Quiz;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class QuizService {
@@ -15,8 +17,8 @@ public class QuizService {
 
     private  List<Quiz> quizzes = new ArrayList<>();
 
-    public void addQuiz (String subject, String theme){
-        quizzes.add(new Quiz(subject, theme));
+    public void addQuiz (String subject, String theme, String author){
+        quizzes.add(new Quiz(subject, theme, author));
     }
 
     public List getQuizList (){

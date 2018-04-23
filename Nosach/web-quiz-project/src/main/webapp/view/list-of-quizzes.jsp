@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page contentType="text/html;charset=utf-8" %>
 <head>
     <title>Available Tests</title>
     <link type="text/css"
@@ -8,16 +8,18 @@
 </head>
 <body>
 
+<%@include file="parts/header.jsp"%>
+
 <header ><h1>Available Quizzes</h1></header>
 
 <div class="table">
 
-    <table>
+    <table class="list">
         <tr>
             <th>ID</th>
             <th>Subject</th>
             <th>Theme</th>
-            <th></th>
+            <th>Author</th>
             <th></th>
         </tr>
 
@@ -26,20 +28,17 @@
                     <td>${quizzes.id}</td>
                     <td>${quizzes.subject}</td>
                     <td>${quizzes.theme}</td>
-                    <td>
-                        <a href="delete?id=${quizzes.id}" content="">Delete</a>
-                    </td>
-                    <td></td>
+                    <td>${quizzes.author}</td>
+                    <td><a href="delete?id=${quizzes.id}">Delete</a></td>
                 </tr>
             </c:forEach>
 
     </table>
 </div>
-<div name = "add">
 
-    <form name="add" action="add" method="post" >
-        <input type="submit" name="add" value="add" >
-    </form>
+<div class = "add">
+
+    <input type="submit" name="add" value="Add" onclick="location.href='add'">
 
 </div>
 
