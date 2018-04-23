@@ -7,8 +7,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Objects;
-
-@WebFilter("/login.jsp")
+//FIXME sel filter logic
+/*
+@WebFilter("/quizCreationForms.jsp")
 public class LoginFilter implements Filter {
     QuizServices services = new QuizServices();
 
@@ -23,7 +24,8 @@ public class LoginFilter implements Filter {
         String sign = req.getParameter("submit");
         System.out.println("button is " + sign);
 
-        /*String login = (String) req.getSession().getAttribute("login");
+        */
+/*String login = (String) req.getSession().getAttribute("login");
         String pwd = (String) req.getSession().getAttribute("pwd");
 
         if (login != null && pwd != null) {
@@ -38,10 +40,12 @@ public class LoginFilter implements Filter {
             }
 
 
-        }*/
+        }*//*
+
     }
     @Override
     public void destroy() {
 
     }
 }
+*/

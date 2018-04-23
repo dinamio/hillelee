@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
-    QuizServices services = new QuizServices();
+    private QuizServices services = new QuizServices();
 
 
     @Override
@@ -21,7 +21,7 @@ public class QuizServlet extends HttpServlet {
 
         if (req.getSession().getAttribute("login") != null && req.getSession().getAttribute("pwd") != null) {
 
-            RequestDispatcher logoutButton = req.getRequestDispatcher("logOutButton.jsp");
+            RequestDispatcher logoutButton = req.getRequestDispatcher("/logOutButton.jsp");
             RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
             RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
 
@@ -46,32 +46,18 @@ public class QuizServlet extends HttpServlet {
 
         if (theme == null) {
 
-            services.setLogin(req.getParameter("login"));
-            services.setPwd(req.getParameter("pwd"));
-
-            if (!services.getLogin().equals("") && (!services.getPwd().equals(""))) {
+            String subject = req.getParameter("Subject");
+            String id = req.getParameter("Id");
 
 
-                services.setSavedCredentials(services.getLogin(), services.getPwd());
-
-                req.getSession().setAttribute("login", services.getLogin());
-                req.getSession().setAttribute("pwd", services.getPwd());
-
+            if (id == null) {
+                services.addNewQuiz(subject, theme, String.valueOf(req.getSession().getAttribute("login")));
             } else {
-
-                String subject = req.getParameter("Subject");
-                String id = req.getParameter("Id");
-
-
-                if (id == null) {
-                    services.addNewQuiz(subject, theme, String.valueOf(req.getSession().getAttribute("login")));
-                } else {
-                    services.removeQuizById(id);
-                }
+                services.removeQuizById(id);
             }
-            doGet(req, resp);
-
         }
+        doGet(req, resp);
 
     }
+
 }
