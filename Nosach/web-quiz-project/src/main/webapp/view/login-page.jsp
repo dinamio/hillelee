@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
@@ -20,8 +21,10 @@
                 <td><input type="text" name="pass"></td>
             </tr>
         </table>
-        <input type="submit" name="add" value="Send">
+        <input type="submit" name="signin" value="Sign in">
+        <a href="/register"><input type="button" name="signin" value="Register"></a>
     </form>
+
 </div>
 
 </body>
