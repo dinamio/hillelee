@@ -43,18 +43,21 @@ public class QuizServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String theme = req.getParameter("Theme");
-
-        if (theme == null) {
+        String id = req.getParameter("Id");
+        System.out.println("theme " + theme);
+        if (theme != null && id == null ) {
 
             String subject = req.getParameter("Subject");
-            String id = req.getParameter("Id");
 
 
-            if (id == null) {
-                services.addNewQuiz(subject, theme, String.valueOf(req.getSession().getAttribute("login")));
+            String sessionLogin = (req.getSession().getAttribute("login")).toString();
+            System.out.println(sessionLogin + "id " + id);
+
+                services.addNewQuiz(subject, theme, sessionLogin);
             } else {
+
                 services.removeQuizById(id);
-            }
+
         }
         doGet(req, resp);
 

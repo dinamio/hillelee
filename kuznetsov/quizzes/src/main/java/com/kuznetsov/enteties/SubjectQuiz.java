@@ -1,4 +1,4 @@
-package com.kuznetsov.enteties;
+package enteties;
 
 public class SubjectQuiz {
     private String id;
@@ -35,5 +35,13 @@ public class SubjectQuiz {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

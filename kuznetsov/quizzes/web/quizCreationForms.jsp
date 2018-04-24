@@ -6,7 +6,7 @@
     <title>Forms</title>
 </head>
 <body>
-<form method="POST" >
+<form method="POST" action="/quiz">
     <table border="0">
         <tr>
             <td><b>Subject</b></td>

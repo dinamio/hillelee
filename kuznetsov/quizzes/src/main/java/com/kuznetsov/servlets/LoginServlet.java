@@ -40,14 +40,16 @@ public class LoginServlet extends HttpServlet {
 
             services.getSavedCredentials().put(login, pwd);
 
+            resp.sendRedirect("/quiz");
+
         } else {
 
             if (services.getSavedCredentials().get(login).equals(pwd)) {
 
-                //FIXME insert quiz call
+                resp.sendRedirect("/quiz");
 
             } else {
-                req.getSession().setAttribute("login", "wrong" );
+                /*req.getSession().setAttribute("login", "wrong" );*/
                 doGet(req, resp);
             }
         }

@@ -12,7 +12,12 @@
 </head>
 <body>
 <form method="POST">
+   <%-- <%session.removeAttribute("username");
+    session.removeAttribute("password");
+    session.invalidate();
+    %>--%>
     <%--<input type="hidden" name="Id" value="${t.id}"/>--%>
+    Hello,
     <input type="submit" value="Log out" name="Logout">
 </form>
 </body>

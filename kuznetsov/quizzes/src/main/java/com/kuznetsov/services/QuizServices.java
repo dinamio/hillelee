@@ -1,7 +1,8 @@
 package services;
 
 
-import com.kuznetsov.enteties.SubjectQuiz;
+
+import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
