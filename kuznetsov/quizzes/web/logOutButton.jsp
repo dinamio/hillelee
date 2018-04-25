@@ -13,7 +13,8 @@
 <body>
 <form method="POST" action="/logout">
 
-    Hello,
+    Hello, <%= request.getSession().getAttribute("login") %>
+
     <input type="submit" value="Log out" name="Logout">
 </form>
 </body>

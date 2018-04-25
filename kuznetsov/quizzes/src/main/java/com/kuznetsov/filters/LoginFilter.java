@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
         String savedPwd = services.getPwd();
 
 
-        if ( sessionLogin!= null && sessionLogin.equals(savedLogin) && sessionPwd.equals(savedPwd)) {
+        if (sessionLogin != null && sessionLogin.equals(savedLogin) && sessionPwd.equals(savedPwd)) {
             filterChain.doFilter(servletRequest, servletResponse);
 
         } else {
