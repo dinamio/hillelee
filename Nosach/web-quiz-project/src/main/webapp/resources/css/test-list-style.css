@@ -19,7 +19,7 @@ header {
     align-items: center;
     justify-content: center;
 }
-table {
+.list {
 
     font-family: Tahoma,Verdana,Segoe,sans-serif;
     width:100%;

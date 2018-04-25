@@ -5,10 +5,12 @@ public class Quiz {
     private int id;
     private String subject;
     private String theme;
+    private String author;
 
-    public Quiz(String subject, String theme) {
+    public Quiz(String subject, String theme, String author) {
         this.subject = subject;
         this.theme = theme;
+        this.author = author;
         id = serial++;
     }
 
@@ -28,6 +30,10 @@ public class Quiz {
     public void setTheme(String theme) {
         this.theme = theme;
     }
+
+    public String getAuthor() { return author; }
+
+    public void setAuthor(String author) { this.author = author; }
 
     public int getId() {
         return id;

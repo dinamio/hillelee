@@ -21,7 +21,8 @@ public class QuizAddServlet extends HttpServlet {
         if(formChecked){
             String subject = req.getParameter("subject");
             String theme = req.getParameter("theme");
-            ts.addQuiz(subject, theme);
+            String author = req.getSession().getAttribute("login").toString();
+            ts.addQuiz(subject, theme, author);
             resp.sendRedirect("list");
             return;
         }
