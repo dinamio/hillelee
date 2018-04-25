@@ -9,8 +9,8 @@
     <table border="0">
 
         <tr>
-            <td><input type="text" name="login" size="65"/></td>
-            <td><input type="text" name="pwd" size="65"/></td>
+            <td>Username:<input type="text" name="login" size="65"/></td>
+            <td>Password:<input type="text" name="pwd" size="65"/></td>
             <td><input type="submit" name="submit" value="Sign in"/></td>
             <td> or </td>
             <td><input type="submit" name="submit" value="Sign up"/></td>

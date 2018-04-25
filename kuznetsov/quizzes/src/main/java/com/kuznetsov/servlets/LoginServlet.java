@@ -12,7 +12,12 @@ import java.io.IOException;
 
 @WebServlet("")
 public class LoginServlet extends HttpServlet {
-    private QuizServices services = new QuizServices();
+
+    private QuizServices services = QuizServices.getSingleton();
+    private String login;
+    private String pwd;
+    private String message;
+    private String buttonType;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,37 +26,55 @@ public class LoginServlet extends HttpServlet {
 
         loginDispatcher.include(req, resp);
 
-        if (req.getSession().getAttribute("login").equals("wrong")){
+        if (message.equals("wrong")) {
             resp.getWriter().print("<h2>Your login or password are wrong. Try again. New user - press Sign up</h2>");
+            message = null;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String button = req.getParameter("submit");
-        String login = req.getParameter("login");
-        String pwd = req.getParameter("pwd");
+        buttonType = req.getParameter("submit");
+        login = req.getParameter("login");
+        pwd = req.getParameter("pwd");
 
-        if (button.equals("Sign up")){
+        if (buttonType.equals("Sign up") && !services.getSavedCredentials().containsKey(login)) {
 
-            req.getSession().setAttribute("login", login);
-            req.getSession().setAttribute("pwd", pwd);
-
-            services.getSavedCredentials().put(login, pwd);
-
-            resp.sendRedirect("/quiz");
+            services.setSavedCredentials(login, pwd);
+            login(req, resp);
 
         } else {
 
-            if (services.getSavedCredentials().get(login).equals(pwd)) {
-
-                resp.sendRedirect("/quiz");
+            if (checkCredentials(login, pwd)) {
+                login(req, resp);
 
             } else {
-                /*req.getSession().setAttribute("login", "wrong" );*/
+                message = "wrong";
                 doGet(req, resp);
             }
         }
+    }
+
+    private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        req.getSession().setAttribute("login", login);
+        req.getSession().setAttribute("pwd", pwd);
+        req.getSession().setAttribute("buttonType", buttonType);
+        services.setLogin(login);
+        services.setPwd(pwd);
+
+        resp.sendRedirect("/quiz");
+    }
+
+    private boolean checkCredentials(String login, String pwd) {
+        boolean correctCredentials = false;
+
+        try {
+            correctCredentials = services.getSavedCredentials().get(login).equals(pwd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return correctCredentials;
     }
 }

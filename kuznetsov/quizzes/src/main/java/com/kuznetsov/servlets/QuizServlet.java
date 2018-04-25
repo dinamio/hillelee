@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
-    private QuizServices services = new QuizServices();
+    private QuizServices services = QuizServices.getSingleton();
 
 
     @Override
@@ -44,20 +44,17 @@ public class QuizServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String theme = req.getParameter("Theme");
         String id = req.getParameter("Id");
-        System.out.println("theme " + theme);
-        if (theme != null && id == null ) {
+        String button = req.getParameter("submit");
+        System.out.println(button);
+
+        if (theme != null && id == null) {
 
             String subject = req.getParameter("Subject");
-
-
             String sessionLogin = (req.getSession().getAttribute("login")).toString();
-            System.out.println(sessionLogin + "id " + id);
 
-                services.addNewQuiz(subject, theme, sessionLogin);
-            } else {
-
-                services.removeQuizById(id);
-
+            services.addNewQuiz(subject, theme, sessionLogin);
+        } else {
+            services.removeQuizById(id);
         }
         doGet(req, resp);
 
