@@ -44,8 +44,6 @@ public class QuizServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String theme = req.getParameter("Theme");
         String id = req.getParameter("Id");
-        String button = req.getParameter("submit");
-        System.out.println(button);
 
         if (theme != null && id == null) {
 
