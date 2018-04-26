@@ -1,6 +1,6 @@
 package filters;
 
-import services.QuizServices;
+import enteties.Credentials;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -8,17 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
 
 
 @WebFilter("/quiz")
 public class LoginFilter implements Filter {
-    private QuizServices services = QuizServices.getSingleton();
+    private Credentials credentials = Credentials.getSingleton();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-      }
+    public void init(FilterConfig filterConfig) {
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -28,8 +26,8 @@ public class LoginFilter implements Filter {
 
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
-        String savedLogin = services.getLogin();
-        String savedPwd = services.getPwd();
+        String savedLogin = credentials.getLogin();
+        String savedPwd = credentials.getPwd();
 
 
         if (sessionLogin != null && sessionLogin.equals(savedLogin) && sessionPwd.equals(savedPwd)) {
@@ -45,8 +43,8 @@ public class LoginFilter implements Filter {
                 resp.sendRedirect("/");
             }
         }
-
     }
+
     @Override
     public void destroy() {
 

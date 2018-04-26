@@ -1,7 +1,7 @@
 package servlets;
 
 
-import services.QuizServices;
+import enteties.Credentials;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +13,8 @@ import java.io.IOException;
 
 @WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
-    private QuizServices services = QuizServices.getSingleton();
+
+    private Credentials credentials = Credentials.getSingleton();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,8 +24,8 @@ public class LogOutServlet extends HttpServlet {
         session.removeAttribute("password");
         session.invalidate();
 
-        services.setPwd(null);
-        services.setLogin(null);
+        credentials.setPwd(null);
+        credentials.setLogin(null);
 
         resp.sendRedirect("/");
     }

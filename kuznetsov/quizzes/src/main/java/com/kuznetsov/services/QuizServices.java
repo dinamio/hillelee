@@ -4,51 +4,11 @@ package services;
 import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class QuizServices {
-    private static QuizServices entity;
-    private String pwd;
-    private String login;
+
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
-    private Map<String, String> savedCredentials = new HashMap<>();
-
-    private QuizServices() {
-    }
-
-    public static QuizServices getSingleton() {
-        if (entity == null) {
-            entity = new QuizServices();
-        }
-        return entity;
-    }
-
-    public Map<String, String> getSavedCredentials() {
-        return savedCredentials;
-    }
-
-    public void setSavedCredentials(String login, String pwd) {
-        savedCredentials.put(login, pwd);
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
 
     public List<SubjectQuiz> getSubjectQuizList() {
         return subjectQuizList;

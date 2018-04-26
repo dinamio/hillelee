@@ -1,6 +1,6 @@
 package servlets;
 
-import services.QuizServices;
+import enteties.Credentials;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("")
 public class LoginServlet extends HttpServlet {
 
-    private QuizServices services = QuizServices.getSingleton();
+    private Credentials credentials = Credentials.getSingleton();
     private String login;
     private String pwd;
     private String message;
@@ -39,9 +39,9 @@ public class LoginServlet extends HttpServlet {
         login = req.getParameter("login");
         pwd = req.getParameter("pwd");
 
-        if (buttonType.equals("Sign up") && !services.getSavedCredentials().containsKey(login)) {
+        if (buttonType.equals("Sign up") && !credentials.getSavedCredentials().containsKey(login)) {
 
-            services.setSavedCredentials(login, pwd);
+            credentials.setSavedCredentials(login, pwd);
             login(req, resp);
 
         } else {
@@ -61,8 +61,8 @@ public class LoginServlet extends HttpServlet {
         req.getSession().setAttribute("login", login);
         req.getSession().setAttribute("pwd", pwd);
         req.getSession().setAttribute("buttonType", buttonType);
-        services.setLogin(login);
-        services.setPwd(pwd);
+        credentials.setLogin(login);
+        credentials.setPwd(pwd);
 
         resp.sendRedirect("/quiz");
     }
@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
         boolean correctCredentials = false;
 
         try {
-            correctCredentials = services.getSavedCredentials().get(login).equals(pwd);
+            correctCredentials = credentials.getSavedCredentials().get(login).equals(pwd);
         } catch (Exception e) {
             e.printStackTrace();
         }

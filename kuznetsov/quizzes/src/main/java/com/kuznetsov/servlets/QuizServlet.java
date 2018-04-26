@@ -13,8 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
-    private QuizServices services = QuizServices.getSingleton();
-
+    private QuizServices services = new QuizServices();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
