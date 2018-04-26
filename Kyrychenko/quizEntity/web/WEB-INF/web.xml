@@ -11,17 +11,7 @@
 
     <servlet-mapping>
         <servlet-name>quizServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>printServlet</servlet-name>
-        <servlet-class>ui.PrintServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>printServlet</servlet-name>
-        <url-pattern>/print</url-pattern>
+        <url-pattern>/quiz</url-pattern>
     </servlet-mapping>
 
 </web-app>

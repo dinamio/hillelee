@@ -3,10 +3,13 @@ package model;
 import java.util.Objects;
 
 public class Quiz {
+    private static int nextId;
+    private int id;
     private String subject;
     private String topic;
 
     public Quiz(String subject, String topic) {
+        this.id = ++nextId;
         this.subject = subject;
         this.topic = topic;
     }
@@ -25,6 +28,10 @@ public class Quiz {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
