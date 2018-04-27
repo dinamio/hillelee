@@ -20,7 +20,8 @@ public class QuizServlet extends HttpServlet {
 
         switch (action == null ? "add" : action) {
             case "add":
-                doPost(req,resp);
+                req.setAttribute("size", quizService.getQuizList().size());
+                req.getRequestDispatcher("/inputQuiz.jsp").forward(req, resp);
                 break;
             case "view":
                 req.setAttribute("list", quizService.getQuizList());
@@ -39,9 +40,7 @@ public class QuizServlet extends HttpServlet {
 
         switch (action == null ? "add" : action) {
             case "add":
-                if(subject != null && topic != null) {
-                    quizService.addQuiz(new Quiz(subject, topic));
-                }
+                quizService.addQuiz(new Quiz(subject, topic));
                 req.setAttribute("size", quizService.getQuizList().size());
                 req.getRequestDispatcher("/inputQuiz.jsp").forward(req, resp);
                 break;
