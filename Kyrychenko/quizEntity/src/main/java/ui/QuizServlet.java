@@ -45,9 +45,7 @@ public class QuizServlet extends HttpServlet {
                 req.getRequestDispatcher("/inputQuiz.jsp").forward(req, resp);
                 break;
             case "delete":
-                String[] stringsId = req.getParameterValues("id");
-                int[] id = Arrays.stream(stringsId).mapToInt(Integer::parseInt).toArray();
-                QuizServlet.quizService.deleteQuiz(id);
+                Arrays.stream(req.getParameterValues("id")).mapToInt(Integer::parseInt).forEach(id -> quizService.deleteQuiz(id));
 
                 req.setAttribute("list", quizService.getQuizList());
                 req.getRequestDispatcher("/outputQuiz.jsp").forward(req, resp);
