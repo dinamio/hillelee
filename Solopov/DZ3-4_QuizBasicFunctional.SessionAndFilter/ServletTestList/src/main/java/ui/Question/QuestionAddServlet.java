@@ -52,13 +52,5 @@ public class QuestionAddServlet extends HttpServlet{
 
             return;
         }//end formAddTest
-
-
-
-
-
     }
-
-
-
 }
