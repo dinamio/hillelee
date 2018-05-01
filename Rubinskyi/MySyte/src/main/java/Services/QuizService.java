@@ -12,8 +12,14 @@ public class QuizService {
         return listQuiz;
     }
 
-    public static boolean isExisting(String s1, String s2){
-
-        return true;
+    public static void copyDelete (List<QuizTopicBean> listQuiz, QuizTopicBean resultToCheck){
+        List<QuizTopicBean> listQuizCopy = new ArrayList<>();
+        for (QuizTopicBean aListQuiz : listQuiz) {
+            if (!aListQuiz.equals(resultToCheck)) {
+                listQuizCopy.add(aListQuiz);
+            }
+        }
+        listQuiz.clear();
+        listQuiz.addAll(listQuizCopy);
     }
 }

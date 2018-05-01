@@ -1,5 +1,8 @@
 package Controllers;
 
+import Entities.QuizTopicBean;
+import Services.QuizService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,11 @@ public class DeleteQuizTopicController extends HttpServlet {
         String deleteQuizSubject = req.getParameter("Subject");
         String deleteQuizTopic = req.getParameter("Theme");
 
+        System.out.print(deleteQuizSubject + " ");
+        System.out.print(deleteQuizTopic);
 
+        QuizService.copyDelete(QuizService.getListQuiz(), new QuizTopicBean(deleteQuizSubject, deleteQuizTopic));
+
+        req.getRequestDispatcher("index.jsp").include(req,resp);
     }
 }

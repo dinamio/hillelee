@@ -12,12 +12,10 @@ import java.io.IOException;
 
 @WebServlet("/send")
 public class AddQuizTopicController extends HttpServlet {
-   /* QuizService quizService = new QuizService();*/
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String inputQuizSubject = req.getParameter("Subject");
         String inputQuizTopic = req.getParameter("Theme");
-        System.out.println("!!!!!!!MY STRINGS  "+inputQuizSubject+" "+ inputQuizTopic);
 
         QuizService.getListQuiz().add(new QuizTopicBean(inputQuizSubject, inputQuizTopic));
 
