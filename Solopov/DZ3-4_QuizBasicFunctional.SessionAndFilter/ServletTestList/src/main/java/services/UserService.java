@@ -6,12 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class UserService {
-private static Map<String,String> acc=new LinkedHashMap<>();//All registered users. key -login, value -password
+private static Map<String,String> account=new LinkedHashMap<>();//All registered users. key -login, value -password
     private User currentUser;
 
     public boolean addAcc(String login, String password){
-        if (!acc.containsKey(login)){
-            acc.put(login,password);
+        if (!account.containsKey(login)){
+            account.put(login,password);
             User currentUser=new User(login,password);
             return true;
         }
@@ -19,7 +19,7 @@ private static Map<String,String> acc=new LinkedHashMap<>();//All registered use
 
     }
     public boolean authorizate(String log,String pass){
-        String passValue=acc.get(log);
+        String passValue=account.get(log);
        if(pass.equals(passValue)) return true;
         return false;
     }
@@ -28,7 +28,7 @@ private static Map<String,String> acc=new LinkedHashMap<>();//All registered use
 
 
     public static Map<String, String> getAcc() {
-        return acc;
+        return account;
     }
 
     public User getCurrentUser() {
