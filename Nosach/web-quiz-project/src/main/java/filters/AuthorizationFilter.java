@@ -1,6 +1,8 @@
 package filters;
 
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,8 @@ import java.io.IOException;
 
 
 public class AuthorizationFilter implements Filter{
+
+    private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
 
 
     @Override
@@ -25,11 +29,11 @@ public class AuthorizationFilter implements Filter{
         HttpSession session = req.getSession(true);
         servletRequest.setCharacterEncoding("UTF-8");
 
+        logger.info("Request URL: "+ req.getRequestURL());
 
         boolean isAuthorized = checkAuthorizationFromFile(req);
 
-
-        if(req.getRequestURI().matches(".*(css|jpg|png|gif|js].*)")){
+        if(req.getRequestURI().matches(".*(css|jpg|js|ico|png|gif.*)")){
             filterChain.doFilter(req, resp);
             return;
         }
@@ -68,18 +72,19 @@ public class AuthorizationFilter implements Filter{
         try (BufferedReader fileReader = new BufferedReader(
                                             new FileReader(request.getServletContext().
                                                     getRealPath("/resources/properties/users.properties")))) {
-
             String line;
             while ((line = fileReader.readLine()) != null) {
 
                 String [] arr = line.split("#");
-                if(arr[0].equals(login) && arr[1].equals(pass)) return true;
+                if(arr[0].equals(login) && arr[1].equals(pass)){
+                    logger.info("User "+ login+ " authorized!");
+                    return true;}
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        logger.info("User "+ login+ " NOT authorized!");
         return false;
     }
 }
