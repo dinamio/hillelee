@@ -28,5 +28,4 @@ public class QuizzesServlet extends HttpServlet{
         service.add(new Quiz(name, desc));
         doGet(req, resp);
     }
-
 }

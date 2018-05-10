@@ -1,5 +1,6 @@
 package servlets;
 
+import logging.Log;
 import service.RegistrationService;
 
 import javax.servlet.ServletException;
@@ -13,10 +14,19 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String pass = req.getParameter("password");
-        RegistrationService service = new RegistrationService();
-        service.addNew(login, pass);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            Log.writeInfo("Registration started...");
+            String login = req.getParameter("login");
+            String pass = req.getParameter("password");
+            RegistrationService service = new RegistrationService();
+            service.addNew(login, pass);
+            Log.writeInfo("Registration finished.");
+            resp.sendRedirect("login.jsp");
+        } catch (Exception e){
+            Log.writeError(e, "Registration failed.");
+        }
+
+
     }
 }

@@ -7,6 +7,10 @@ public class Credentials {
 
     private static Map<String, String> credentials = new HashMap<>();
 
+    static {
+        credentials.put("root", "root");
+    }
+
     public void add(String login, String pass){
         credentials.put(login, pass);
     }

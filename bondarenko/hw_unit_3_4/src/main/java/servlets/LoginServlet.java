@@ -2,6 +2,8 @@ package servlets;
 
 import command.Command;
 import command.CommandFactory;
+import logging.Log;
+import logging.LoggerManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +18,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String stringCommand = req.getParameter("command");
+        Log.writeInfo("Specified command {%s}", stringCommand);
         Command command = null;
         try {
             command = CommandFactory.create(stringCommand);
-            command.execute(req);
+            Log.writeInfo("Start execution of {%s} command", command);
+            command.execute(req, resp);
+            Log.writeInfo("Finish execution of {%s} command", command.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.writeError(e, "Unable to execute {%s} command", command);
         }
     }
 }

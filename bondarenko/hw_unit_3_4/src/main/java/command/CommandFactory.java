@@ -9,8 +9,7 @@ public class CommandFactory {
             case "logout":
                 return new LogoutCommand();
             default:
-                throw new Exception(String.format("Unsupported command {%s}"));
+                throw new Exception(String.format("Unsupported command {%s}", key));
         }
-
     }
 }

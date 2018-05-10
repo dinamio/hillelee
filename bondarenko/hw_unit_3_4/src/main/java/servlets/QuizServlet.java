@@ -1,5 +1,6 @@
 package servlets;
 
+import logging.Log;
 import model.Quiz;
 import service.QuizService;
 
@@ -28,12 +29,17 @@ public class QuizServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Log.writeInfo("Removing started...");
         String name = req.getParameter("name");
         try {
             service.remove(name);
             resp.getWriter().printf("Quiz {%s} was removed", name);
+            Log.writeInfo("Removing finished.");
         } catch (Exception e){
+            Log.writeError(e, "Removing error");
             resp.getWriter().printf("Unable to remove {%s}", name);
         }
     }
+
+
 }
