@@ -21,11 +21,14 @@ public class QuizServlet extends HttpServlet {
         switch (action == null ? "add" : action) {
             case "add":
                 req.setAttribute("size", quizService.getQuizList().size());
-                req.getRequestDispatcher("/inputQuiz.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/inputQuiz.jsp").forward(req, resp);
                 break;
             case "view":
                 req.setAttribute("list", quizService.getQuizList());
-                req.getRequestDispatcher("/outputQuiz.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/outputQuiz.jsp").forward(req, resp);
+                break;
+            default:
+                req.getRequestDispatcher("/view/inputQuiz.jsp").forward(req, resp);
                 break;
         }
     }
@@ -35,20 +38,23 @@ public class QuizServlet extends HttpServlet {
 
         String action = req.getParameter("action");
 
-        String subject = req.getParameter("subject");
-        String topic = req.getParameter("topic");
-
         switch (action == null ? "add" : action) {
             case "add":
-                quizService.addQuiz(new Quiz(subject, topic));
+                String subject = req.getParameter("subject");
+                String topic = req.getParameter("topic");
+                String user = req.getSession().getAttribute("login").toString();
+
+                quizService.addQuiz(new Quiz(subject, topic, user));
                 req.setAttribute("size", quizService.getQuizList().size());
-                req.getRequestDispatcher("/inputQuiz.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/inputQuiz.jsp").forward(req, resp);
                 break;
             case "delete":
-                Arrays.stream(req.getParameterValues("id")).mapToInt(Integer::parseInt).forEach(id -> quizService.deleteQuiz(id));
+                Arrays.stream(req.getParameterValues("id"))
+                        .mapToInt(Integer::parseInt)
+                        .forEach(id -> quizService.deleteQuiz(id));
 
                 req.setAttribute("list", quizService.getQuizList());
-                req.getRequestDispatcher("/outputQuiz.jsp").forward(req, resp);
+                req.getRequestDispatcher("/view/outputQuiz.jsp").forward(req, resp);
                 break;
             default:
                 doGet(req, resp);
