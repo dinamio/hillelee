@@ -1,0 +1,15 @@
+body {
+  background-color: #FF3456
+}
+#small {
+  font-size: 36px
+}
+
+.big-letters {
+  font-size: 16px;
+  color: red;
+}
+
+.yellow {
+  color: yellow;
+}
