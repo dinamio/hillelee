@@ -17,7 +17,7 @@ public class QuizListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("tests", ts.getQuizList());
+        req.setAttribute("quizzes", ts.getQuizList());
         RequestDispatcher rd = req.getRequestDispatcher("/view/list-of-quizzes.jsp");
         rd.forward(req, resp);
 

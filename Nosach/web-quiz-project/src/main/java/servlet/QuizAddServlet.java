@@ -15,24 +15,17 @@ public class QuizAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        boolean formChecked = Boolean.parseBoolean(req.getParameter("formChecked"));
-
-        if(formChecked){
-            String subject = req.getParameter("subject");
-            String theme = req.getParameter("theme");
-            String author = req.getSession().getAttribute("login").toString();
-            ts.addQuiz(subject, theme, author);
-            resp.sendRedirect("list");
-            return;
-        }
             RequestDispatcher rd = req.getRequestDispatcher("/view/quiz.jsp");
             rd.forward(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+        String subject = req.getParameter("subject");
+        String theme = req.getParameter("theme");
+        String author = req.getSession().getAttribute("login").toString();
+        ts.addQuiz(subject, theme, author);
+        resp.sendRedirect("list");
+        return;
     }
 }
