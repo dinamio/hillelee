@@ -29,8 +29,6 @@ public class QuestionAddServlet extends HttpServlet{
 
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.getWriter().print("Some text");
-
         response.setContentType("text/html; charset=UTF-8");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("Question.jsp");
