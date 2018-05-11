@@ -13,16 +13,12 @@ public class QuizRemoveServlet extends HttpServlet {
     private static Logger log = Logger.getLogger(QuizRemoveServlet.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelte(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         log.info(id);
 
        new QuizService().removeQuestion(QuizListServlet.quizList,id);
-        resp.sendRedirect("/quizlist");
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
+   
 }
