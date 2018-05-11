@@ -9,7 +9,7 @@ public class UserService {
 private static Map<String,String> account =new LinkedHashMap<>();//All registered users. key -login, value -password
     private User currentUser;
 
-    public boolean addAcc(String login, String password){
+    public boolean addAccount(String login, String password){
         if (!account.containsKey(login)){
             account.put(login,password);
             User currentUser=new User(login,password);
