@@ -76,7 +76,7 @@
             var selectId = $(this).closest("tr").find("[name='table_id']").val();
 
             $.ajax({
-                type: "GET",
+                type: "DELETE",
                 url: "/delQuiz?id=" + selectId,
                 success: function () {
                     if (evt.target.closest('.deleteRow')) {
