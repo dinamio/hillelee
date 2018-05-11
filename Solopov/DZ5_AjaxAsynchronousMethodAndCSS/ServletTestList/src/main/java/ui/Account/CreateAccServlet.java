@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class CreateAccServlet extends HttpServlet {
+public class CreateAccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,8 +22,8 @@ public class CreateAccServlet extends HttpServlet {
 
         if(session.getAttribute("login")==null){
             if(login!=null && password!=null){
-                boolean isCreateAcc = new UserService().addAcc(login, password); // if account has added
-                if (isCreateAcc){ session.setAttribute("login", login);
+                boolean isCreateAccount = new UserService().addAccount(login, password); // if account has added
+                if (isCreateAccount){ session.setAttribute("login", login);
                     resp.sendRedirect("/quizlist");
                 }
             }
