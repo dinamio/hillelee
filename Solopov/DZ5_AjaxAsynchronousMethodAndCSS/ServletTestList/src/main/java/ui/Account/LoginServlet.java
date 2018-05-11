@@ -13,15 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginServlet extends HttpServlet {
+        private static Logger log = Logger.getLogger(LoginServlet.class.getName());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         HttpSession session=req.getSession();
         String login,password;
         login=req.getParameter("uname");
         password=req.getParameter("psw");
-        Logger.getLogger(login+" "+password);
+        log.info(login+" "+password);
 
         if(login!=null || password!=null){
             if(new UserService().authorizate(login,password)){
