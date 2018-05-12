@@ -17,3 +17,15 @@
           iterator.next();
       }
   }*/
+
+
+/*HttpServletRequest request = (HttpServletRequest) servletRequest;
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+            HttpSession session = request.getSession();
+            if (session != null && session.getAttribute("login") != null ){
+                filterChain.doFilter(servletRequest,servletResponse);
+            }
+            else if(!Objects.equals(request.getContextPath(), Pages.AUTHORIZATION_PAGE.getPage())){
+                    response.sendRedirect(Pages.AUTHORIZATION_PAGE.getPage());
+            }*/

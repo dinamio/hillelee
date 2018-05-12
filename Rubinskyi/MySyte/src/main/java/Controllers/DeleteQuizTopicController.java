@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Pages;
 import Entities.QuizTopicBean;
 import Services.QuizService;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/delete")
 public class DeleteQuizTopicController extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String deleteQuizSubject = req.getParameter("Subject");
@@ -22,6 +24,6 @@ public class DeleteQuizTopicController extends HttpServlet {
 
         QuizService.copyDelete(QuizService.getListQuiz(), new QuizTopicBean(deleteQuizSubject, deleteQuizTopic));
 
-        req.getRequestDispatcher("index.jsp").include(req,resp);
+        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req,resp);
     }
 }

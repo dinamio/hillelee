@@ -7,6 +7,13 @@
 </head>
 <body style ="margin: 0;">
 <div class = "global_wrapper" style="position: fixed; height: 100%; width: 100%; background: Beige;">
+
+  Hello, <%=session.getAttribute("login")%>
+
+  <form action="logout" method="get">
+    <p>   <input type="submit" value="Log out"> </p>
+  </form>
+
   <form class = "sending_form" method="post" action = "send">
     <p>Subject:<br>
       <input type="text" name="Subject" size="40">
@@ -36,6 +43,7 @@
       <tr>
         <td> ${QuizTopicBean.quizSubject}</td>
         <td> ${QuizTopicBean.quizTopic}</td>
+        <td> Created by <%=session.getAttribute("login")%></td>
       </tr>
     </c:forEach>
   </table>

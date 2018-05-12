@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Pages;
 import Entities.QuizTopicBean;
 import Services.QuizService;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/send")
 public class AddQuizTopicController extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String inputQuizSubject = req.getParameter("Subject");
@@ -19,6 +21,6 @@ public class AddQuizTopicController extends HttpServlet {
 
         QuizService.getListQuiz().add(new QuizTopicBean(inputQuizSubject, inputQuizTopic));
 
-        req.getRequestDispatcher("index.jsp").include(req,resp);
+        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req,resp);
     }
 }
