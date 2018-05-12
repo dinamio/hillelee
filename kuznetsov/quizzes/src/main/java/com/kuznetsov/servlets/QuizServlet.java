@@ -24,7 +24,7 @@ public class QuizServlet extends HttpServlet {
             RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
             RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
 
-            resp.getWriter().print("<h1>Quizzes</h1>");
+            /*resp.getWriter().print("<h1>Quizzes</h1>");*/
 
             logoutButton.include(req, resp);
             formDispatcher.include(req, resp);
