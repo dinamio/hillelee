@@ -12,10 +12,6 @@
     <title>Quiz adding form</title>
 </head>
 <body>
-    <div style="position: absolute; right: 15px">
-        <input type="button" onclick="location.href='quiz?action=logout';" value="Log Out"  />
-    </div>
-
     <form id="Quiz_adder" action="quiz?action=add" method="post">
         <p><b>Subject:</b></p>
         <p><input type="text" name="subject" value="add subject here"></p>
