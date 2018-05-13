@@ -12,10 +12,6 @@
     <title>List of the all entered quiz</title>
 </head>
 <body>
-    <div style="position: absolute; right: 15px">
-        <input type="button" onclick="location.href='quiz?action=logout';" value="Log Out"  />
-    </div>
-
     <form id="Quiz_remover" action="quiz?action=delete" method="post">
         <table border="1">
             <col width="10%">
