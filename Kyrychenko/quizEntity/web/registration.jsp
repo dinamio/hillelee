@@ -11,7 +11,7 @@
     <title>Registration page</title>
 </head>
 <body>
-<form name="registrationForm" action="quiz" method="post">
+<form name="registrationForm" action="authentication" method="post">
     <input type="hidden" name="action" value="registration"/>
     Name:
     <input type="text" name="name" value=""><br/>
@@ -19,7 +19,6 @@
     <input type="text" name="login" value=""/><br/>
     Password:
     <input type="password" name="password" value=""/><br/>
-    <br/>
     ${wrongAction}
     ${loginExist}
     <br/>
