@@ -8,6 +8,17 @@ import java.util.List;
 
 public class QuizServices {
 
+    private QuizServices(){}
+
+    private static QuizServices instance;
+
+    public static QuizServices getInstance(){
+        if (instance == null){
+            instance = new QuizServices();
+        }
+        return instance;
+    }
+
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
 
     public List<SubjectQuiz> getSubjectQuizList() {
