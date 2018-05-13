@@ -13,11 +13,10 @@ import java.io.IOException;
 
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
-    private QuizServices services = new QuizServices();
+    private QuizServices services = QuizServices.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         if (req.getSession().getAttribute("login") != null && req.getSession().getAttribute("pwd") != null) {
 
             RequestDispatcher logoutButton = req.getRequestDispatcher("/logOutButton.jsp");
