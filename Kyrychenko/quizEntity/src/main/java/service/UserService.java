@@ -8,28 +8,21 @@ import java.util.Objects;
 
 public class UserService {
     private List<User> userList;
-    private static volatile UserService instance;
 
     private UserService() {
         this.userList = new ArrayList<>();
     }
 
-    public static UserService getInstance() {
-        UserService localInstance = instance;
-        if (localInstance == null) {
-            synchronized (QuizService.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new UserService();
-                }
-            }
-        }
-        return localInstance;
+    private static class UserServiceHolder {
+        private static final UserService instance = new UserService();
     }
 
-    public boolean isUserExist(String login, String password) {
-        User temp = new User("null", login, password);
-        return userList.stream().anyMatch(user -> user.equals(temp));
+    public static UserService getInstance() {
+        return UserServiceHolder.instance;
+    }
+
+    public boolean isUserAccountFound(String login, String password) {
+        return userList.stream().anyMatch(user -> user.getLogin().equals(login) && user.getPassword().equals(password));
     }
 
     public boolean isLoginExist(String login) {
