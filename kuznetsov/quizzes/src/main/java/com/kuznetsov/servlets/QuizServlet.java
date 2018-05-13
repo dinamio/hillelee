@@ -18,24 +18,27 @@ public class QuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getSession().getAttribute("login") != null && req.getSession().getAttribute("pwd") != null) {
-
-            RequestDispatcher logoutButton = req.getRequestDispatcher("/logOutButton.jsp");
-            RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
-            RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
-
-            /*resp.getWriter().print("<h1>Quizzes</h1>");*/
-
-            logoutButton.include(req, resp);
-            formDispatcher.include(req, resp);
-
-            req.setAttribute("list", services.getSubjectQuizList());
-
-            if (!services.getSubjectQuizList().isEmpty()) {
-                resp.getWriter().print("<h2>Added quizzes</h2>");
-            }
-
-            responseDispatcher.include(req, resp);
+        includeJspToPage(req, resp);
         }
+    }
+
+    private void includeJspToPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher logoutButton = req.getRequestDispatcher("/logOutButton.jsp");
+        RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
+        RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
+
+        /*resp.getWriter().print("<h1>Quizzes</h1>");*/
+
+        logoutButton.include(req, resp);
+        formDispatcher.include(req, resp);
+
+        req.setAttribute("list", services.getSubjectQuizList());
+
+        if (!services.getSubjectQuizList().isEmpty()) {
+            resp.getWriter().print("<h2>Added quizzes</h2>");
+        }
+
+        responseDispatcher.include(req, resp);
     }
 
     @Override
@@ -56,4 +59,14 @@ public class QuizServlet extends HttpServlet {
 
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        //FIXME
+        System.out.println("del " + id );
+        services.removeQuizById(id);
+     /*   resp.sendRedirect("/quiz");*/
+
+        includeJspToPage(req, resp);
+    }
 }

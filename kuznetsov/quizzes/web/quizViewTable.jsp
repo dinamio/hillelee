@@ -22,10 +22,12 @@
                         $(".remove-button").click(function () {
                             $.ajax({
                                 type: "delete",
-                                url:  "/del?id=${t.id}"
+                                url:  "/quiz?id=${t.id}"
+
                             })
                         });
                     });
+
                 </script>
 
             </td>

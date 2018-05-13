@@ -33,15 +33,16 @@ public class QuizServices {
     public void removeQuizById(String id) {
 
         int index = 0;
-
+if (subjectQuizList.size() > 0){
         for (SubjectQuiz quiz : subjectQuizList) {
-            if (quiz.getId().equals(id)) {
+            System.out.println(quiz.getId() + "--> " + id);
+            if (quiz.getId() == Integer.parseInt(id)) {
                 index = subjectQuizList.indexOf(quiz);
                 break;
             }
         }
 
         subjectQuizList.remove(index);
-    }
+    }}
 }
 
