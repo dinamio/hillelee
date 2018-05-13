@@ -7,23 +7,17 @@ import java.util.function.Predicate;
 
 public class QuizService {
     private List<Quiz> quizList;
-    private static volatile QuizService instance;
 
     private QuizService() {
         this.quizList = new ArrayList<>();
     }
 
+    private static class QuizServiceHolder {
+        private static final QuizService instance = new QuizService();
+    }
+
     public static QuizService getInstance() {
-        QuizService localInstance = instance;
-        if (localInstance == null) {
-            synchronized (QuizService.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new QuizService();
-                }
-            }
-        }
-        return localInstance;
+        return QuizServiceHolder.instance;
     }
 
     public boolean addQuiz(Quiz quiz) {
