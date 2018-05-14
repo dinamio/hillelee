@@ -11,25 +11,20 @@
 <form method="POST" action="/quiz">
     <table border="0">
         <tr>
-            <td><b>Subject</b></td>
-            <td><b>Theme</b></td>
-        </tr>
-        <tr>
             <td>
-                <select name="Subject">
+                <select class="custom-select d-block w-100" name="Subject" required="">
+                    <option value="">Subject...</option>
                     <option value="History">History</option>
                     <option value="Geography">Geography</option>
                     <option value="English">English</option>
                     <option value="Geometry">Geometry</option>
                 </select>
             </td>
-
             <td>
-                <input type="text" name="Theme" size="65"/>
+                    <input class="form-control" name="Theme" placeholder="Quiz theme is..." type="text">
             </td>
-            <td><input type = "submit" name="submit" value = "Add test"/>
+            <td><button class="btn btn-primary " name="submit" type="submit">Add test</button>
             </td>
-
         </tr>
     </table>
 </form>

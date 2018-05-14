@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher loginDispatcher = req.getRequestDispatcher("/login.jsp");
+        RequestDispatcher loginDispatcher = req.getRequestDispatcher("/view/login.jsp");
         if ( req.getSession().getAttribute("wrongMessage") == null){
         req.getSession().setAttribute("wrongMessage", "");
         }

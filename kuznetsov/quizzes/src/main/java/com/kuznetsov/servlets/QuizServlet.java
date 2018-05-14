@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet("/quiz")
@@ -23,9 +24,9 @@ public class QuizServlet extends HttpServlet {
     }
 
     private void includeJspToPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher logoutButton = req.getRequestDispatcher("/logOutButton.jsp");
-        RequestDispatcher formDispatcher = req.getRequestDispatcher("/quizCreationForms.jsp");
-        RequestDispatcher responseDispatcher = req.getRequestDispatcher("/quizViewTable.jsp");
+        RequestDispatcher logoutButton = req.getRequestDispatcher("/view/logOutButton.jsp");
+        RequestDispatcher formDispatcher = req.getRequestDispatcher("/view/quizCreationForms.jsp");
+        RequestDispatcher responseDispatcher = req.getRequestDispatcher("/view/quizViewTable.jsp");
 
         /*resp.getWriter().print("<h1>Quizzes</h1>");*/
 
@@ -35,7 +36,7 @@ public class QuizServlet extends HttpServlet {
         req.setAttribute("list", services.getSubjectQuizList());
 
         if (!services.getSubjectQuizList().isEmpty()) {
-            resp.getWriter().print("<h2>Added quizzes</h2>");
+            resp.getWriter().print("<h2> Added quizzes</h2>");
         }
 
         responseDispatcher.include(req, resp);
@@ -51,12 +52,16 @@ public class QuizServlet extends HttpServlet {
             String subject = req.getParameter("Subject");
             String sessionLogin = (req.getSession().getAttribute("login")).toString();
 
-            services.addNewQuiz(subject, theme, sessionLogin);
+            services.addNewQuiz(subject, theme, sessionLogin, getQuestions());
         } else {
-            services.removeQuizById(id);
+            services.removeQuizById(Integer.parseInt(id));
         }
         doGet(req, resp);
 
+    }
+
+    private List<String> getQuestions() {
+        return null;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class QuizServlet extends HttpServlet {
         String id = req.getParameter("id");
         //FIXME
         System.out.println("del " + id );
-        services.removeQuizById(id);
+        services.removeQuizById(Integer.parseInt(id));
      /*   resp.sendRedirect("/quiz");*/
 
         includeJspToPage(req, resp);
