@@ -1,32 +1,31 @@
 package service;
 
+import dao.QuizDAO;
+import dao.QuizDAOImpl;
 import entity.Quiz;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class QuizService {
 
-    public static final QuizService QUIZ_SERVICE = new QuizService();
-
-    private QuizService() {
+    public int addQuiz(Quiz quiz, int subjId){
+        QuizDAO qd = new QuizDAOImpl();
+        return qd.addQuiz(quiz, subjId);
     }
 
-    private  List<Quiz> quizzes = new ArrayList<>();
-
-    public void addQuiz (String subject, String theme, String author){
-        quizzes.add(new Quiz(subject, theme, author));
+    public Quiz getQuiz (int id){
+        QuizDAO qd = new QuizDAOImpl();
+        return qd.getQuiz(id);
     }
 
-    public List getQuizList (){
-        return quizzes;
+    public List<Quiz> getAllQuizzies(){
+        QuizDAO qd = new QuizDAOImpl();
+        return qd.getAllQuizzies();
     }
 
-    public void removeQuiz (int id){
-        quizzes = quizzes.stream().filter(test -> !(test.getId()==id)).collect(Collectors.toList());
+    public void deleteQuiz (int id){
+        QuizDAO qd = new QuizDAOImpl();
+        qd.deleteQuiz(id);
     }
 
 }
