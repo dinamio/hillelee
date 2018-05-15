@@ -4,17 +4,26 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin=“anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quizViewTable.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 </head>
 <body>
 
 <table class="table table-striped table-lg">
     <c:forEach items="${list}" var="t">
         <tr align="left">
+            <td width="110">added by: ${t.login}</td>
             <td width="85"> ${t.subject}</td>
             <td width="300">${t.theme}</td>
-            <td width="110">added by: ${t.login}</td>
+            <td>
+
             <td>
                 <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove</button>
                 <script>
@@ -32,5 +41,7 @@
         </tr>
     </c:forEach>
 </table>
+
 </body>
+
 </html>
