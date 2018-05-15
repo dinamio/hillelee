@@ -17,6 +17,19 @@ public class SubjectQuiz {
         id = count += 1;
     }
 
+
+    public List<String> getQuestions() {
+        return questions;
+    }
+
+    public void addQuestionToList(String question) {
+        this.questions.add(question);
+    }
+
+    public void removeQuestionFromList(int index){
+        this.questions.remove(index);
+    }
+
     public int getId() {
         return id;
     }
