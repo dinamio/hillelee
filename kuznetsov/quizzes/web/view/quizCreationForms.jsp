@@ -60,7 +60,7 @@
                                 <input type="checkbox" class="check-box-table-cell">
                                 <input type="text" class="form-control"/>
                                 <span class="input-group-btn">
-                        <button id="btn0" type="button" class="btn btn-primary" onclick="addRow(this)">
+                        <button id="btn0" type="button" class="btn btn-primary" onclick="addRow(this); sendQuestionData(this)">
                             <span id="icon0" class="glyphicon glyphicon-plus"></span>
                         </button>
                     </span>

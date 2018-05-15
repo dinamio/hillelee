@@ -23,3 +23,11 @@ function remRow(input) {
     var ind = table.rows["row" +i].rowIndex;
     table.deleteRow(ind);
 }
+function sendQuestionData(input) {
+    /*$.ajax({
+        type: "get",
+        url: "/question?chekbox="input.,
+        success:  $(this).parent().parent().remove()
+    })*/
+    alert("Put a message here.")
+}
