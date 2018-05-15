@@ -5,8 +5,10 @@ import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class QuizServices {
+    Logger logger = Logger.getLogger(QuizServices.class.getName());
 
     private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
@@ -25,8 +27,8 @@ public class QuizServices {
         return subjectQuizList;
     }
 
-    public void addNewQuiz(String subject, String theme, String login, List<String> questions) {
-        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login, questions);
+    public void addNewQuiz(String subject, String theme, String login) {
+        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login);
         subjectQuizList.add(subjectTests);
     }
 
@@ -36,9 +38,11 @@ public class QuizServices {
         for (SubjectQuiz test : subjectQuizList) {
             if (!(test.getId() == id)) {
                 list.add(test);
+                logger.info("add to list " + test.getId());
             }
         }
         subjectQuizList = list;
+       logger.info("list size " + subjectQuizList.size());
     }
 }
 

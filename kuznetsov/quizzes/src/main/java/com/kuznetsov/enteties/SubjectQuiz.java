@@ -10,11 +10,10 @@ public class SubjectQuiz {
     private int id;
     private List<String> questions;
 
-    public SubjectQuiz(String subject, String theme, String login, List<String> questions ) {
+    public SubjectQuiz(String subject, String theme, String login) {
         this.subject = subject;
         this.theme = theme;
         this.login = login;
-        this.questions = questions;
         id = count += 1;
     }
 

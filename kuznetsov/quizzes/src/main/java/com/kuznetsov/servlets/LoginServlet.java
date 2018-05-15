@@ -32,8 +32,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-
         buttonType = req.getParameter("submit");
         login = req.getParameter("login");
         pwd = req.getParameter("pwd");
