@@ -23,7 +23,13 @@
             <td width="85"> ${t.subject}</td>
             <td width="300">${t.theme}</td>
             <td>
-                ${t.questionMap}
+              <table>
+                <c:forEach var="entry" items="${t.questionMap}">
+                <tr>
+                    ${entry.value} | ${entry.key}<br/>
+                </tr>
+                </c:forEach>
+              </table>
             <td>
                 <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove</button>
                 <script>
