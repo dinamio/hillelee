@@ -5,10 +5,23 @@ import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class QuizServices {
+    Logger logger = Logger.getLogger(QuizServices.class.getName());
 
+    private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
+
+    private QuizServices() {
+    }
+
+    public static QuizServices getInstance() {
+        if (instance == null) {
+            instance = new QuizServices();
+        }
+        return instance;
+    }
 
     public List<SubjectQuiz> getSubjectQuizList() {
         return subjectQuizList;
@@ -19,18 +32,17 @@ public class QuizServices {
         subjectQuizList.add(subjectTests);
     }
 
-    public void removeQuizById(String id) {
+    public void removeQuizById(int id) {
 
-        int index = 0;
-
-        for (SubjectQuiz quiz : subjectQuizList) {
-            if (quiz.getId().equals(id)) {
-                index = subjectQuizList.indexOf(quiz);
-                break;
+        List<SubjectQuiz> list = new ArrayList<>();
+        for (SubjectQuiz test : subjectQuizList) {
+            if (!(test.getId() == id)) {
+                list.add(test);
+                logger.info("add to list " + test.getId());
             }
         }
-
-        subjectQuizList.remove(index);
+        subjectQuizList = list;
+       logger.info("list size " + subjectQuizList.size());
     }
 }
 

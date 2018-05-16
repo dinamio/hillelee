@@ -1,23 +1,27 @@
 package enteties;
 
+import java.util.List;
+
 public class SubjectQuiz {
-    private String id;
+    private static int count;
     private String subject;
     private String theme;
     private String login;
+    private int id;
+    private List<String> questions;
 
     public SubjectQuiz(String subject, String theme, String login) {
         this.subject = subject;
         this.theme = theme;
         this.login = login;
-        id = this.toString();
+        id = count += 1;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

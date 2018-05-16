@@ -22,14 +22,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher loginDispatcher = req.getRequestDispatcher("/login.jsp");
-
-        loginDispatcher.include(req, resp);
-
-        if (message.equals("wrong")) {
-            resp.getWriter().print("<h2>Your login or password are wrong. Try again. New user - press Sign up</h2>");
-            message = null;
+        RequestDispatcher loginDispatcher = req.getRequestDispatcher("/view/login.jsp");
+        if ( req.getSession().getAttribute("wrongMessage") == null){
+        req.getSession().setAttribute("wrongMessage", "");
         }
+        loginDispatcher.include(req, resp);
     }
 
     @Override
@@ -50,7 +47,8 @@ public class LoginServlet extends HttpServlet {
                 login(req, resp);
 
             } else {
-                message = "wrong";
+                String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
+                req.getSession().setAttribute("wrongMessage",wrongMessage);
                 doGet(req, resp);
             }
         }
