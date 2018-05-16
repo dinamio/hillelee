@@ -56,20 +56,24 @@
                     <tr id="row0">
 
                         <td>
+
                             <div class="input-group">
-                                <input type="checkbox" class="check-box-table-cell">
-                                <input type="text" class="form-control"/>
+                                <input type="checkbox" class="check-box-table-cell" name="Checkbox0">
+                                <input type="text" class="form-control" name="Question0">
                                 <span class="input-group-btn">
-                        <button id="btn0" type="button" class="btn btn-primary" onclick="addRow(this); sendQuestionData(this)">
+                        <button id="btn0" type="button" class="btn btn-primary" onclick="addRow(this)">
                             <span id="icon0" class="glyphicon glyphicon-plus"></span>
                         </button>
                     </span>
                             </div>
+
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
             </td>
+
             <td>
                 <button class="btn btn-primary" name="submit" type="submit">Add test</button>
             </td>

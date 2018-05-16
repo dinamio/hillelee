@@ -23,7 +23,7 @@
             <td width="85"> ${t.subject}</td>
             <td width="300">${t.theme}</td>
             <td>
-
+                ${t.questionMap}
             <td>
                 <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove</button>
                 <script>

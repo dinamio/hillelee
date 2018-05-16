@@ -5,10 +5,11 @@ import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class QuizServices {
-    Logger logger = Logger.getLogger(QuizServices.class.getName());
+    private Logger logger = Logger.getLogger(QuizServices.class.getName());
 
     private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
@@ -23,12 +24,12 @@ public class QuizServices {
         return instance;
     }
 
-    public List<SubjectQuiz> getSubjectQuizList() {
+    List<SubjectQuiz> getSubjectQuizList() {
         return subjectQuizList;
     }
 
-    public void addNewQuiz(String subject, String theme, String login) {
-        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login);
+    public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
+        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login, questionMap);
         subjectQuizList.add(subjectTests);
     }
 

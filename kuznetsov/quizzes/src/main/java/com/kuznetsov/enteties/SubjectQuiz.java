@@ -1,6 +1,7 @@
 package enteties;
 
 import java.util.List;
+import java.util.Map;
 
 public class SubjectQuiz {
     private static int count;
@@ -8,26 +9,22 @@ public class SubjectQuiz {
     private String theme;
     private String login;
     private int id;
-    private List<String> questions;
+    private Map<String, String> questionMap;
 
-    public SubjectQuiz(String subject, String theme, String login) {
+    public SubjectQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
         this.subject = subject;
         this.theme = theme;
         this.login = login;
+        this.questionMap = questionMap;
         id = count += 1;
     }
 
-
-    public List<String> getQuestions() {
-        return questions;
+    public Map<String, String> getQuestionMap() {
+        return questionMap;
     }
 
-    public void addQuestionToList(String question) {
-        this.questions.add(question);
-    }
-
-    public void removeQuestionFromList(int index){
-        this.questions.remove(index);
+    public void setQuestionMap(Map<String, String> questionMap) {
+        this.questionMap = questionMap;
     }
 
     public int getId() {

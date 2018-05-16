@@ -6,10 +6,10 @@ function addRow(input) {
     row.id = "row" + (i + 1);
     var cell = row.insertCell(0);
     cell.innerHTML = '<div class="input-group">'+
-        '<input type="checkbox" class="check-box-table-cell">'+
-        '<input type="text" class="form-control" />'+
+        '<input type="checkbox" class="check-box-table-cell"  name="Checkbox'+(i+1)+'">'+
+        '<input type="text" class="form-control" name="Question'+(i+1)+'">'+
         '<span class="input-group-btn">'+
-        '<button id="btn'+(i+1)+'" type="button" class="btn btn-primary" onclick="addRow(this)">'+
+        '<button id="btn'+(i+1)+'" type="button" class="btn btn-primary" onclick="addRow(this); sendQuestionData(this)">'+
         '<span id="icon'+(i+1)+'" class="glyphicon glyphicon-plus"></span>'+
         '</button>'+
         '</span>'+
@@ -22,12 +22,4 @@ function remRow(input) {
     var i = parseInt(input.id.substring(3, input.id.length));
     var ind = table.rows["row" +i].rowIndex;
     table.deleteRow(ind);
-}
-function sendQuestionData(input) {
-    /*$.ajax({
-        type: "get",
-        url: "/question?chekbox="input.,
-        success:  $(this).parent().parent().remove()
-    })*/
-    alert("Put a message here.")
 }
