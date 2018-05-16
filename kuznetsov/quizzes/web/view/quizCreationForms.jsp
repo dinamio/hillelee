@@ -54,9 +54,7 @@
 
                     <tbody>
                     <tr id="row0">
-
                         <td>
-
                             <div class="input-group">
                                 <input type="checkbox" class="check-box-table-cell" name="Checkbox0">
                                 <input type="text" class="form-control" name="Question0">

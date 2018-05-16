@@ -17,11 +17,31 @@
 <body>
 
 <table class="table table-striped table-lg">
+    <thead>
+    <tr>
+        <th>
+            Added by:
+        </th>
+        <th>
+            Subject
+        </th>
+        <th>
+            Theme
+        </th>
+        <th>
+            Correct/Questions
+        </th>
+        <th>
+            Control
+        </th>
+    </tr>
+    </thead>
+
     <c:forEach items="${list}" var="t">
         <tr align="left">
-            <td width="110">added by: ${t.login}</td>
-            <td width="85"> ${t.subject}</td>
-            <td width="300">${t.theme}</td>
+            <td>${t.login}</td>
+            <td> ${t.subject}</td>
+            <td>${t.theme}</td>
             <td>
               <table>
                 <c:forEach var="entry" items="${t.questionMap}">
@@ -31,7 +51,7 @@
                 </c:forEach>
               </table>
             <td>
-                <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove</button>
+                <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove quiz</button>
                 <script>
                     $(document).ready(function () {
                         $(".del${t.id}").click(function () {
