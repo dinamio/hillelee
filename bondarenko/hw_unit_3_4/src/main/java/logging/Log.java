@@ -20,4 +20,8 @@ public class Log {
     public static void writeError(Throwable t, String format, Object ... args){
         LoggerManager.getLogger().error(String.format(format, args), t);
     }
+
+    public static void writeError(String format, Object ... args){
+        LoggerManager.getLogger().error(String.format(format, args));
+    }
 }
