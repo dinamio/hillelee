@@ -13,9 +13,9 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context=sce.getServletContext();
-        String dburl="jdbc:mysql://localhost:3306/quiz-project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String dburl="jdbc:mysql://localhost:3306/quiz-project?useUnicode=true&characterEncoding=UTF8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         String dbusername= "root";
-        String dbpassword="admin";
+        String dbpassword="root";
 
         logger.info("Trying to connect "+dburl);
         DBConnector.createConnection(dburl, dbusername, dbpassword);

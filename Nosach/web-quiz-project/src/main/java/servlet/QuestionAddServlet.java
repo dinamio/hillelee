@@ -1,6 +1,7 @@
 package servlet;
 
 import entity.Answer;
+import org.apache.log4j.Logger;
 import service.builder.QuizBuilder;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionAddServlet extends HttpServlet {
+
+    private static final Logger logger = Logger.getLogger(QuestionAddServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,7 +49,9 @@ public class QuestionAddServlet extends HttpServlet {
         quizBuilder.addQuestion(question, listOfAnswers);
 
         if (req.getParameter("save") != null){
+            logger.info("Saving Quiz to database!!");
             quizBuilder.saveToDB();
+            session.setAttribute("builder", null);
             resp.sendRedirect("/list");
             return;
         }
