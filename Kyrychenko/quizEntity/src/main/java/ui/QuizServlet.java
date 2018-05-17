@@ -16,28 +16,21 @@ public class QuizServlet extends HttpServlet {
     private static final String ADD_QUIZ_PAGE = "/view/inputQuiz.jsp";
     private static final String VIEW_QUIZ_PAGE = "/view/outputQuiz.jsp";
 
-    private static final String LOGOUT_PAGE = "/logout.jsp";
-
     private static QuizService quizService = QuizService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        req.getRequestDispatcher("/logout").include(req, resp);
 
         switch (action == null ? "add" : action) {
             case "add":
                 req.setAttribute("size", quizService.getQuizList().size());
-                req.getRequestDispatcher(LOGOUT_PAGE).include(req, resp);
                 req.getRequestDispatcher(ADD_QUIZ_PAGE).include(req, resp);
                 break;
             case "view":
                 req.setAttribute("list", quizService.getQuizList());
-                req.getRequestDispatcher(LOGOUT_PAGE).include(req, resp);
                 req.getRequestDispatcher(VIEW_QUIZ_PAGE).include(req, resp);
-                break;
-            default:
-                req.getRequestDispatcher(LOGOUT_PAGE).include(req, resp);
-                req.getRequestDispatcher(ADD_QUIZ_PAGE).include(req, resp);
                 break;
         }
     }
@@ -55,15 +48,14 @@ public class QuizServlet extends HttpServlet {
 
                 quizService.addQuiz(new Quiz(subject, topic, user));
                 req.setAttribute("size", quizService.getQuizList().size());
-                req.getRequestDispatcher(ADD_QUIZ_PAGE).forward(req, resp);
+                resp.sendRedirect("/quiz?action=add");
                 break;
             case "delete":
                 Arrays.stream(req.getParameterValues("id"))
                         .mapToInt(Integer::parseInt)
                         .forEach(id -> quizService.deleteQuiz(id));
 
-                req.setAttribute("list", quizService.getQuizList());
-                req.getRequestDispatcher(VIEW_QUIZ_PAGE).forward(req, resp);
+                resp.sendRedirect("/quiz?action=view");
                 break;
             default:
                 doGet(req, resp);

@@ -11,7 +11,7 @@
     <title>Registration page</title>
 </head>
 <body>
-<form name="registrationForm" action="authentication" method="post">
+<form name="registrationForm" method="post">
     <input type="hidden" name="action" value="registration"/>
     Name:
     <input type="text" name="name" value=""><br/>
@@ -22,7 +22,7 @@
     ${wrongAction}
     ${loginExist}
     <br/>
-    <input type="submit" value="Create An Account">
+    <input type="submit" onclick="window.location='/registration'" value="Create An Account">
 </form>
 </body>
 </html>

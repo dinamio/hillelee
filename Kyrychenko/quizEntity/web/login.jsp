@@ -11,8 +11,8 @@
     <title>Authentication page</title>
 </head>
 <body>
-    <form name="loginForm" action="authentication" method="post">
-        <input type="hidden" name="action" value="login"/>
+    <form name="loginForm" method="post">
+        <input type="hidden" value="login"/>
         Login: <br/>
         <input type="text" name="login" value=""/>
         <br/> Password: <br/>
@@ -21,8 +21,8 @@
             ${wrongAction}
             ${errorLoginPassMessage}
         <br/>
-        <input type="submit" value="Log in">
-        <input type="button" onclick="window.location='/registration.jsp'"  value="Sign up">
+        <input type="submit" onclick="window.location='/authentication'" value="Log in">
+        <input type="button" onclick="window.location='/registration'"  value="Sign up">
     </form>
 </body>
 </html>

@@ -8,10 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Logout</title>
+
 </head>
 <body>
-    <form id="user_logout" action="authentication?action=logout" method="post">
+    <form id="user_logout" action="logout" method="post">
         <div style="position: absolute; right: 15px">
             <input type="submit" value="Log Out"/>
         </div>
