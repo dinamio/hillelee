@@ -11,7 +11,7 @@
     <title>Authentication page</title>
 </head>
 <body>
-    <form name="loginForm" action="authentication" method="get">
+    <form name="loginForm" action="authentication" method="post">
         <input type="hidden" name="action" value="login"/>
         Login: <br/>
         <input type="text" name="login" value=""/>
