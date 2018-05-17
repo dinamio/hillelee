@@ -11,6 +11,9 @@ public class SubjectQuiz {
     private int id;
     private Map<String, String> questionMap;
 
+    public SubjectQuiz() {
+    }
+
     public SubjectQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
         this.subject = subject;
         this.theme = theme;
