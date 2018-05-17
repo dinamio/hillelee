@@ -17,6 +17,6 @@ public class ShowAllController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("all_questions", QuizService.getListQuiz());
 
-        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req,resp);
+        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req, resp);
     }
 }

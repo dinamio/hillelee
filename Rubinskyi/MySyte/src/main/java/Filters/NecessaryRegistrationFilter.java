@@ -1,8 +1,6 @@
-/*
 package Filters;
 
 import Entities.Pages;
-import Services.RegistrationService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,14 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
 
-@WebFilter("index.jsp")
+@WebFilter("/index.jsp")
 public class NecessaryRegistrationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -26,24 +22,29 @@ public class NecessaryRegistrationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
-        String loginURL = request.getContextPath() + Pages.AUTHORIZATION_PAGE.getPage();
-        String registrationURL = request.getContextPath() + Pages.REGISTRATION_PAGE.getPage();
+        String registrationURL = request.getContextPath() + "/Registration.jsp";
+        String authorizationURL = request.getContextPath() + "/Authorization.jsp";
+        String indexUrl = request.getRequestURI();
+        System.out.println("FILTER_REQ: " + " registration: " + registrationURL + " authorization: " + authorizationURL + " index: " + indexUrl);
 
-        boolean loggedIn = session != null && session.getAttribute("login") != null;
-        boolean loginRequest = request.getRequestURI().equals(loginURL);
-        boolean registrationRequest = request.getRequestURI().equals(registrationURL);
 
-        if(loggedIn || loginRequest || registrationRequest) {
+        boolean isAuthorized = session != null && session.getAttribute("login") != null;
+        System.out.println("ITERATION");
+        System.out.println("We are here: " + request.getRequestURI());
+        boolean onRegistrationRequest = request.getRequestURI().equals(registrationURL);
+        System.out.println("FILTER.IS_AUTHORIZED: " + isAuthorized);
+        System.out.println("FILTER.ON REGISTRATION : " + onRegistrationRequest);
+        boolean onAuthorizationRequest = request.getRequestURI().equals(authorizationURL);
+        System.out.println("FILTER.ON AUTHORIZATION: " + onAuthorizationRequest);
+
+        if (isAuthorized || onAuthorizationRequest || onRegistrationRequest) {
             filterChain.doFilter(servletRequest, servletResponse);
-        }
-        else {
+        } else {
             response.sendRedirect(Pages.REGISTRATION_PAGE.getPage());
         }
     }
 
     @Override
     public void destroy() {
-
     }
 }
-*/

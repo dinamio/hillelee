@@ -21,6 +21,6 @@ public class AddQuizTopicController extends HttpServlet {
 
         QuizService.getListQuiz().add(new QuizTopicBean(inputQuizSubject, inputQuizTopic));
 
-        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req,resp);
+        req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).include(req, resp);
     }
 }

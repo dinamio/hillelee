@@ -15,7 +15,7 @@ import java.io.IOException;
 public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       HttpSession session = req.getSession();
+        HttpSession session = req.getSession();
         session.removeAttribute("login");
         session.removeAttribute("password");
         req.getRequestDispatcher(Pages.AUTHORIZATION_PAGE.getPage()).forward(req,resp);

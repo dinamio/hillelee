@@ -21,16 +21,15 @@ public class LoginController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        System.out.println("RegistrationService.Login and password: " +login + " "+ password);
+        System.out.println("RegistrationService.Login and password: " + login + " " + password);
 
-       if(RegistrationService.checkLoginAndPassword(login, password)){
-           session.setAttribute("login", login);
-           session.setAttribute("password", password);
+        if (RegistrationService.checkLoginAndPassword(login, password)) {
+            session.setAttribute("login", login);
+            session.setAttribute("password", password);
 
-           req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).forward(req,resp);
-       }
-       else {
-           resp.sendError(401);
-       }
+            req.getRequestDispatcher(String.valueOf(Pages.FIST_PAGE)).forward(req, resp);
+        } else {
+            resp.sendRedirect(Pages.ERROR_PAGE.getPage());
+        }
     }
 }

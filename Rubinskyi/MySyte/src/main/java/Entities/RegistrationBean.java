@@ -32,12 +32,12 @@ public class RegistrationBean {
 
     @Override
     public int hashCode() {
-        return 31*31*login.hashCode() + 31*password.hashCode();
+        return 31 * 31 * login.hashCode() + 31 * password.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
         if (this.getClass() != obj.getClass()) {

@@ -3,10 +3,21 @@ package Entities;
 public class QuizTopicBean {
     private String quizSubject;
     private String quizTopic;
+    private static int counter = 1;
+    private int id;
 
     public QuizTopicBean(String testSubject, String testTopic) {
         this.quizSubject = testSubject;
         this.quizTopic = testTopic;
+        id = counter++;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        QuizTopicBean.counter = counter;
     }
 
     public String getQuizSubject() {
@@ -25,7 +36,6 @@ public class QuizTopicBean {
         this.quizTopic = testTopic;
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -40,12 +50,20 @@ public class QuizTopicBean {
 
     @Override
     public int hashCode() {
-        return 31*31*quizSubject.hashCode()+ 31*quizTopic.hashCode();
+        return 31 * 31 * quizSubject.hashCode() + 31 * quizTopic.hashCode();
     }
 
     @Override
     public String toString() {
         return quizSubject + " " + quizTopic;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 
