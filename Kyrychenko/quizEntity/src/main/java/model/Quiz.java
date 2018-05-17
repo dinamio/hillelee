@@ -7,11 +7,13 @@ public class Quiz {
     private int id;
     private String subject;
     private String topic;
+    private String author;
 
-    public Quiz(String subject, String topic) {
+    public Quiz(String subject, String topic, String author) {
         this.id = ++nextId;
         this.subject = subject;
         this.topic = topic;
+        this.author = author;
     }
 
     public String getSubject() {
@@ -28,6 +30,14 @@ public class Quiz {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int getId() {
