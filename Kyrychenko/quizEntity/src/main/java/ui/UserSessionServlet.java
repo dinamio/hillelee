@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @WebServlet("/authentication")
-public class AuthenticationServlet extends HttpServlet {
+public class UserSessionServlet extends HttpServlet {
     private static final String PARAM_NAME_USERNAME = "name";
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
@@ -28,24 +28,6 @@ public class AuthenticationServlet extends HttpServlet {
     private static UserService userService = UserService.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-
-        String login = req.getParameter(PARAM_NAME_LOGIN);
-        String password = req.getParameter(PARAM_NAME_PASSWORD);
-
-        if (isEmptyParameters(login, password)) {
-            forwardWithErrorMessage(req, resp, LOGIN_PAGE,  ERROR_EMPTY_LOGIN_PASS_MESSAGE);
-        } else if (!userService.isUserAccountFound(login, password)) {
-            forwardWithErrorMessage(req, resp, LOGIN_PAGE, ERROR_LOGIN_PASS_MESSAGE);
-        } else {
-            session.setAttribute("userID", session.getId());
-            session.setAttribute("login", login);
-            resp.sendRedirect("/quiz");
-        }
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
@@ -56,6 +38,17 @@ public class AuthenticationServlet extends HttpServlet {
         String action = req.getParameter("action");
 
         switch (action) {
+            case "login":
+                if (isEmptyParameters(login, password)) {
+                    forwardWithErrorMessage(req, resp, LOGIN_PAGE,  ERROR_EMPTY_LOGIN_PASS_MESSAGE);
+                } else if (!userService.isUserAccountFound(login, password)) {
+                    forwardWithErrorMessage(req, resp, LOGIN_PAGE, ERROR_LOGIN_PASS_MESSAGE);
+                } else {
+                    session.setAttribute("userID", session.getId());
+                    session.setAttribute("login", login);
+                    resp.sendRedirect("/quiz");
+                }
+                break;
             case "registration":
                 if (isEmptyParameters(name, login, password)) {
                     forwardWithErrorMessage(req, resp, REGISTRATION_PAGE, ERROR_EMPTY_LOGIN_PASS_MESSAGE);
@@ -69,9 +62,6 @@ public class AuthenticationServlet extends HttpServlet {
             case "logout":
                 session.invalidate();
                 req.getRequestDispatcher(LOGIN_PAGE).forward(req, resp);
-                break;
-            default:
-                doGet(req, resp);
                 break;
         }
     }
