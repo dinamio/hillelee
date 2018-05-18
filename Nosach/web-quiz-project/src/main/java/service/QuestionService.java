@@ -8,18 +8,17 @@ import java.util.List;
 
 public class QuestionService {
 
+    QuestionDAO qd = new QuestionDAOImpl();
+
     public int addQuestion(Question question, int quizId) {
-        QuestionDAO qd = new QuestionDAOImpl();
         return qd.addQuestion(question, quizId);
     }
 
     public Question getQuestion(int id) {
-        QuestionDAO qd = new QuestionDAOImpl();
         return  qd.getQuestion(id);
     }
 
     public List<Question> getQuestionsForQuiz(int quizId) {
-        QuestionDAO qd = new QuestionDAOImpl();
         return qd.getQuestionsForQuiz(quizId);
     }
 }

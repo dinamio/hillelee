@@ -10,18 +10,17 @@ import java.util.List;
 
 public class AnswerService {
 
+    AnswerDAO ad = new AnswerDAOImpl();
+
     public int addAnswer(Answer answer, int questId) {
-        AnswerDAO ad = new AnswerDAOImpl();
         return ad.addAnswer(answer, questId);
     }
 
     public Answer getAnswer(int id) {
-        AnswerDAO ad = new AnswerDAOImpl();
         return ad.getAnswer(id);
     }
 
     public List<Answer> getAnswersForQuestion(int questionId){
-        AnswerDAO ad = new AnswerDAOImpl();
         return ad.getAnswersForQuestion(questionId);
     }
 

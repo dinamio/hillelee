@@ -29,8 +29,7 @@ public class RegisterServlet extends HttpServlet {
 
 
         UserService us = new UserService();
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        us.addUser(new User(login, encoder.encode(pass), name, email));
+        us.addUser(new User(login, pass, name, email));
 
         req.getSession().setAttribute("login", login);
         req.getSession().setAttribute("authorized", "true");
