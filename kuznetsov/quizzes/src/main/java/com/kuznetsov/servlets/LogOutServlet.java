@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogOutServlet extends HttpServlet {
 
-    private Credentials credentials = Credentials.getSingleton();
+    private Credentials credentials = new Credentials();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

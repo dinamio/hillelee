@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("")
 public class LoginServlet extends HttpServlet {
 
-    private Credentials credentials = Credentials.getSingleton();
+    private Credentials credentials = new Credentials();
     private String login;
     private String pwd;
     private String message;
@@ -35,10 +35,11 @@ public class LoginServlet extends HttpServlet {
         buttonType = req.getParameter("submit");
         login = req.getParameter("login");
         pwd = req.getParameter("pwd");
+        credentials.setSavedCredentials(login, pwd);
 
         if (buttonType.equals("Sign up") && !credentials.getSavedCredentials().containsKey(login)) {
 
-            credentials.setSavedCredentials(login, pwd);
+
             login(req, resp);
 
         } else {
@@ -59,8 +60,8 @@ public class LoginServlet extends HttpServlet {
         req.getSession().setAttribute("login", login);
         req.getSession().setAttribute("pwd", pwd);
         req.getSession().setAttribute("buttonType", buttonType);
-        credentials.setLogin(login);
-        credentials.setPwd(pwd);
+        /*credentials.setLogin(login);
+        credentials.setPwd(pwd);*/
 
         resp.sendRedirect("/quiz");
     }

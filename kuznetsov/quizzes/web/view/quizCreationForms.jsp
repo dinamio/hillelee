@@ -5,17 +5,17 @@
 
     <link type="text/css" rel="stylesheet" href="resources/css/quizViewTable.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin=“anonymous">
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"--%>
+           <%-- integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>--%>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <%--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>--%>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <%--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
     <title>Forms</title>
 </head>
@@ -38,7 +38,7 @@
         <tbody>
         <tr>
             <td>
-                <select class="custom-select d-block w-100" name="Subject" required="">
+                <select class="custom-select d-block w-100 input-lg" name="Subject" required="">
                     <option value="">Subject...</option>
                     <option value="History">History</option>
                     <option value="Geography">Geography</option>
@@ -47,7 +47,7 @@
                 </select>
             </td>
             <td>
-                <input class="form-control" name="Theme" placeholder="Quiz theme is..." type="text">
+                <input class="form-control input-lg" name="Theme" placeholder="Quiz theme is..." type="text">
             </td>
             <td>
                 <table class="table" id="myTable">
@@ -56,9 +56,9 @@
                     <tr id="row0">
                         <td>
                             <div class="input-group">
-                                <input type="checkbox" class="check-box-table-cell" name="Checkbox0">
-                                <input type="text" class="form-control" name="Question0">
-                                <span class="input-group-btn">
+                                <input type="checkbox" class="check-box-table-cell input-lg" name="Checkbox0">
+                                <input type="text" class="form-control input-lg" name="Question0">
+                                <span class="input-group-btn ">
                         <button id="btn0" type="button" class="btn btn-primary" onclick="addRow(this)">
                             <span id="icon0" class="glyphicon glyphicon-plus"></span>
                         </button>
@@ -73,7 +73,7 @@
             </td>
 
             <td>
-                <button class="btn btn-primary" name="submit" type="submit">Add test</button>
+                <button class="btn btn-primary btn-lg" name="submit" type="submit">Add test</button>
             </td>
         </tr>
         </tbody>

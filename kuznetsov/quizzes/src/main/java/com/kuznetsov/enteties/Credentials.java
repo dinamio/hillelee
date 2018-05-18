@@ -5,20 +5,9 @@ import java.util.Map;
 
 public class Credentials {
 
-    private static Credentials entity;
     private Map<String, String> savedCredentials = new HashMap<>();
     private String pwd;
     private String login;
-
-    private Credentials() {
-    }
-
-    public static Credentials getSingleton() {
-        if (entity == null) {
-            entity = new Credentials();
-        }
-        return entity;
-    }
 
 
     public Map<String, String> getSavedCredentials() {
@@ -29,19 +18,21 @@ public class Credentials {
         savedCredentials.put(login, pwd);
     }
 
-    public String getPwd() {
-        return pwd;
-    }
-
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
     public void setLogin(String login) {
         this.login = login;
+    }
+
+
+    public boolean checkCredentials(Map<String,String> credentialsFromBD, String sessionLogin, String sessionPwd) {
+        for (Map.Entry<String, String> entry : credentialsFromBD.entrySet()){
+            if (entry.getKey().equals(sessionLogin) && entry.getValue().equals(sessionPwd)){
+                return true;
+            }
+        }
+        return false;
     }
 }

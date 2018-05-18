@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.impl.QuizDaoImpl;
 import services.JspIncluder;
 import services.QuestionAggregator;
 import services.QuizServices;
@@ -35,9 +36,12 @@ public class QuizServlet extends HttpServlet {
 
         if (theme != null && id == null) {
 
+
+
+
             String subject = req.getParameter("Subject");
             String sessionLogin = (req.getSession().getAttribute("login")).toString();
-
+            String sessionPwd = (req.getSession().getAttribute("pwd")).toString();
             QuestionAggregator questionAggregator = new QuestionAggregator();
 
             Map<String, String> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));

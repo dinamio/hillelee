@@ -11,6 +11,7 @@
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quizViewTable.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
 
 </head>
@@ -51,7 +52,7 @@
                 </c:forEach>
               </table>
             <td>
-                <button class="btn btn-primary del${t.id}" name="submit" type="button">Remove quiz</button>
+                <button class="btn btn-primary  btn-lg del${t.id}" name="submit" type="button">Remove quiz</button>
                 <script>
                     $(document).ready(function () {
                         $(".del${t.id}").click(function () {
