@@ -16,24 +16,12 @@ import java.util.*;
 public class QuestionAddServlet extends HttpServlet{
     private static Logger log = Logger.getLogger(QuestionAddServlet.class.getName());
 
-
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        this.process(request, response);
-    }
-
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        this.process(request, response);
-    }
-
-
-    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("text/html; charset=UTF-8");
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("Question.jsp");
         dispatcher.forward(request,response);
+    }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         boolean formAddTest = Boolean.parseBoolean(request.getParameter("formAddQuestion"));
         log.info(formAddTest);
 
@@ -50,7 +38,10 @@ public class QuestionAddServlet extends HttpServlet{
             }
             Quiz.questionSet.add(new Question(question,answerSet));
 
-            return;
-        }//end formAddTest
+            }//end formAddTest
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Question.jsp");
+        dispatcher.forward(request,response);
+
     }
+
 }
