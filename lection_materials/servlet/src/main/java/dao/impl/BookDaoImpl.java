@@ -3,6 +3,7 @@ package dao.impl;
 import dao.BookDao;
 import entity.Book;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by eugen on 5/11/18.
  */
+@Repository
 public class BookDaoImpl implements BookDao {
 
     private static Logger logger = Logger.getLogger(BookDao.class);

@@ -1,8 +1,8 @@
 package service;
 
 import dao.BookDao;
-import dao.impl.BookDaoImpl;
 import entity.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -11,7 +11,8 @@ import java.util.List;
  */
 public class BookService {
 
-    private BookDao bookDao = new BookDaoImpl();
+    @Autowired
+    private BookDao bookDao;
 
     public List<Book> getBooks() {
         return bookDao.getAllBooks();

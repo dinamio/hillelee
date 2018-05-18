@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="entity.Book" id="myBook" scope="prototype">
+        <constructor-arg value="War and Piece" />
+        <constructor-arg value="1" index="0"/>
+        <constructor-arg value="Tolstoy"/>
+    </bean>
+
+    <bean class="entity.Book" id="myBook2">
+        <constructor-arg value="War and Piece - 2" />
+        <constructor-arg value="2" index="0"/>
+        <constructor-arg value="Tolstoy"/>
+    </bean>
+
+    <bean class="entity.Author" id="tolstoy">
+        <property name="bookList">
+            <list>
+                <ref bean="myBook"/>
+                <ref bean="myBook2"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
