@@ -7,7 +7,13 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
   <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- Listeners -->
 
+  <listener>
+    <listener-class>listeners.ContextListener</listener-class>
+  </listener>
+  
   <!--  Filters -->
 
   <filter>
@@ -52,6 +58,11 @@
     <servlet-class>servlet.RegisterServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>Question</servlet-name>
+    <servlet-class>servlet.QuestionAddServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>ListOfQuizzes</servlet-name>
     <url-pattern>/list</url-pattern>
@@ -80,6 +91,11 @@
   <servlet-mapping>
     <servlet-name>Register</servlet-name>
     <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Question</servlet-name>
+    <url-pattern>/question</url-pattern>
   </servlet-mapping>
 
 </web-app>

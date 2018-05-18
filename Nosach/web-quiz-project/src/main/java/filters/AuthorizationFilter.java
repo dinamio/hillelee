@@ -1,16 +1,17 @@
 package filters;
 
 
+import entity.User;
 import org.apache.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-
 
 
 public class AuthorizationFilter implements Filter{
@@ -65,26 +66,34 @@ public class AuthorizationFilter implements Filter{
 
         HttpSession session = request.getSession();
         String login = (String)session.getAttribute("login");
-        String pass  = (String)session.getAttribute("pass");
+        String pass = (String)session.getAttribute("pass");
+        String authorized  = (String)session.getAttribute("authorized");
 
-        if (login == null || pass == null) return false;
+        if (login == null) return false;
 
-        try (BufferedReader fileReader = new BufferedReader(
-                                            new FileReader(request.getServletContext().
-                                                    getRealPath("/resources/properties/users.properties")))) {
-            String line;
-            while ((line = fileReader.readLine()) != null) {
+        logger.info("Checking authorization for login: "+login);
 
-                String [] arr = line.split("#");
-                if(arr[0].equals(login) && arr[1].equals(pass)){
-                    logger.info("User "+ login+ " authorized!");
-                    return true;}
+        if(Boolean.parseBoolean(authorized) == true) {
+
+            logger.info("User: "+login+" already have registered session");
+            return true;
+        }
+
+        UserService us = new UserService();
+        User user = us.getUser(login);
+
+        if (user ==null){
+                return false;
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        logger.info("User "+ login+ " NOT authorized!");
+        PasswordEncoder encoder= new BCryptPasswordEncoder();
+        if (encoder.matches(pass, user.getPassword())) {
+                logger.info("User "+login+" found in db and authorized ");
+                request.getSession().setAttribute("authorized", "true");
+                return true;
+            }
+
+        logger.info("Wrong password for user "+login);
         return false;
     }
 }
