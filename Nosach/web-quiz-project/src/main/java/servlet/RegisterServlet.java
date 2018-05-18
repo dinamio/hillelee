@@ -1,10 +1,14 @@
 package servlet;
 
+import entity.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class RegisterServlet extends HttpServlet {
@@ -21,15 +25,15 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
         String email = req.getParameter("email");
+        String name = req.getParameter("name");
 
-        try (FileWriter fw = new FileWriter(getServletContext().getRealPath("/resources/properties/users.properties"), true)) {
 
-            fw.write(login + "#" + pass + "#" + email + "\n");
-            fw.flush();
-        }
+        UserService us = new UserService();
+        us.addUser(new User(login, pass, name, email));
 
         req.getSession().setAttribute("login", login);
-        req.getSession().setAttribute("pass", pass);
+        req.getSession().setAttribute("authorized", "true");
+
         resp.sendRedirect("/list");
         return;
     }

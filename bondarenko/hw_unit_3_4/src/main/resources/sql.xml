@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<vendors>
+    <vendor type="MySQL">
+        <entities>
+            <entity type="QUIZ">
+                <statements>
+                    <statement type="CREATE">
+                        <![CDATA[
+                            insert INTO postgres.public.quizzes(name, \"desc\", author) VALUES(?, ?, ?)");
+                        ]]>
+                    </statement>
+                    <statement type="READ">
+                        <![CDATA[
+                          select name, \"desc\", author from postgres.public.quizzes where id = ?;
+                        ]]>
+                    </statement>
+                    <statement type="UPDATE">
+                        <![CDATA[
+                            update postgres.public.quizzes set name = ?, \"desc\" = ? author = ?;
+                        ]]>
+                    </statement>
+                    <statement type="DELETE">
+                        <![CDATA[
+                          DELETE FROM postgres.public.quizzes where id = ?;
+                        ]]>
+                    </statement>
+                    <statement type="READ_ALL">
+                        <![CDATA[
+                            select name, \"desc\", author from postgres.public.quizzes;
+                        ]]>
+                    </statement>
+                </statements>
+            </entity>
+        </entities>
+    </vendor>
+    <vendor type="PostgreSQL">
+        <entities>
+            <entity type="QUIZ">
+                <statements>
+                    <statement type="CREATE">
+                        <![CDATA[
+                            insert INTO postgres.public.quizzes(name, \"desc\", author) VALUES(?, ?, ?)");
+                        ]]>
+                    </statement>
+                    <statement type="READ">
+                        <![CDATA[
+                          select name, \"desc\", author from postgres.public.quizzes where id = ?;
+                        ]]>
+                    </statement>
+                    <statement type="UPDATE">
+                        <![CDATA[
+                            update postgres.public.quizzes set name = ?, \"desc\" = ? author = ?;
+                        ]]>
+                    </statement>
+                    <statement type="DELETE">
+                        <![CDATA[
+                          DELETE FROM postgres.public.quizzes where id = ?;
+                        ]]>
+                    </statement>
+                    <statement type="READ_ALL">
+                        <![CDATA[
+                            select name, \"desc\", author from postgres.public.quizzes;
+                        ]]>
+                    </statement>
+
+                </statements>
+            </entity>
+        </entities>
+    </vendor>
+</vendors>
+

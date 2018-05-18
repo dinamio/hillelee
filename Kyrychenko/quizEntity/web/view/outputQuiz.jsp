@@ -17,15 +17,18 @@
             <col width="10%">
             <col width="30%" align="center">
             <col width="30$" align="center">
+            <col width="15$" align="center">
             <caption><h3>List of quizzes</h3></caption>
             <th>Action</th>
             <th>Subjects</th>
             <th>Topics</th>
+            <th>Author</th>
             <c:forEach var="quiz" items="${list}">
                 <tr>
                     <td><input type="checkbox" name="id" value="${quiz.id}"/>
                     <td>${quiz.subject}</td>
                     <td>${quiz.topic}</td>
+                    <td>${quiz.author}</td>
                 </tr>
             </c:forEach>
         </table>
