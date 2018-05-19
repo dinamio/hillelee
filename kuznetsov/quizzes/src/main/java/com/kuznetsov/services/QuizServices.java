@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class QuizServices {
     private Logger logger = Logger.getLogger(QuizServices.class.getName());
-    QuizDaoImpl quizDao = new QuizDaoImpl();
+    private QuizDaoImpl quizDao = new QuizDaoImpl();
 
     private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
@@ -27,26 +27,18 @@ public class QuizServices {
     }
 
     List<SubjectQuiz> getSubjectQuizList() {
-        return quizDao.getAllQuizzes();
+        return quizDao.getAllQuizzesFromDB();
     }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
         SubjectQuiz subjectQuiz = new SubjectQuiz(subject, theme, login, questionMap);
-//        subjectQuizList.add(subjectTests);
         quizDao.addNewQuizToDB(subjectQuiz);
     }
 
     public void removeQuizById(int id) {
+        quizDao.removeQuizFromDB(id);
 
-        List<SubjectQuiz> list = new ArrayList<>();
-        for (SubjectQuiz test : subjectQuizList) {
-            if (!(test.getId() == id)) {
-                list.add(test);
-                logger.info("add to list " + test.getId());
-            }
-        }
-        subjectQuizList = list;
-       logger.info("list size " + subjectQuizList.size());
+        logger.info(String.format("list size %d", subjectQuizList.size()));
     }
 }
 

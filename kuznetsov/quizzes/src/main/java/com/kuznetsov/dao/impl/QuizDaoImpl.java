@@ -38,7 +38,7 @@ public class QuizDaoImpl implements QuizDao {
     }
 
     @Override
-    public List<SubjectQuiz> getAllQuizzes() {
+    public List<SubjectQuiz> getAllQuizzesFromDB() {
         List<SubjectQuiz> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -77,6 +77,58 @@ public class QuizDaoImpl implements QuizDao {
         return result;
     }
 
+    @Override
+    public void addNewQuizToDB(SubjectQuiz quiz) {
+
+        String query = "INSERT into quizzes(login, subject, theme) VALUES (?,?,?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1, usersDB.setToDB(quiz.getLogin()));
+            statement.setInt(2, subjectsDB.setToDB(quiz.getSubject()));
+            statement.setInt(3, themesDB.setToDB(quiz.getTheme()));
+
+            statement.executeUpdate();
+
+            ResultSet rs = statement.getGeneratedKeys();
+            rs.next();
+            int auto_id = rs.getInt(1);
+
+            statement.close();
+
+            String questionsQuery = "UPDATE quizzes set questions = ? where id = ?";
+
+            PreparedStatement questionsStatement = connection.prepareStatement(questionsQuery);
+
+            questionsStatement.setInt(1, auto_id);
+            questionsStatement.setInt(2, auto_id);
+
+            questionsStatement.executeUpdate();
+
+            questionsStatement.close();
+
+            questionsDB.setToDB(auto_id, quiz.getQuestionMap());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.info("Can't add new quiz to data base");
+        }
+    }
+
+    @Override
+    public void removeQuizFromDB(int id) {
+
+        PreparedStatement preparedStatement;
+        String query = "DELETE from quiz.quizzes WHERE id = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean isCredentialsCons(String sessionLogin, String sessionPwd) {
 
@@ -113,43 +165,6 @@ public class QuizDaoImpl implements QuizDao {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("Can't save credentials to data base");
-        }
-    }
-
-
-    public void addNewQuizToDB(SubjectQuiz quiz) {
-
-        String query = "INSERT into quizzes(login, subject, theme) VALUES (?,?,?)";
-        try {
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-            statement.setInt(1, usersDB.setToDB(quiz.getLogin()));
-            statement.setInt(2, subjectsDB.setToDB(quiz.getSubject()));
-            statement.setInt(3, themesDB.setToDB(quiz.getTheme()));
-
-            statement.executeUpdate();
-
-            ResultSet rs = statement.getGeneratedKeys();
-            rs.next();
-            int auto_id = rs.getInt(1);
-
-            statement.close();
-
-            String questionsQuery = "UPDATE quizzes set questions = ? where id = ?";
-
-            PreparedStatement questionsStatement = connection.prepareStatement(questionsQuery);
-
-            questionsStatement.setInt(1, auto_id);
-            questionsStatement.setInt(2, auto_id);
-
-            questionsStatement.executeUpdate();
-
-            questionsStatement.close();
-
-            questionsDB.setToDB(auto_id, quiz.getQuestionMap());
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.info("Can't add new quiz to data base");
         }
     }
 }

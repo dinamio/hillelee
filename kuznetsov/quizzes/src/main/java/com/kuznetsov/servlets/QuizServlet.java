@@ -48,10 +48,11 @@ public class QuizServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        logger.info("in doDelete " + id);
+        logger.info("Delete from quiz table id #" + id);
         services.removeQuizById(Integer.parseInt(id));
+        doGet(req, resp);
     }
 
 
