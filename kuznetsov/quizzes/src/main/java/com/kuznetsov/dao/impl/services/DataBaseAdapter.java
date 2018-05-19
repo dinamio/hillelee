@@ -2,6 +2,8 @@ package dao.impl.services;
 
 import java.sql.SQLException;
 
-public interface SettterToDB {
+public interface DataBaseAdapter {
     int setToDB(String value) throws SQLException;
+
+    String getFromDB(int i) throws SQLException;
 }

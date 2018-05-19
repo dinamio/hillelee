@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @WebFilter("/quiz")
@@ -33,10 +31,10 @@ public class LoginFilter implements Filter {
 
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
-//        Map<String, String> credentialsFromBD = new HashMap<>(quizDao.getCredentials());
+//        Map<String, String> credentialsFromBD = new HashMap<>(quizDao.isCredentialsCons());
 //        boolean trueUser = credentials.checkCredentials(credentialsFromBD, sessionLogin, sessionPwd);
 
-        boolean trueUser = quizDao.getCredentials(sessionLogin, sessionPwd);
+        boolean trueUser = quizDao.isCredentialsCons(sessionLogin, sessionPwd);
 
         if (sessionLogin != null && trueUser) {
             filterChain.doFilter(servletRequest, servletResponse);

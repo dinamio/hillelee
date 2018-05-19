@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ThemesDB implements SettterToDB{
+public class ThemesDB implements DataBaseAdapter {
     private Connection connection;
 
     public ThemesDB(Connection connection) {
@@ -26,5 +26,15 @@ public class ThemesDB implements SettterToDB{
         return rs.getInt("id");
     }
 
+    @Override
+    public String getFromDB(int idFromQuiz) throws SQLException {
+        String query = "Select theme from themes where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, idFromQuiz);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        rs.next();
+        return rs.getString("theme");
+    }
 
 }

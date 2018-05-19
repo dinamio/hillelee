@@ -27,7 +27,7 @@ public class QuizServices {
     }
 
     List<SubjectQuiz> getSubjectQuizList() {
-        return subjectQuizList;
+        return quizDao.getAllQuizzes();
     }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {

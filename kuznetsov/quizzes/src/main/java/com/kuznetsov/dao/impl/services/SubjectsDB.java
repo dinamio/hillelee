@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SubjectsDB implements SettterToDB{
+public class SubjectsDB implements DataBaseAdapter {
     private Connection connection;
 
     public SubjectsDB(Connection connection) {
@@ -13,7 +13,7 @@ public class SubjectsDB implements SettterToDB{
     }
 
     @Override
-    public int  setToDB(String value) throws SQLException {
+    public int setToDB(String value) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("INSERT into subjects(subject) VALUES (?)");
         statement.setString(1, value);
         statement.execute();
@@ -24,5 +24,16 @@ public class SubjectsDB implements SettterToDB{
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         return rs.getInt("id");
+    }
+
+    @Override
+    public String getFromDB(int idFromQuiz) throws SQLException {
+        String query = "Select subject from subjects where id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, idFromQuiz);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        rs.next();
+        return rs.getString("subject");
     }
 }
