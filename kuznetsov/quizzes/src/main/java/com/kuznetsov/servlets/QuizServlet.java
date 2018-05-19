@@ -36,9 +36,6 @@ public class QuizServlet extends HttpServlet {
 
         if (theme != null && id == null) {
 
-
-
-
             String subject = req.getParameter("Subject");
             String sessionLogin = (req.getSession().getAttribute("login")).toString();
             String sessionPwd = (req.getSession().getAttribute("pwd")).toString();

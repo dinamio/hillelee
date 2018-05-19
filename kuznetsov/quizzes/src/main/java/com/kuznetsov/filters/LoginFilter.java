@@ -33,8 +33,10 @@ public class LoginFilter implements Filter {
 
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
-        Map<String, String> credentialsFromBD = new HashMap<>(quizDao.getCredentials());
-        boolean trueUser = credentials.checkCredentials(credentialsFromBD, sessionLogin, sessionPwd);
+//        Map<String, String> credentialsFromBD = new HashMap<>(quizDao.getCredentials());
+//        boolean trueUser = credentials.checkCredentials(credentialsFromBD, sessionLogin, sessionPwd);
+
+        boolean trueUser = quizDao.getCredentials(sessionLogin, sessionPwd);
 
         if (sessionLogin != null && trueUser) {
             filterChain.doFilter(servletRequest, servletResponse);

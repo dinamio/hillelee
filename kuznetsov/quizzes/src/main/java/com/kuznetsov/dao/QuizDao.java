@@ -7,5 +7,5 @@ import java.util.List;
 public interface QuizDao {
     List<SubjectQuiz> getAllQuizzes();
 
-    void insert(SubjectQuiz quiz);
+
 }

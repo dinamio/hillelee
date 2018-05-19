@@ -1,6 +1,7 @@
 package services;
 
 
+import dao.impl.QuizDaoImpl;
 import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 
 public class QuizServices {
     private Logger logger = Logger.getLogger(QuizServices.class.getName());
+    QuizDaoImpl quizDao = new QuizDaoImpl();
 
     private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
@@ -29,8 +31,9 @@ public class QuizServices {
     }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
-        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login, questionMap);
-        subjectQuizList.add(subjectTests);
+        SubjectQuiz subjectQuiz = new SubjectQuiz(subject, theme, login, questionMap);
+//        subjectQuizList.add(subjectTests);
+        quizDao.addNewQuizToDB(subjectQuiz);
     }
 
     public void removeQuizById(int id) {
