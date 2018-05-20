@@ -1,9 +1,6 @@
 package dao.impl.services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ThemesDB implements DataBaseAdapter {
     private Connection connection;
@@ -14,16 +11,16 @@ public class ThemesDB implements DataBaseAdapter {
 
     @Override
     public int setToDB(String value) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT into themes(theme) VALUES (?)");
+        String query = "INSERT into themes(theme) VALUES (?)";
+        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, value);
-        statement.execute();
+        statement.executeUpdate();
 
-        String query = "Select id from themes where theme = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, value);
-        ResultSet rs = preparedStatement.executeQuery();
+        ResultSet rs = statement.getGeneratedKeys();
         rs.next();
-        return rs.getInt("id");
+        int id = rs.getInt(1);
+        statement.close();
+        return id;
     }
 
     @Override
