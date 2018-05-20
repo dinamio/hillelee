@@ -5,5 +5,5 @@ import java.sql.SQLException;
 public interface DataBaseAdapter {
     int setToDB(String value) throws SQLException;
 
-    String getFromDB(int i) throws SQLException;
+    Object getFromDB(int i) throws SQLException;
 }

@@ -1,7 +1,6 @@
 package filters;
 
 import dao.impl.QuizDaoImpl;
-import enteties.Credentials;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +12,7 @@ import java.io.IOException;
 
 @WebFilter("/quiz")
 public class LoginFilter implements Filter {
-    private Credentials credentials = new Credentials();
+
     private QuizDaoImpl quizDao;
 
     @Override
@@ -24,15 +23,12 @@ public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         HttpSession session = req.getSession();
 
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
-//        Map<String, String> credentialsFromBD = new HashMap<>(quizDao.isCredentialsCons());
-//        boolean trueUser = credentials.checkCredentials(credentialsFromBD, sessionLogin, sessionPwd);
 
         boolean trueUser = quizDao.isCredentialsCons(sessionLogin, sessionPwd);
 
@@ -40,15 +36,7 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
 
         } else {
-            String buttonType = (String) session.getAttribute("buttonType");
-
-            if (buttonType != null && buttonType.equals("Sign up")) {
-                quizDao.saveCredentials(sessionLogin, sessionPwd);
-                filterChain.doFilter(servletRequest, servletResponse);
-
-            } else {
-                resp.sendRedirect("/");
-            }
+            resp.sendRedirect("/");
         }
     }
 

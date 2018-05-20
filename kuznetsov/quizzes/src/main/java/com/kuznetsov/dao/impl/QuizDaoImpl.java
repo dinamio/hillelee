@@ -15,7 +15,7 @@ public class QuizDaoImpl implements QuizDao {
 
     private DataBaseAdapter subjectsDB;
     private DataBaseAdapter themesDB;
-    private DataBaseAdapter usersDB;
+    private UsersDB usersDB;
     private QuestionsDB questionsDB;
 
     private static Connection connection;
@@ -51,9 +51,16 @@ public class QuizDaoImpl implements QuizDao {
                 int theme = resultSet.getInt("theme");
                 int questions = resultSet.getInt("questions");
 
-                String sLogin = usersDB.getFromDB(login);
-                String sSubject = subjectsDB.getFromDB(subject);
-                String sTheme = themesDB.getFromDB(theme);
+                String sLogin = null;
+                Map<String, String> credentials = usersDB.getFromDB(login);
+                if (credentials != null) {
+                    for (Map.Entry<String, String> entry : credentials.entrySet()) {
+                        sLogin = entry.getKey();
+                    }
+                }
+
+                String sSubject = (String) subjectsDB.getFromDB(subject);
+                String sTheme = (String) themesDB.getFromDB(theme);
                 Map<String, String> mQuestions = questionsDB.getFromDB(questions);
 
                 SubjectQuiz quiz = new SubjectQuiz();
@@ -133,33 +140,52 @@ public class QuizDaoImpl implements QuizDao {
     public boolean isCredentialsCons(String sessionLogin, String sessionPwd) {
 
         try {
-            String query = "Select id, login, pwd from Users where login = ? AND pwd = ?";
+            String query = "Select login, pwd from Users where login = ? AND pwd = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, sessionLogin);
             preparedStatement.setString(2, sessionPwd);
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            if (!rs.next()) {
+            return (rs.next());
 
-                return false;
-            }
         } catch (SQLException e) {
             e.printStackTrace();
-            logger.info("login or password is incorrect");
+            return false;
         }
-        return true;
     }
 
-    public void saveCredentials(String login, String pwd) {
+    public boolean isUserExistInDB(String sessionLogin) {
+
+        try {
+            String query = "Select login from Users where login = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, sessionLogin);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            return (rs.next());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+   public String getSalt(String login){
+        return usersDB.getSalt(login);
+   }
+
+    public void saveCredentials(String login, String pwd, String salt) {
 
         PreparedStatement statement;
 
         try {
-            statement = connection.prepareStatement("INSERT into Users(login, pwd) VALUES (?,?)");
+            statement = connection.prepareStatement("INSERT into Users(login, pwd, salt) VALUES (?,?,?)");
 
             statement.setString(1, login);
             statement.setString(2, pwd);
+            statement.setString(3, salt);
             statement.execute();
 
         } catch (SQLException e) {
