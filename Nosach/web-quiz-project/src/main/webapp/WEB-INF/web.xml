@@ -7,8 +7,12 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
   <display-name>Archetype Created Web Application</display-name>
-  
+
   <!-- Listeners -->
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 
   <listener>
     <listener-class>listeners.ContextListener</listener-class>

@@ -3,11 +3,13 @@ package dao;
 import dao.connector.DBConnector;
 import entity.Subject;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class SubjectDAOImpl implements SubjectDAO{
 
     private static final Logger logger = Logger.getLogger(SubjectDAOImpl.class);

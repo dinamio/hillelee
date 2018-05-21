@@ -3,15 +3,22 @@ package dao;
 import dao.connector.DBConnector;
 import entity.User;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+
+    public UserDAOImpl() {
+    }
 
     @Override
     public void addUser(User user) {
