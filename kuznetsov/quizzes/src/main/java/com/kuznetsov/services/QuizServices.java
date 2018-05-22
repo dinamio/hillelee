@@ -1,14 +1,17 @@
 package services;
 
 
+import dao.impl.QuizDaoImpl;
 import enteties.SubjectQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class QuizServices {
-    Logger logger = Logger.getLogger(QuizServices.class.getName());
+    private Logger logger = Logger.getLogger(QuizServices.class.getName());
+    private QuizDaoImpl quizDao = new QuizDaoImpl();
 
     private static QuizServices instance;
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
@@ -23,26 +26,19 @@ public class QuizServices {
         return instance;
     }
 
-    public List<SubjectQuiz> getSubjectQuizList() {
-        return subjectQuizList;
+    List<SubjectQuiz> getSubjectQuizList() {
+        return quizDao.getAllQuizzesFromDB();
     }
 
-    public void addNewQuiz(String subject, String theme, String login) {
-        SubjectQuiz subjectTests = new SubjectQuiz(subject, theme, login);
-        subjectQuizList.add(subjectTests);
+    public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
+        SubjectQuiz subjectQuiz = new SubjectQuiz(subject, theme, login, questionMap);
+        quizDao.addNewQuizToDB(subjectQuiz);
     }
 
     public void removeQuizById(int id) {
+        quizDao.removeQuizFromDB(id);
 
-        List<SubjectQuiz> list = new ArrayList<>();
-        for (SubjectQuiz test : subjectQuizList) {
-            if (!(test.getId() == id)) {
-                list.add(test);
-                logger.info("add to list " + test.getId());
-            }
-        }
-        subjectQuizList = list;
-       logger.info("list size " + subjectQuizList.size());
+        logger.info(String.format("list size %d", subjectQuizList.size()));
     }
 }
 
