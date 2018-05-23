@@ -18,17 +18,9 @@ public class QuizListServlet extends HttpServlet
     public static Set<Quiz> quizList = new TreeSet();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.setAttribute("list", quizList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("QuizList.jsp");
 
         dispatcher.forward(req, resp);
-
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
     }
 }
