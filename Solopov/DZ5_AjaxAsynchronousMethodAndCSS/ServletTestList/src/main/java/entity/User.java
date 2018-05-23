@@ -1,12 +1,12 @@
 package entity;
 
 public class User {
-    private String login,pswword;
+    private String login, password;
 
 
-    public User(String login, String pswword) {
+    public User(String login, String password) {
         this.login = login;
-        this.pswword = pswword;
+        this.password = password;
     }
 
     public String getLogin() {
@@ -17,11 +17,11 @@ public class User {
         this.login = login;
     }
 
-    public String getPswword() {
-        return pswword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPswword(String pswword) {
-        this.pswword = pswword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
