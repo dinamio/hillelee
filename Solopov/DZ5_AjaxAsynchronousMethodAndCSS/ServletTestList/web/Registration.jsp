@@ -17,7 +17,7 @@
     <div class="mainblock">
         <h2>Create new account</h2>
 
-        <form action="reg">
+        <form action="reg" method="post">
             <label><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
 
