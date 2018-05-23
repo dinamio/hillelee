@@ -22,9 +22,4 @@ public class QuestionRemoveServlet extends HttpServlet {
         new QuestionService().removeQuestion(Quiz.questionSet,id);
         resp.sendRedirect("/questions");
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
-    }
 }
