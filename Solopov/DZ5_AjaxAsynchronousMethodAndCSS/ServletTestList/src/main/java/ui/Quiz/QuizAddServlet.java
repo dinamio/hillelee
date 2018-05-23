@@ -11,11 +11,6 @@ import java.io.IOException;
 
 public class QuizAddServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("/quizlist");
         boolean formAddTest= Boolean.parseBoolean(req.getParameter("formCreateQuiz"));
@@ -29,7 +24,5 @@ public class QuizAddServlet extends HttpServlet {
         }//end formAddTest
 
         dispatcher.forward(req, resp);
-
-        doGet(req,resp);
     }
 }
