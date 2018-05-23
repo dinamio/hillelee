@@ -1,6 +1,7 @@
 package dao.impl.services;
 
-import java.sql.Connection;
+import dao.Connector;
+import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,19 +9,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Component
 public class UsersDB implements DataBaseAdapter {
     private Logger logger = Logger.getLogger(getClass().getName());
-    private Connection connection;
 
-    public UsersDB(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public int setToDB(String value) throws SQLException {
 
         String query = "Select id from users where login = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+        PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setString(1, value);
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
@@ -36,7 +35,7 @@ public class UsersDB implements DataBaseAdapter {
         String query = "Select login, pwd from Users where id = ?";
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = Connector.getConnection().prepareStatement(query);
 
         preparedStatement.setInt(1, idFromQuiz);
         ResultSet rs = preparedStatement.executeQuery();
@@ -61,9 +60,9 @@ public class UsersDB implements DataBaseAdapter {
     public String getSalt(String login){
         String result = null;
         String query = "Select salt from users where login = ?";
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         try {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = Connector.getConnection().prepareStatement(query);
 
         preparedStatement.setString(1, login);
         ResultSet rs = preparedStatement.executeQuery();

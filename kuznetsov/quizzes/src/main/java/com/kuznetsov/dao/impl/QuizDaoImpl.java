@@ -1,8 +1,11 @@
 package dao.impl;
 
+import dao.Connector;
 import dao.QuizDao;
 import dao.impl.services.*;
 import enteties.SubjectQuiz;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,38 +13,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Component
 public class QuizDaoImpl implements QuizDao {
-    private static Logger logger = Logger.getLogger(QuizDaoImpl.class.getName());
-
+    private Logger logger = Logger.getLogger(getClass().getName());
+    @Autowired
     private DataBaseAdapter subjectsDB;
+    @Autowired
     private DataBaseAdapter themesDB;
+    @Autowired
     private UsersDB usersDB;
+    @Autowired
     private QuestionsDB questionsDB;
 
-    private static Connection connection;
-
-    public QuizDaoImpl() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "user", "user");
-        } catch (ClassNotFoundException | SQLException e) {
-
-            e.printStackTrace();
-            logger.info("Can not connect to data base");
-            throw new RuntimeException(e);
-        }
-
-        subjectsDB = new SubjectsDB(connection);
-        themesDB = new ThemesDB(connection);
-        usersDB = new UsersDB(connection);
-        questionsDB = new QuestionsDB(connection);
-    }
 
     @Override
     public List<SubjectQuiz> getAllQuizzesFromDB() {
         List<SubjectQuiz> result = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
+            Statement statement = Connector.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("Select id, login, subject, theme, questions from quizzes");
             while (resultSet.next()) {
 
@@ -89,7 +78,7 @@ public class QuizDaoImpl implements QuizDao {
 
         String query = "INSERT into quizzes(login, subject, theme) VALUES (?,?,?)";
         try {
-            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = Connector.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, usersDB.setToDB(quiz.getLogin()));
             statement.setInt(2, subjectsDB.setToDB(quiz.getSubject()));
@@ -105,7 +94,7 @@ public class QuizDaoImpl implements QuizDao {
 
             String questionsQuery = "UPDATE quizzes set questions = ? where id = ?";
 
-            PreparedStatement questionsStatement = connection.prepareStatement(questionsQuery);
+            PreparedStatement questionsStatement = Connector.getConnection().prepareStatement(questionsQuery);
 
             questionsStatement.setInt(1, auto_id);
             questionsStatement.setInt(2, auto_id);
@@ -128,7 +117,7 @@ public class QuizDaoImpl implements QuizDao {
         String query = "DELETE from quiz.quizzes WHERE id = ?";
 
         try {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = Connector.getConnection().prepareStatement(query);
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
@@ -141,7 +130,7 @@ public class QuizDaoImpl implements QuizDao {
 
         try {
             String query = "Select login, pwd from Users where login = ? AND pwd = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
             preparedStatement.setString(1, sessionLogin);
             preparedStatement.setString(2, sessionPwd);
 
@@ -159,7 +148,7 @@ public class QuizDaoImpl implements QuizDao {
 
         try {
             String query = "Select login from Users where login = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
             preparedStatement.setString(1, sessionLogin);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -181,7 +170,7 @@ public class QuizDaoImpl implements QuizDao {
         PreparedStatement statement;
 
         try {
-            statement = connection.prepareStatement("INSERT into Users(login, pwd, salt) VALUES (?,?,?)");
+            statement = Connector.getConnection().prepareStatement("INSERT into Users(login, pwd, salt) VALUES (?,?,?)");
 
             statement.setString(1, login);
             statement.setString(2, pwd);

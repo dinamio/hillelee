@@ -1,18 +1,18 @@
 package dao.impl.services;
 
+import dao.Connector;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 
+@Component
 public class SubjectsDB implements DataBaseAdapter {
-    private Connection connection;
-
-    public SubjectsDB(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public int setToDB(String value) throws SQLException {
         String query = "SELECT id from subjects where subject = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
+
+        PreparedStatement statement = Connector.getConnection().prepareStatement(query);
         statement.setString(1, value);
         ResultSet rs = statement.executeQuery();
 
@@ -25,7 +25,7 @@ public class SubjectsDB implements DataBaseAdapter {
     @Override
     public String getFromDB(int idFromQuiz) throws SQLException {
         String query = "Select subject from subjects where id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setInt(1, idFromQuiz);
         ResultSet rs = preparedStatement.executeQuery();
 

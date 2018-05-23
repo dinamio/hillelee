@@ -1,23 +1,22 @@
 package dao.impl.services;
 
-import java.sql.Connection;
+import dao.Connector;
+import org.springframework.stereotype.Component;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class QuestionsDB {
-    private Connection connection;
-
-    public QuestionsDB(Connection connection) {
-        this.connection = connection;
-    }
 
     public void setToDB(int id, Map<String, String> questions) throws SQLException {
 
         for (Map.Entry<String, String> entry : questions.entrySet()) {
-            PreparedStatement statement = connection.prepareStatement("INSERT into questions(quizid, question, answer) VALUES (?,?,?)");
+
+            PreparedStatement statement = Connector.getConnection().prepareStatement("INSERT into questions(quizid, question, answer) VALUES (?,?,?)");
             statement.setInt(1, id);
             statement.setString(2, entry.getKey());
             statement.setInt(3, getCorrectAnswer(entry.getValue()));
@@ -46,7 +45,7 @@ public class QuestionsDB {
         Map<String, String> result = new HashMap<>();
 
         String query = "Select question, answer from questions where quizid = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setInt(1, idFromQuiz);
         ResultSet rs = preparedStatement.executeQuery();
 
