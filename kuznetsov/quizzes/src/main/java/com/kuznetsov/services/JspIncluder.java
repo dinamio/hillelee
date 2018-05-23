@@ -1,5 +1,7 @@
 package services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import servlets.QuizServlet;
 
 import javax.servlet.RequestDispatcher;
@@ -9,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-
+@Component
 public class JspIncluder {
     Logger logger = Logger.getLogger(QuizServlet.class.getName());
-    private QuizServices services = QuizServices.getInstance();
+
+    @Autowired
+    private QuizServices services;
 
     public void includeJspToPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher logoutButton = req.getRequestDispatcher("/view/logOutButton.jsp");

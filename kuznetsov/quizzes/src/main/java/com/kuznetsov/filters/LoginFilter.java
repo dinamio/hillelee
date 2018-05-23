@@ -1,6 +1,9 @@
 package filters;
 
 import dao.impl.QuizDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,16 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
+@Component
 @WebFilter("/quiz")
 public class LoginFilter implements Filter {
 
+    @Autowired
     private QuizDaoImpl quizDao;
 
     @Override
     public void init(FilterConfig filterConfig) {
-        quizDao = new QuizDaoImpl();
-    }
+
+
+           /* super.init(config);*/
+            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                    filterConfig.getServletContext());
+        }
+
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

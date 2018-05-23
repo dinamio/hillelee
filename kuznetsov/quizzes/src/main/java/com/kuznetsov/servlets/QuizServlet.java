@@ -1,10 +1,12 @@
 package servlets;
 
-import dao.impl.QuizDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import services.JspIncluder;
 import services.QuestionAggregator;
 import services.QuizServices;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +17,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
     private Logger logger = Logger.getLogger(QuizServlet.class.getName());
-    private QuizServices services = QuizServices.getInstance();
-    private JspIncluder jspIncluder = new JspIncluder();
+    @Autowired
+    private QuizServices services;
+    @Autowired
+    private JspIncluder jspIncluder;
+    @Autowired
+    private QuestionAggregator questionAggregator;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,8 +50,6 @@ public class QuizServlet extends HttpServlet {
 
             String subject = req.getParameter("Subject");
             String sessionLogin = (req.getSession().getAttribute("login")).toString();
-            String sessionPwd = (req.getSession().getAttribute("pwd")).toString();
-            QuestionAggregator questionAggregator = new QuestionAggregator();
 
             Map<String, String> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));
             services.addNewQuiz(subject, theme, sessionLogin, questionMap);

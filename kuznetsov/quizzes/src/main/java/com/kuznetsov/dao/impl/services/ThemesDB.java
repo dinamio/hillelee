@@ -1,18 +1,21 @@
 package dao.impl.services;
 
-import java.sql.*;
+import dao.Connector;
+import org.springframework.stereotype.Component;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+@Component
 public class ThemesDB implements DataBaseAdapter {
-    private Connection connection;
-
-    public ThemesDB(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public int setToDB(String value) throws SQLException {
         String query = "INSERT into themes(theme) VALUES (?)";
-        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+        PreparedStatement statement = Connector.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, value);
         statement.executeUpdate();
 
@@ -26,7 +29,7 @@ public class ThemesDB implements DataBaseAdapter {
     @Override
     public String getFromDB(int idFromQuiz) throws SQLException {
         String query = "Select theme from themes where id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setInt(1, idFromQuiz);
         ResultSet rs = preparedStatement.executeQuery();
 

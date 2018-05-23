@@ -3,28 +3,22 @@ package services;
 
 import dao.impl.QuizDaoImpl;
 import enteties.SubjectQuiz;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+@Component
 public class QuizServices {
     private Logger logger = Logger.getLogger(QuizServices.class.getName());
-    private QuizDaoImpl quizDao = new QuizDaoImpl();
 
-    private static QuizServices instance;
+    @Autowired
+    private QuizDaoImpl quizDao;
+
     private List<SubjectQuiz> subjectQuizList = new ArrayList<>();
-
-    private QuizServices() {
-    }
-
-    public static QuizServices getInstance() {
-        if (instance == null) {
-            instance = new QuizServices();
-        }
-        return instance;
-    }
 
     List<SubjectQuiz> getSubjectQuizList() {
         return quizDao.getAllQuizzesFromDB();
