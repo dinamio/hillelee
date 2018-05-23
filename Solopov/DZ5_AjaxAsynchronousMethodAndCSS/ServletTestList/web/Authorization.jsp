@@ -12,7 +12,7 @@
 <div class="container">
     <div class="mainblock">
 
-        <form action="/auth">
+        <form action="/auth" method="post">
 
             <label><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
