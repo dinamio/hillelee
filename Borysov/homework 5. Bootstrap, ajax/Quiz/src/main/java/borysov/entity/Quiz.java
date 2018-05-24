@@ -1,9 +1,20 @@
 package borysov.entity;
 
 public class Quiz {
+
+    private int id;
     private String nameOfSubject;
     private String theme;
     private String author;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNameOfSubject() {
         return nameOfSubject;

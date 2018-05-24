@@ -29,5 +29,20 @@
         <url-pattern>/mainPage.jsp</url-pattern>
         <url-pattern>/showQuizzes.jsp</url-pattern>
     </filter-mapping>
+
+    <listener>
+        <listener-class>borysov.listener.ContextListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
 </web-app>
 

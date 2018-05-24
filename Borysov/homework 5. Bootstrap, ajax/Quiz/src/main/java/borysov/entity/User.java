@@ -4,9 +4,18 @@ import java.util.List;
 
 public class User {
 
+    private int id;
     private String login;
     private String password;
-    private String email;
+    private String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
@@ -24,18 +33,18 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public User(String login, String password, String email) {
+    public User(String login, String password, String name) {
         this.login = login;
         this.password = password;
-        this.email = email;
+        this.name = name;
     }
 
 
@@ -47,7 +56,7 @@ public class User {
         return "User{" +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
