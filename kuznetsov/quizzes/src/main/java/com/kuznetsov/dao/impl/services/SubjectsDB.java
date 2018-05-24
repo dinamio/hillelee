@@ -9,7 +9,7 @@ import java.sql.*;
 public class SubjectsDB implements DataBaseAdapter {
 
     @Override
-    public int setToDB(String value) throws SQLException {
+    public int addNewEntryToTable(String value) throws SQLException {
         String query = "SELECT id from subjects where subject = ?";
 
         PreparedStatement statement = Connector.getConnection().prepareStatement(query);
@@ -23,7 +23,7 @@ public class SubjectsDB implements DataBaseAdapter {
     }
 
     @Override
-    public String getFromDB(int idFromQuiz) throws SQLException {
+    public String getEntryFromTable(int idFromQuiz) throws SQLException {
         String query = "Select subject from subjects where id = ?";
         PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setInt(1, idFromQuiz);

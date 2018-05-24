@@ -3,7 +3,7 @@ package dao.impl.services;
 import java.sql.SQLException;
 
 public interface DataBaseAdapter {
-    int setToDB(String value) throws SQLException;
+    int addNewEntryToTable(String value) throws SQLException;
 
-    Object getFromDB(int i) throws SQLException;
+    Object getEntryFromTable(int i) throws SQLException;
 }

@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class ThemesDB implements DataBaseAdapter {
 
     @Override
-    public int setToDB(String value) throws SQLException {
+    public int addNewEntryToTable(String value) throws SQLException {
         String query = "INSERT into themes(theme) VALUES (?)";
 
         PreparedStatement statement = Connector.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -27,7 +27,7 @@ public class ThemesDB implements DataBaseAdapter {
     }
 
     @Override
-    public String getFromDB(int idFromQuiz) throws SQLException {
+    public String getEntryFromTable(int idFromQuiz) throws SQLException {
         String query = "Select theme from themes where id = ?";
         PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
         preparedStatement.setInt(1, idFromQuiz);

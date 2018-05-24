@@ -41,15 +41,15 @@ public class QuizDaoImpl implements QuizDao {
                 int questions = resultSet.getInt("questions");
 
                 String sLogin = null;
-                Map<String, String> credentials = usersDB.getFromDB(login);
+                Map<String, String> credentials = usersDB.getEntryFromTable(login);
                 if (credentials != null) {
                     for (Map.Entry<String, String> entry : credentials.entrySet()) {
                         sLogin = entry.getKey();
                     }
                 }
 
-                String sSubject = (String) subjectsDB.getFromDB(subject);
-                String sTheme = (String) themesDB.getFromDB(theme);
+                String sSubject = (String) subjectsDB.getEntryFromTable(subject);
+                String sTheme = (String) themesDB.getEntryFromTable(theme);
                 Map<String, String> mQuestions = questionsDB.getFromDB(questions);
 
                 SubjectQuiz quiz = new SubjectQuiz();
@@ -80,9 +80,9 @@ public class QuizDaoImpl implements QuizDao {
         try {
             PreparedStatement statement = Connector.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setInt(1, usersDB.setToDB(quiz.getLogin()));
-            statement.setInt(2, subjectsDB.setToDB(quiz.getSubject()));
-            statement.setInt(3, themesDB.setToDB(quiz.getTheme()));
+            statement.setInt(1, usersDB.addNewEntryToTable(quiz.getLogin()));
+            statement.setInt(2, subjectsDB.addNewEntryToTable(quiz.getSubject()));
+            statement.setInt(3, themesDB.addNewEntryToTable(quiz.getTheme()));
 
             statement.executeUpdate();
 

@@ -15,7 +15,7 @@ public class UsersDB implements DataBaseAdapter {
 
 
     @Override
-    public int setToDB(String value) throws SQLException {
+    public int addNewEntryToTable(String value) throws SQLException {
 
         String query = "Select id from users where login = ?";
 
@@ -29,7 +29,7 @@ public class UsersDB implements DataBaseAdapter {
     }
 
 
-    public Map<String, String> getFromDB(int idFromQuiz) {
+    public Map<String, String> getEntryFromTable(int idFromQuiz) {
 
         Map<String, String> result = new HashMap<>();
         String query = "Select login, pwd from Users where id = ?";
