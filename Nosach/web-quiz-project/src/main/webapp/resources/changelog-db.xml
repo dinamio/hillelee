@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="nosach">
+        <createTable tableName="subjects">
+            <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="subject" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="nosach">
+    <createTable tableName="quizzies">
+        <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+            <constraints primaryKey="true" nullable="false" unique="true"/>
+        </column>
+        <column name="theme" type="varchar(100)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="author" type="varchar(100)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="subjects_id" type="int">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+    </createTable>
+    <createIndex
+            indexName="fk_quizzies_subjects_idx"
+            tableName="quizzies">
+        <column name="subjects_id" type="int"/>
+    </createIndex>
+    <addForeignKeyConstraint baseColumnNames="subjects_id"
+                             baseTableName="quizzies"
+                             constraintName="fk_quizzies_subjects"
+                             onDelete="CASCADE"
+                             referencedColumnNames="id"
+                             referencedTableName="subjects"/>
+    </changeSet>
+
+    <changeSet id="3" author="nosach">
+        <createTable tableName="questions">
+            <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="issue" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quiz_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex
+                indexName="fk_quiestions_quizzies_idx"
+                tableName="questions">
+            <column name="quiz_id" type="int"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="quiz_id"
+                                 baseTableName="questions"
+                                 constraintName="fk_quiestions_quizzies"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="quizzies"/>
+    </changeSet>
+
+    <changeSet id="4" author="nosach">
+        <createTable tableName="answers">
+            <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="answer" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="correct" type="tinyint(4)" value="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex
+                indexName="fk_answers_quiestions1_id"
+                tableName="answers">
+            <column name="question_id" type="int"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="answers"
+                                 constraintName="fk_answers_quiestions"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questions"/>
+    </changeSet>
+
+    <changeSet id="5" author="nosach">
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="login" type="varchar(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

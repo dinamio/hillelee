@@ -3,12 +3,16 @@ package service;
 import dao.SubjectDAO;
 import dao.SubjectDAOImpl;
 import entity.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class SubjectService {
 
-    SubjectDAO sd = new SubjectDAOImpl();
+    @Autowired
+    SubjectDAO sd;
 
     public int addSubject(Subject subject) {
         return sd.addSubject(subject);

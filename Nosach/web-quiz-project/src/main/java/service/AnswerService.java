@@ -5,12 +5,16 @@ import dao.AnswerDAO;
 import dao.AnswerDAOImpl;
 import entity.Answer;
 import entity.Question;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AnswerService {
 
-    AnswerDAO ad = new AnswerDAOImpl();
+    @Autowired
+    AnswerDAO ad;
 
     public int addAnswer(Answer answer, int questId) {
         return ad.addAnswer(answer, questId);

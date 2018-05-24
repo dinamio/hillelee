@@ -3,12 +3,16 @@ package service;
 import dao.QuizDAO;
 import dao.QuizDAOImpl;
 import entity.Quiz;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class QuizService {
 
-    QuizDAO qd = new QuizDAOImpl();
+    @Autowired
+    QuizDAO qd;
 
     public int addQuiz(Quiz quiz, int subjId){
          return qd.addQuiz(quiz, subjId);

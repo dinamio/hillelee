@@ -3,8 +3,10 @@ package filters;
 
 import entity.User;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.UserService;
 
 import javax.servlet.*;
@@ -18,9 +20,13 @@ public class AuthorizationFilter implements Filter{
 
     private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
 
+    @Autowired
+    UserService us;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException { }
+    public void init(FilterConfig filterConfig) throws ServletException {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, filterConfig.getServletContext());
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -79,7 +85,6 @@ public class AuthorizationFilter implements Filter{
             return true;
         }
 
-        UserService us = new UserService();
         User user = us.getUser(login);
 
         if (user ==null){

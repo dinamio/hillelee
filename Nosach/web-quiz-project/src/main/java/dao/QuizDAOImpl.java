@@ -4,15 +4,21 @@ import dao.connector.DBConnector;
 import entity.Quiz;
 import entity.Subject;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import service.SubjectService;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class QuizDAOImpl implements QuizDAO {
 
     private static final Logger logger = Logger.getLogger(QuizDAOImpl.class);
+
+    @Autowired
+    SubjectService ss;
 
     @Override
     public int addQuiz(Quiz quiz, int subjId) {
@@ -60,7 +66,6 @@ public class QuizDAOImpl implements QuizDAO {
                 return null;
             }
             else {
-                SubjectService ss = new SubjectService();
                 Subject subj = ss.getSubject(rs.getInt("subjects_id"));
 
                 return new Quiz(subj, rs.getString("theme"), rs.getString("author"));
@@ -76,8 +81,6 @@ public class QuizDAOImpl implements QuizDAO {
     public List<Quiz> getAllQuizzies() {
         Connection  conn = DBConnector.getConnection();
         List<Quiz> listOfQuizzies = new ArrayList<>();
-        SubjectService ss = new SubjectService();
-
         try {
             String query = "SELECT * FROM quizzies";
             PreparedStatement ps = conn.prepareStatement(query);
