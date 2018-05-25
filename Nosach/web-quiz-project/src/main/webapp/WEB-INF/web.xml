@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app
+        version="3.0"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!-- Listeners -->
+
+    <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>listeners.ContextListener</listener-class>
+  </listener>
+  
+  <!--  Filters -->
+
+  <filter>
+    <filter-name>Autorization</filter-name>
+    <filter-class>filters.AuthorizationFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>Autorization</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--  Servlets -->
+
+  <servlet>
+    <servlet-name>ListOfQuizzes</servlet-name>
+    <servlet-class>servlet.QuizListServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AddQuiz</servlet-name>
+    <servlet-class>servlet.QuizAddServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>DeleteQuiz</servlet-name>
+    <servlet-class>servlet.QuizDeleteServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Authorization</servlet-name>
+    <servlet-class>servlet.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>servlet.LogoutServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>servlet.RegisterServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Question</servlet-name>
+    <servlet-class>servlet.QuestionAddServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ListOfQuizzes</servlet-name>
+    <url-pattern>/list</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AddQuiz</servlet-name>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>DeleteQuiz</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Authorization</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Question</servlet-name>
+    <url-pattern>/question</url-pattern>
+  </servlet-mapping>
+
+</web-app>

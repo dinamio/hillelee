@@ -1,0 +1,122 @@
+body {
+    padding-top: 50px;
+}
+
+
+h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+}
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
+}
+
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+    margin-left: 0;
+}
+
+.sidebar .nav-link {
+    border-radius: 0;
+}
+
+.account-name{
+    margin-left: 20px;
+    color: #eeeeee;
+    font-size: 20px;
+}
+
+.account-name > a {
+    color: #eeeeee;
+    font-size: 20px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.placeholders {
+    padding-bottom: 3rem;
+}
+
+.placeholder img {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.form-control {
+    min-height: 41px;
+    box-shadow: none;
+    border-color: #e6e6e6;
+}
+.form-control:focus {
+    border-color: #00c1c0;
+}
+.form-control, .btn {
+    border-radius: 3px;
+}
+.signup-form {
+    width: 65%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.signup-form h2 {
+    color: #333;
+    font-weight: bold;
+    margin: 0 0 25px;
+}
+.signup-form form {
+    margin-bottom: 15px;
+    background: #fff;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 40px 50px;
+}
+.signup-form .form-group {
+    margin-bottom: 20px;
+}
+.signup-form label {
+    font-weight: normal;
+    font-size: 13px;
+}
+.signup-form input[type="checkbox"] {
+    margin-top: 2px;
+}
+.signup-form .btn {
+    width: 20%;
+    font-size: 16px;
+    font-weight: bold;
+    background: #497bc1;
+    border: none;
+    min-width: 140px;
+    outline: none !important;
+}
+.signup-form .btn:hover, .signup-form .btn:focus {
+    background: #00b3b3;
+}
+.signup-form a {
+    color: #00c1c0;
+    text-decoration: none;
+}
+.signup-form a:hover {
+    text-decoration: underline;
+}

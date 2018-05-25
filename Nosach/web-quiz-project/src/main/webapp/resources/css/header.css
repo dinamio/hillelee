@@ -1,0 +1,28 @@
+.header {
+    background: #f0f0f0;
+    height: 30px;
+    /*outline: 2px solid #000;*/
+    font-size: 20px;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+.account{
+    float:left;
+    margin-left:10px;
+    text-align:center
+}
+
+.logout{
+    float:left;
+    margin-left:25px;
+    text-align:center
+}
+
+.form-control {
+    font-size: 18px;
+}
+
+.btn {
+    font-size: 18px;
+}
