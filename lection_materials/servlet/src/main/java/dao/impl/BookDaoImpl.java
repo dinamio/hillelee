@@ -37,7 +37,7 @@ public class BookDaoImpl implements BookDao {
             while (resultSet.next()) {
                 Book book = new Book();
                 book.setId(resultSet.getInt("id"));
-                book.setName(resultSet.getString("title"));
+                book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
                 result.add(book);
             }
@@ -58,5 +58,17 @@ public class BookDaoImpl implements BookDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.execute("delete from book where id = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

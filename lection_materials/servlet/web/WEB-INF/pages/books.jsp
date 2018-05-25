@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Books</title>
@@ -18,6 +19,7 @@
         <th>Id</th>
         <th>Book</th>
         <th>Author</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -26,23 +28,26 @@
             <td>${book.id}</td>
             <td>${book.name}</td>
             <td>${book.author}</td>
+            <td><input type="button" class="my-button btn-danger" book-id="${book.id}" value="Удалить">
+                <a href="/book/${book.id}/edit" class="my-button btn-danger" >Редактировать</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<form action="/book" method="post">
+<form:form action="/book" method="post" modelAttribute="bookToAdd">
     <input name="title">
     <input name="author">
     <input type="submit" value="Создать">
-</form>
-<input type="button" class="my-button" value="Добавить случайную книгу">
+</form:form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".my-button").click(function () {
+            var bookId = $(this).attr("book-id");
             $.ajax({
-                type: "POST",
-                url: "/book",
+                type: "DELETE",
+                url: "/book/"+bookId,
                 success: function () {
                     location.reload();
                 }

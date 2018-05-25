@@ -12,4 +12,6 @@ public interface BookDao {
     List<Book> getAllBooks();
 
     void insert(Book book);
+
+    void delete(Integer id);
 }

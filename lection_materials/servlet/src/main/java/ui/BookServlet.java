@@ -3,7 +3,6 @@ package ui;
 import entity.Book;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.BookService;
 
@@ -25,9 +24,6 @@ public class BookServlet extends HttpServlet {
     @Autowired
     BookService bookService;
 
-    @Autowired
-    ApplicationContext applicationContext;
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -40,7 +36,7 @@ public class BookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().print("<h1>Библиотека</h1>");
         req.setAttribute("books", bookService.getBooks());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/books.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/pages//books.jsp");
         requestDispatcher.include(req, resp);
     }
 
