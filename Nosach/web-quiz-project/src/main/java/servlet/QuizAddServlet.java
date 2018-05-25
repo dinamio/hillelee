@@ -2,11 +2,14 @@ package servlet;
 
 import entity.Quiz;
 import entity.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.QuizService;
 import service.SubjectService;
 import service.builder.QuizBuilder;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +20,22 @@ import java.util.List;
 
 public class QuizAddServlet extends HttpServlet {
 
+    @Autowired
+    SubjectService ss;
+
+    @Autowired
+    QuizBuilder quizBuilder;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Subject> subjects = new SubjectService().getAllSubjects();
+        List<Subject> subjects = ss.getAllSubjects();
         req.setAttribute("subjects", subjects);
 
         RequestDispatcher rd = req.getRequestDispatcher("/view/quiz-page.jsp");
@@ -31,13 +45,11 @@ public class QuizAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        QuizBuilder quizBuilder;
         HttpSession session = req.getSession();
+
         if(session.getAttribute("builder") == null){
-            quizBuilder = new QuizBuilder();
+            quizBuilder.clean();
             session.setAttribute("builder", quizBuilder);
-        }else{
-            quizBuilder = (QuizBuilder) session.getAttribute("builder");
         }
 
         String subject;

@@ -2,6 +2,7 @@ package listeners;
 
 import dao.connector.DBConnector;
 import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
