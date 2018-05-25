@@ -30,14 +30,15 @@ public class AuthenticationServlet extends HttpServlet {
         String login = req.getParameter(Service.PARAM_NAME_LOGIN);
         String password = req.getParameter(Service.PARAM_NAME_PASSWORD);
 
-        if (Service.isEmptyParameters(login, password)) {
+        if (Service.validateEmptyParameters(login, password)) {
             Service.forwardWithErrorMessage(req, resp, LOGIN_PAGE,  Service.ERROR_EMPTY_LOGIN_PASS_MESSAGE);
         } else if (!userService.isUserAccountFound(login, password)) {
             Service.forwardWithErrorMessage(req, resp, LOGIN_PAGE, Service.ERROR_LOGIN_PASS_MESSAGE);
-        } else {
-            session.setAttribute("userID", session.getId());
-            session.setAttribute("login", login);
-            resp.sendRedirect("/quiz");
         }
+
+        session.setAttribute("userID", session.getId());
+        session.setAttribute("login", login);
+        resp.sendRedirect("/quiz");
+
     }
 }

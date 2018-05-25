@@ -25,7 +25,6 @@ public class QuizServlet extends HttpServlet {
 
         switch (action == null ? "add" : action) {
             case "add":
-                req.setAttribute("size", quizService.getQuizList().size());
                 req.getRequestDispatcher(ADD_QUIZ_PAGE).include(req, resp);
                 break;
             case "view":
@@ -47,7 +46,6 @@ public class QuizServlet extends HttpServlet {
                 String user = req.getSession().getAttribute("login").toString();
 
                 quizService.addQuiz(new Quiz(subject, topic, user));
-                req.setAttribute("size", quizService.getQuizList().size());
                 resp.sendRedirect("/quiz?action=add");
                 break;
             case "delete":

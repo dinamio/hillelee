@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
-    public static final String REGISTRATION_PAGE = "/registration.jsp";
+    private static final String REGISTRATION_PAGE = "/registration.jsp";
 
     private static UserService userService = UserService.getInstance();
 
@@ -29,13 +29,14 @@ public class RegistrationServlet extends HttpServlet {
         String login = req.getParameter(Service.PARAM_NAME_LOGIN);
         String password = req.getParameter(Service.PARAM_NAME_PASSWORD);
 
-        if (Service.isEmptyParameters(name, login, password)) {
+        if (Service.validateEmptyParameters(name, login, password)) {
             Service.forwardWithErrorMessage(req, resp, REGISTRATION_PAGE, Service.ERROR_EMPTY_LOGIN_PASS_MESSAGE);
-        } else if (userService.isLoginExist(login)) {
+        } else if (userService.validateUserExists(login)) {
             Service.forwardWithErrorMessage(req, resp, REGISTRATION_PAGE, Service.ERROR_LOGIN_EXIST_MESSAGE);
-        } else {
-            userService.addUser(new User(name, login, password));
-            resp.sendRedirect("/authentication");
         }
+
+        userService.addUser(new User(name, login, password));
+        resp.sendRedirect("/authentication");
+
     }
 }

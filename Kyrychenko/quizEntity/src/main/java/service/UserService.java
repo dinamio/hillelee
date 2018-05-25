@@ -25,7 +25,7 @@ public class UserService {
         return userList.stream().anyMatch(user -> user.getLogin().equals(login) && user.getPassword().equals(password));
     }
 
-    public boolean isLoginExist(String login) {
+    public boolean validateUserExists(String login) {
         return userList.stream().anyMatch(user -> user.getLogin().equals(login));
     }
 

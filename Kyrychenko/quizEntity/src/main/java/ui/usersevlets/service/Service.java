@@ -37,7 +37,7 @@ public class Service {
         request.getRequestDispatcher(page).forward(request, response);
     }
 
-    public static boolean isEmptyParameters(String... parameters) {
+    public static boolean validateEmptyParameters(String... parameters) {
         return Arrays.stream(parameters).anyMatch(String::isEmpty);
     }
 }
