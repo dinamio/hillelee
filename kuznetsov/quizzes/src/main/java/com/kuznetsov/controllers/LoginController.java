@@ -1,44 +1,32 @@
-package servlets;
+package controllers;
 
 import dao.impl.QuizDaoImpl;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-//@WebServlet("")
-public class LoginServlet extends HttpServlet {
+@RequestMapping(value = "/")
+
+public class LoginController {
 
     @Autowired
     private QuizDaoImpl quizDao;
 
-    /*@Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-                config.getServletContext());
-    }*/
-
-
-    /*@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {*/
-
     @RequestMapping(method = GET, value = "")
-            public void getLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+    public void getLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
 
@@ -49,11 +37,9 @@ public class LoginServlet extends HttpServlet {
         loginDispatcher.include(servletRequest, servletResponse);
     }
 
-    /*@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {*/
 
-    @RequestMapping(method = POST,value = "")
-            public void postLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
+    @RequestMapping(method = POST, value = "")
+    public void postLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
@@ -82,7 +68,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             String wrongMessage = "<p>Username already exist</p>";
             req.getSession().setAttribute("wrongMessage", wrongMessage);
-            doGet(req, resp);
+            getLogin(req, resp);
         }
     }
 
@@ -104,7 +90,7 @@ public class LoginServlet extends HttpServlet {
     private void setWrongMessage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
         req.getSession().setAttribute("wrongMessage", wrongMessage);
-        doGet(req, resp);
+        getLogin(req, resp);
     }
 
     private void login(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -2,7 +2,7 @@ package services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import servlets.QuizServlet;
+import controllers.QuizController;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 @Component
 public class JspIncluder {
-    Logger logger = Logger.getLogger(QuizServlet.class.getName());
+    Logger logger = Logger.getLogger(QuizController.class.getName());
 
     @Autowired
     private QuizServices services;

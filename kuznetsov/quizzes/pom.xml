@@ -108,6 +108,13 @@
             <version>${spring-version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>7.0.86</version>
+        </dependency>
+
 
     </dependencies>
 </project>
