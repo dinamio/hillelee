@@ -51,7 +51,7 @@
                     </thead>
                     <tbody>
                     <c:set var = "id" scope = "page" value = "${1}"/>
-                        <c:forEach var="quiz" items="${quizzes}">
+                        <c:forEach var="quiz" items="${quizzies}">
                             <tr>
                                 <td>${id} </td>
                                 <td>${quiz.getSubject().getSubjectName()}</td>

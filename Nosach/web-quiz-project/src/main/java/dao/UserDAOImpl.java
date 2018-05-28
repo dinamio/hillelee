@@ -17,11 +17,8 @@ public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
-    public UserDAOImpl() {
-    }
-
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         Connection con = DBConnector.getConnection();
         try {
             String query = "INSERT into USERS (login, password, name, email) VALUES (?, ?, ?, ?)";
@@ -34,9 +31,11 @@ public class UserDAOImpl implements UserDAO {
             logger.info("Adding user "+user.getLogin()+" to db");
 
             ps.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

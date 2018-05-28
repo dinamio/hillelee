@@ -4,7 +4,7 @@ import entity.User;
 
 public interface UserDAO {
 
-    public void addUser (User user);
+    public boolean addUser (User user);
 
     public User getUser (String login);
 }
