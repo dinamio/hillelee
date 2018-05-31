@@ -4,6 +4,8 @@ import entity.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import service.UserService;
@@ -21,19 +23,16 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(method = GET, value = "register")
-    public String getRegistrationPage() {
+    public String getRegistrationPage(Model model) {
+        model.addAttribute("user", new User());
         return "register-page";
     }
 
     @RequestMapping(method = POST, value = "register")
-    public String doRegistration(WebRequest req, HttpSession session) {
-        String login = req.getParameter("login");
-        String pass = req.getParameter("pass");
-        String email = req.getParameter("email");
-        String name = req.getParameter("name");
+    public String doRegistration(WebRequest req, HttpSession session, @ModelAttribute("user") User user) {
 
-        if(userService.addUser(new User(login, pass, name, email))){
-            session.setAttribute("login", login);
+        if(userService.addUser(user)){
+            session.setAttribute("login", user.getLogin());
             session.setAttribute("authorized", "true");
             return "redirect:list";
         }
