@@ -1,9 +1,11 @@
 package controllers;
 
 import dao.impl.QuizDaoImpl;
+import enteties.SubjectQuiz;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
@@ -39,16 +41,14 @@ public class LoginController {
 
 
     @RequestMapping(method = POST, value = "")
-    public void postLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
+        public void postLogin (@ModelAttribute("subjectQuiz") SubjectQuiz subjectQuiz, ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-
-        String buttonType = req.getParameter("submit");
-        String login = req.getParameter("login");
-        String pwd = req.getParameter("pwd");
-
+        String buttonType = subjectQuiz.getSubmit();
+        String login = subjectQuiz.getLogin();
+        String pwd = subjectQuiz.getPwd();
 
         if (buttonType.equals("Sign up")) {
             signUp(login, pwd, req, resp);

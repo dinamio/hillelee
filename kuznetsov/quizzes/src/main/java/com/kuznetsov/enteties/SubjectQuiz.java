@@ -1,6 +1,5 @@
 package enteties;
 
-import java.util.List;
 import java.util.Map;
 
 public class SubjectQuiz {
@@ -8,6 +7,8 @@ public class SubjectQuiz {
     private String subject;
     private String theme;
     private String login;
+    private String submit;
+    private String pwd;
     private int id;
     private Map<String, String> questionMap;
 
@@ -60,5 +61,21 @@ public class SubjectQuiz {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(String submit) {
+        this.submit = submit;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 }
