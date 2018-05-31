@@ -1,5 +1,7 @@
 package entity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
 public class User {
@@ -8,6 +10,8 @@ public class User {
     private String password;
     private String name;
     private String email;
+
+    public User() { }
 
     public User(String login, String password, String name, String email) {
         this.login = login;

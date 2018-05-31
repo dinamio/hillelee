@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,14 +22,14 @@
             </div>
         </div>
         <div class="main-login main-center">
-            <form class="form-horizontal" method="post" action="/register">
+            <form:form class="form-horizontal" method="post" action="/register" modelAttribute="user">
 
                 <div class="form-group">
                     <label for="name" class="cols-sm-2 control-label">Your Name</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+                            <form:input type="text" class="form-control" path="name" id="name"  placeholder="Enter your Name"/>
                         </div>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+                            <form:input type="text" class="form-control" path="email" id="email"  placeholder="Enter your Email"/>
                         </div>
                     </div>
                 </div>
@@ -48,7 +49,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="login" id="username"  placeholder="Enter your Username"/>
+                            <form:input type="text" class="form-control" path="login" id="username"  placeholder="Enter your Username"/>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" name="pass" id="password"  placeholder="Enter your Password" required="required"/>
+                            <form:password class="form-control" path="password" id="password"  placeholder="Enter your Password" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                 <div class="form-group ">
                     <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
                 </div>
-            </form>
+            </form:form>
         </div>
     </div>
 </div>

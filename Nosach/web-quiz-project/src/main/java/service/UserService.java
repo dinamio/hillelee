@@ -15,10 +15,10 @@ public class UserService {
     @Autowired
     UserDAO userDAO;
 
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        userDAO.addUser(user);
+        return userDAO.addUser(user);
     }
 
     public User getUser(String login) {
