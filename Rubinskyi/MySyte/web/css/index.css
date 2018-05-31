@@ -1,0 +1,40 @@
+.global_wrapper{
+    background: Beige;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.header{
+    height: 5%;
+}
+
+.hello_user{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.main_content{
+    width: 90%;
+    height: 85%;
+    padding-left: 43%;
+}
+
+.hello_user{
+    display: inline-block;
+}
+
+.user_name{
+    display: inline-block;
+}
+
+.table {
+    width: auto;
+}
+
+.footer{
+    height: 10%;
+    background: antiquewhite;
+}
