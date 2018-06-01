@@ -35,7 +35,7 @@
     </tbody>
 </table>
 <form:form action="/book" method="post" modelAttribute="bookToAdd">
-    <input name="title">
+    <input name="name">
     <input name="author">
     <input type="submit" value="Создать">
 </form:form>

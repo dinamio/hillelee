@@ -1,12 +1,19 @@
 package entity;
 
+import javax.persistence.*;
+
 /**
  * Created by eugen on 5/11/18.
  */
+@Entity
+@Table(name = "book")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Column(name = "title")
     String name;
 
     String author;
@@ -37,7 +44,7 @@ public class Book {
         return name;
     }
 
-    public void setTitle(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

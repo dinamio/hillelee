@@ -12,6 +12,7 @@ import service.BookService;
  * Created by eugen on 5/25/18.
  */
 @Controller
+//@ResponseBody
 @RequestMapping("/book")
 public class BookController {
 
@@ -26,9 +27,9 @@ public class BookController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{book_id}")
-    public String getBook(@PathVariable("book_id") Integer id) {
+    public Book getBook(@PathVariable("book_id") Integer id) {
         Book result = bookService.getBooks().stream().filter(book -> book.getId().equals(id)).findFirst().get();
-        return result.toString();
+        return result;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "")
