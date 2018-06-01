@@ -25,18 +25,15 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String name = req.getParameter(Service.PARAM_NAME_USERNAME);
+        String fullName = req.getParameter(Service.PARAM_NAME_FULL_USER_NAME);
         String login = req.getParameter(Service.PARAM_NAME_LOGIN);
         String password = req.getParameter(Service.PARAM_NAME_PASSWORD);
 
-        if (Service.validateEmptyParameters(name, login, password)) {
-            Service.forwardWithErrorMessage(req, resp, REGISTRATION_PAGE, Service.ERROR_EMPTY_LOGIN_PASS_MESSAGE);
-        } else if (userService.validateUserExists(login)) {
+        if (userService.validateUserExists(login)) {
             Service.forwardWithErrorMessage(req, resp, REGISTRATION_PAGE, Service.ERROR_LOGIN_EXIST_MESSAGE);
         }
 
-        userService.addUser(new User(name, login, password));
+        userService.addUser(new User(fullName, login, password));
         resp.sendRedirect("/authentication");
-
     }
 }

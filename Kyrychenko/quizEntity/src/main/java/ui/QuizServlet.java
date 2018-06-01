@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 
 @WebServlet("/quiz")
 public class QuizServlet extends HttpServlet {
@@ -21,7 +20,6 @@ public class QuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        req.getRequestDispatcher("/logout").include(req, resp);
 
         switch (action == null ? "add" : action) {
             case "add":
@@ -37,27 +35,28 @@ public class QuizServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String action = req.getParameter("action");
+        String subject = req.getParameter("subject");
+        String topic = req.getParameter("topic");
+        String user = req.getSession().getAttribute("login").toString();
 
-        switch (action == null ? "add" : action) {
-            case "add":
-                String subject = req.getParameter("subject");
-                String topic = req.getParameter("topic");
-                String user = req.getSession().getAttribute("login").toString();
+        quizService.addQuiz(new Quiz(subject, topic, user));
+        resp.sendRedirect("/quiz");
+    }
 
-                quizService.addQuiz(new Quiz(subject, topic, user));
-                resp.sendRedirect("/quiz?action=add");
-                break;
-            case "delete":
-                Arrays.stream(req.getParameterValues("id"))
-                        .mapToInt(Integer::parseInt)
-                        .forEach(id -> quizService.deleteQuiz(id));
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //todo: create .sql table
+        Integer id = Integer.parseInt(req.getParameter("quizID"));
+        String subject = req.getParameter("subject");
+        String topic = req.getParameter("topic");
+        String user = req.getSession().getAttribute("login").toString();
 
-                resp.sendRedirect("/quiz?action=view");
-                break;
-            default:
-                doGet(req, resp);
-                break;
-        }
+        quizService.update(new Quiz(id, subject, topic, user));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        quizService.deleteQuiz(Integer.parseInt(req.getParameter("quizID")));
     }
 }
