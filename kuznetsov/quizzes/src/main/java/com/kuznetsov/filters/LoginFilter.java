@@ -22,8 +22,6 @@ public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
 
-
-           /* super.init(config);*/
             SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
                     filterConfig.getServletContext());
         }
