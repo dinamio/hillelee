@@ -16,6 +16,13 @@ public class Quiz {
         this.author = author;
     }
 
+    public Quiz(int id, String subject, String topic, String author) {
+        this.id = id;
+        this.subject = subject;
+        this.topic = topic;
+        this.author = author;
+    }
+
     public String getSubject() {
         return subject;
     }

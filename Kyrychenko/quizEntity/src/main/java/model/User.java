@@ -3,22 +3,22 @@ package model;
 import java.util.Objects;
 
 public class User {
-    private String name;
+    private String fullName;
     private String login;
     private String password;
 
-    public User(String name, String login, String password) {
-        this.name = name;
+    public User(String fullName, String login, String password) {
+        this.fullName = fullName;
         this.login = login;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getLogin() {
@@ -48,7 +48,6 @@ public class User {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(login, password);
     }
 }

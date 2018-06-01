@@ -1,16 +1,17 @@
 package service;
 
+import dao.UserDao;
+import dao.impl.UserDaoImpl;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class UserService {
-    private List<User> userList;
+    private UserDao userDao;
 
     private UserService() {
-        this.userList = new ArrayList<>();
+        userDao = new UserDaoImpl();
     }
 
     private static class UserServiceHolder {
@@ -21,24 +22,29 @@ public class UserService {
         return UserServiceHolder.instance;
     }
 
-    public boolean isUserAccountFound(String login, String password) {
-        return userList.stream().anyMatch(user -> user.getLogin().equals(login) && user.getPassword().equals(password));
+    public boolean isUserAccountDataMatch(String login, String password) {
+        return checkPass(password, userDao.getUserPass(login));
     }
 
     public boolean validateUserExists(String login) {
-        return userList.stream().anyMatch(user -> user.getLogin().equals(login));
+        return userDao.validateUserExists(login);
     }
 
     public boolean addUser(User user) {
         Objects.requireNonNull(user);
-        return userList.add(user);
+        user.setPassword(hashPassword(user.getPassword()));
+        return userDao.addUser(user);
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public boolean update(User user) {
+        return userDao.update(user);
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    private String hashPassword(String plainTextPassword){
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
+
+    private boolean checkPass(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }
