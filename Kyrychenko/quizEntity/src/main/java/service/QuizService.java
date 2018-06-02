@@ -1,15 +1,17 @@
 package service;
 
+import dao.QuizDao;
+import dao.impl.QuizDaoImpl;
 import model.Quiz;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.List;
+import java.util.Objects;
 
 public class QuizService {
-    private List<Quiz> quizList;
+    private QuizDao quizDao;
 
     private QuizService() {
-        this.quizList = new ArrayList<>();
+        this.quizDao = new QuizDaoImpl();
     }
 
     private static class QuizServiceHolder {
@@ -22,39 +24,19 @@ public class QuizService {
 
     public boolean addQuiz(Quiz quiz) {
         Objects.requireNonNull(quiz);
-        return quizList.add(quiz);
-    }
-
-    public List<Quiz> viewQuiz() {
-        return Collections.unmodifiableList(quizList);
+        return quizDao.addQuiz(quiz);
     }
 
     public List<Quiz> getQuizList() {
-        return quizList;
+        return quizDao.getQuizList();
     }
 
-    public void setQuizList(List<Quiz> quizList) {
-        this.quizList = quizList;
-    }
-
-    public boolean deleteQuiz(Quiz quiz) {
-        Optional<Quiz> optionalQuiz = quizList.stream().filter(Predicate.isEqual(quiz)).findFirst();
-        if (optionalQuiz.isPresent()) {
-            return quizList.remove(optionalQuiz.get());
-        }
-        return false;
+    public boolean update(Quiz quiz) {
+        return quizDao.update(quiz);
     }
 
     public boolean deleteQuiz(int id) {
-        Optional<Quiz> optionalQuiz = quizList.stream().filter(quiz -> quiz.getId() == id).findFirst();
-        if (optionalQuiz.isPresent()) {
-            return quizList.remove(optionalQuiz.get());
-        }
-        return false;
-    }
-
-    public void deleteQuiz(int[] id) {
-        for(int i: id) deleteQuiz(i);
+        return quizDao.deleteQuiz(id);
     }
 
 }
