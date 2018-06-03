@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.impl.QuizDaoImpl;
-import enteties.SubjectQuiz;
+import enteties.UserDataFromLoginJSP;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -28,72 +27,77 @@ public class LoginController {
     private QuizDaoImpl quizDao;
 
     @RequestMapping(method = GET, value = "")
-    public void getLogin(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
+    public void getLoginView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RequestDispatcher loginDispatcher = req.getRequestDispatcher("/view/login.jsp");
-        if (req.getSession().getAttribute("wrongMessage") == null) {
-            req.getSession().setAttribute("wrongMessage", "");
+
+        HttpSession session = req.getSession();
+
+        if (session.getAttribute("wrongMessage") == null) {
+            session.setAttribute("wrongMessage", "");
         }
-        loginDispatcher.include(servletRequest, servletResponse);
+        loginDispatcher.include(req, resp);
     }
 
 
     @RequestMapping(method = POST, value = "")
-        public void postLogin (@ModelAttribute("subjectQuiz") SubjectQuiz subjectQuiz, ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
+    public void userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        String buttonType = subjectQuiz.getSubmit();
-        String login = subjectQuiz.getLogin();
-        String pwd = subjectQuiz.getPwd();
+        String buttonType = userDataFromLoginJSP.getSubmit();
+        String login = userDataFromLoginJSP.getLogin();
+        String pwd = userDataFromLoginJSP.getPwd();
 
         if (buttonType.equals("Sign up")) {
-            signUp(login, pwd, req, resp);
+            signUpButtonAction(login, pwd, req, resp);
         }
         if (buttonType.equals("Sign in")) {
-            signIn(login, pwd, req, resp);
+            signInButtonAction(login, pwd, req, resp);
         }
     }
 
-    private void signUp(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void signUpButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
         boolean userExist = quizDao.isUserExistInDB(login);
+
         if (!userExist) {
             String salt = BCrypt.gensalt();
             String hashPwd = BCrypt.hashpw(pwd, salt);
-            quizDao.saveCredentials(login, hashPwd, salt);
-            login(login, hashPwd, req, resp);
+            quizDao.saveCredentialsToDB(login, hashPwd, salt);
+            setCredentialsToSession(login, hashPwd, req, resp);
+
         } else {
             String wrongMessage = "<p>Username already exist</p>";
             req.getSession().setAttribute("wrongMessage", wrongMessage);
-            getLogin(req, resp);
+            getLoginView(req, resp);
         }
     }
 
-    private void signIn(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void signInButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String salt = quizDao.getSalt(login);
-        if (salt == null) setWrongMessage(req, resp);
-
-        String hashPwd = BCrypt.hashpw(pwd, salt);
-
-        boolean credentialsCons = quizDao.isCredentialsCons(login, hashPwd);
-        if (credentialsCons) {
-            login(login, hashPwd, req, resp);
+        if (salt == null) {
+            setWrongMessageToLoginJSP(req, resp);
         } else {
-            setWrongMessage(req, resp);
+            String hashPwd = BCrypt.hashpw(pwd, salt);
+
+            boolean equalsCredentialsWithSavedInDB = quizDao.isCredentialsEqual(login, hashPwd);
+            if (equalsCredentialsWithSavedInDB) {
+                setCredentialsToSession(login, hashPwd, req, resp);
+            } else {
+                setWrongMessageToLoginJSP(req, resp);
+            }
         }
     }
 
-    private void setWrongMessage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void setWrongMessageToLoginJSP(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
         req.getSession().setAttribute("wrongMessage", wrongMessage);
-        getLogin(req, resp);
+
+        getLoginView(req, resp);
     }
 
-    private void login(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void setCredentialsToSession(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         req.getSession().setAttribute("login", login);
         req.getSession().setAttribute("pwd", pwd);

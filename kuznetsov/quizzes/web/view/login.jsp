@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<form:form action="/" method="post"  >
+<form:form action="/" method="post" modelAttribute="userDataFromLoginJSP" >
     <div class="text-center mb-4">
 
         <%= request.getSession().getAttribute("wrongMessage") %>
