@@ -2,12 +2,17 @@ package dao.impl;
 
 import dao.Connector;
 import dao.QuizDao;
-import dao.impl.services.*;
+import dao.impl.services.DataBaseAdapter;
+import dao.impl.services.QuestionsDB;
+import dao.impl.services.UsersDB;
 import enteties.SubjectQuiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -126,7 +131,7 @@ public class QuizDaoImpl implements QuizDao {
         }
     }
 
-    public boolean isCredentialsCons(String sessionLogin, String sessionPwd) {
+    public boolean isCredentialsEqual(String sessionLogin, String sessionPwd) {
 
         try {
             String query = "Select login, pwd from Users where login = ? AND pwd = ?";
@@ -165,7 +170,7 @@ public class QuizDaoImpl implements QuizDao {
         return usersDB.getSalt(login);
    }
 
-    public void saveCredentials(String login, String pwd, String salt) {
+    public void saveCredentialsToDB(String login, String pwd, String salt) {
 
         PreparedStatement statement;
 

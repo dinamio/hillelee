@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -20,7 +21,6 @@
     <title>Forms</title>
 </head>
 <body>
-<form method="POST" action="/quiz">
     <table border="0">
         <thead>
         <tr>
@@ -35,6 +35,8 @@
             </th>
         </tr>
         </thead>
+
+        <form:form method="POST" action="/quiz" modelAttribute="subjectQuiz">
         <tbody>
         <tr>
             <td>
@@ -78,7 +80,7 @@
         </tr>
         </tbody>
     </table>
-</form>
+</form:form>
 <script src="resources/js/addQuestion.js"></script>
 </body>
 </html>
