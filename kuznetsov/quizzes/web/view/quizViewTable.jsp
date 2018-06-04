@@ -58,7 +58,7 @@
                         $(".del${t.id}").click(function () {
                             $.ajax({
                                 type: "delete",
-                                url: "/quiz?id=${t.id}",
+                                url: "/quiz/"+${t.id},
                                 success:  $(this).parent().parent().remove()
                             })
                         })

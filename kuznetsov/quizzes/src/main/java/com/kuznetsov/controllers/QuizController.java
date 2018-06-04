@@ -4,18 +4,16 @@ import enteties.SubjectQuiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import services.JspIncluder;
 import services.QuestionAggregator;
 import services.QuizServices;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -44,20 +42,14 @@ public class QuizController {
     }
 
     @RequestMapping(method = POST, value = "")
-    public void addNewQuiz(@ModelAttribute("subjectQuiz") SubjectQuiz subjectQuiz, Principal principal, ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-
-//        FIXME take id from @PathVariable
-
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+    public void addNewQuiz(@ModelAttribute("subjectQuiz") SubjectQuiz subjectQuiz, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String theme = subjectQuiz.getTheme();
-        Integer id = subjectQuiz.getId();
 
-        if (theme != null && id == null) {
+        if (theme != null) {
 
             String subject = subjectQuiz.getSubject();
-            String sessionLogin = principal.getName();
+            String sessionLogin = (String) req.getSession().getAttribute("login");
 
             Map<String, String> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));
             services.addNewQuiz(subject, theme, sessionLogin, questionMap);
@@ -65,17 +57,11 @@ public class QuizController {
         includeJsp(req, resp);
     }
 
-    @RequestMapping(method = DELETE, value = "")
-    public void deleteQuiz(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+    @RequestMapping(method = DELETE, value = "/{id}")
+    public void deleteQuiz(@PathVariable("id") Integer id, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        String id = req.getParameter("id");
         logger.info("Delete from quiz table id #" + id);
-        services.removeQuizById(Integer.parseInt(id));
+        services.removeQuizById(id);
         includeJsp(req, resp);
     }
-
-
 }
