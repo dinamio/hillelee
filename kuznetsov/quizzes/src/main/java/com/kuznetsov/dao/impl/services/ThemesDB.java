@@ -1,6 +1,6 @@
-package dao.impl.services;
+package com.kuznetsov.dao.impl.services;
 
-import dao.Connector;
+import com.kuznetsov.dao.Connector;
 import org.springframework.stereotype.Component;
 
 import java.sql.PreparedStatement;

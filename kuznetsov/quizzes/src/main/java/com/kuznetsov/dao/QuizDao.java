@@ -1,6 +1,6 @@
-package dao;
+package com.kuznetsov.dao;
 
-import enteties.SubjectQuiz;
+import com.kuznetsov.entities.SubjectQuiz;
 
 import java.util.List;
 

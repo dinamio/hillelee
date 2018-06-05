@@ -9,7 +9,7 @@
    </listener>
 
    <listener>
-      <listener-class>listeners.ContextListener</listener-class>
+      <listener-class>com.kuznetsov.listeners.ContextListener</listener-class>
    </listener>
 
    <context-param>

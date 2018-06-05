@@ -1,6 +1,6 @@
-package filters;
+package com.kuznetsov.filters;
 
-import dao.impl.QuizDaoImpl;
+import com.kuznetsov.dao.impl.QuizDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -22,9 +22,9 @@ public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
 
-            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-                    filterConfig.getServletContext());
-        }
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                filterConfig.getServletContext());
+    }
 
 
     @Override

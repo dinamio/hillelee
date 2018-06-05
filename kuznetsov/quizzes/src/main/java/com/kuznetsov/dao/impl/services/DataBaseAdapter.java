@@ -1,4 +1,4 @@
-package dao.impl.services;
+package com.kuznetsov.dao.impl.services;
 
 import java.sql.SQLException;
 

@@ -1,4 +1,4 @@
-package services;
+package com.kuznetsov.services;
 
 import org.springframework.stereotype.Component;
 

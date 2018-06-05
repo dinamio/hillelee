@@ -1,14 +1,16 @@
-package controllers;
+package com.kuznetsov.controllers;
 
-import enteties.SubjectQuiz;
+
+import com.kuznetsov.entities.SubjectQuiz;
+import com.kuznetsov.services.JspIncluder;
+import com.kuznetsov.services.QuestionAggregator;
+import com.kuznetsov.services.QuizServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import services.JspIncluder;
-import services.QuestionAggregator;
-import services.QuizServices;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

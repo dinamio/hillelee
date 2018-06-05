@@ -1,11 +1,12 @@
-package dao.impl;
+package com.kuznetsov.dao.impl;
 
-import dao.Connector;
-import dao.QuizDao;
-import dao.impl.services.DataBaseAdapter;
-import dao.impl.services.QuestionsDB;
-import dao.impl.services.UsersDB;
-import enteties.SubjectQuiz;
+import com.kuznetsov.dao.Connector;
+import com.kuznetsov.dao.QuizDao;
+import com.kuznetsov.dao.impl.services.DataBaseAdapter;
+import com.kuznetsov.dao.impl.services.QuestionsDB;
+import com.kuznetsov.dao.impl.services.UsersDB;
+import com.kuznetsov.entities.SubjectQuiz;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,6 @@ public class QuizDaoImpl implements QuizDao {
     private QuestionsDB questionsDB;
 
 
-    @Override
     public List<SubjectQuiz> getAllQuizzesFromDB() {
         List<SubjectQuiz> result = new ArrayList<>();
         try {
@@ -166,9 +166,9 @@ public class QuizDaoImpl implements QuizDao {
         }
     }
 
-   public String getSalt(String login){
+    public String getSalt(String login) {
         return usersDB.getSalt(login);
-   }
+    }
 
     public void saveCredentialsToDB(String login, String pwd, String salt) {
 

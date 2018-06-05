@@ -1,7 +1,7 @@
-package controllers;
+package com.kuznetsov.controllers;
 
-import dao.impl.QuizDaoImpl;
-import enteties.UserDataFromLoginJSP;
+import com.kuznetsov.dao.impl.QuizDaoImpl;
+import com.kuznetsov.entities.UserDataFromLoginJSP;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

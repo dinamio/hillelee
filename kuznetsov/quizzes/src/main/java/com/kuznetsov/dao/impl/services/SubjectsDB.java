@@ -1,9 +1,12 @@
-package dao.impl.services;
+package com.kuznetsov.dao.impl.services;
 
-import dao.Connector;
+
+import com.kuznetsov.dao.Connector;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Component
 public class SubjectsDB implements DataBaseAdapter {

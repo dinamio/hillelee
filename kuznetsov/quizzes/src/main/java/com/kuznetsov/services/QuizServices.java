@@ -1,8 +1,8 @@
-package services;
+package com.kuznetsov.services;
 
 
-import dao.impl.QuizDaoImpl;
-import enteties.SubjectQuiz;
+import com.kuznetsov.dao.impl.QuizDaoImpl;
+import com.kuznetsov.entities.SubjectQuiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

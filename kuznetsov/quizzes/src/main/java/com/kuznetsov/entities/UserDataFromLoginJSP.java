@@ -1,4 +1,4 @@
-package enteties;
+package com.kuznetsov.entities;
 
 public class UserDataFromLoginJSP {
 
