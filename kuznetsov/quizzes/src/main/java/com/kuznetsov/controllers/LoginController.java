@@ -1,7 +1,8 @@
 package com.kuznetsov.controllers;
 
-import com.kuznetsov.dao.impl.QuizDaoImpl;
+import com.kuznetsov.dao.impl.QuizDaoHibernate;
 import com.kuznetsov.entities.UserDataFromLoginJSP;
+import com.kuznetsov.entities.UsersEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class LoginController {
 
     @Autowired
-    private QuizDaoImpl quizDao;
+    private QuizDaoHibernate quizDao;
 
     @RequestMapping(method = GET, value = "")
     public void getLoginView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,15 +57,17 @@ public class LoginController {
     }
 
     private void signUpButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        UserDataFromLoginJSP userDataFromLoginJSP = new UserDataFromLoginJSP();
+        UsersEntity usersEntity = new UsersEntity();
         boolean userExist = quizDao.isUserExistInDB(login);
 
         if (!userExist) {
             String salt = BCrypt.gensalt();
-            userDataFromLoginJSP.setPwd(BCrypt.hashpw(pwd, salt));
-            userDataFromLoginJSP.setLogin(login);
-            quizDao.saveCredentialsToDB(userDataFromLoginJSP, salt);
-            setCredentialsToSession(userDataFromLoginJSP, req, resp);
+            usersEntity.setPwd(BCrypt.hashpw(pwd, salt));
+            usersEntity.setLogin(login);
+            usersEntity.setSalt(salt);
+
+            quizDao.saveCredentialsToDB(usersEntity);
+            setCredentialsToSession(usersEntity, req, resp);
 
         } else {
             String wrongMessage = "<p>Username already exist</p>";
@@ -75,6 +78,9 @@ public class LoginController {
 
     private void signInButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         UserDataFromLoginJSP userDataFromLoginJSP = new UserDataFromLoginJSP();
+        UsersEntity usersEntity = new UsersEntity();
+        usersEntity.setLogin(login);
+        usersEntity.setPwd(pwd);
         String salt = quizDao.getSalt(login);
         if (salt == null) {
             setWrongMessageToLoginJSP(req, resp);
@@ -85,7 +91,8 @@ public class LoginController {
 
             boolean equalsCredentialsWithSavedInDB = quizDao.isCredentialsEqual(userDataFromLoginJSP);
             if (equalsCredentialsWithSavedInDB) {
-                setCredentialsToSession(userDataFromLoginJSP, req, resp);
+
+                setCredentialsToSession(usersEntity, req, resp);
             } else {
                 setWrongMessageToLoginJSP(req, resp);
             }
@@ -100,10 +107,10 @@ public class LoginController {
         getLoginView(req, resp);
     }
 
-    private void setCredentialsToSession(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        req.getSession().setAttribute("login", userDataFromLoginJSP.getLogin());
-        req.getSession().setAttribute("pwd", userDataFromLoginJSP.getPwd());
+        req.getSession().setAttribute("login", usersEntity.getLogin());
+        req.getSession().setAttribute("pwd", usersEntity.getPwd());
 
         resp.sendRedirect("/quiz");
     }

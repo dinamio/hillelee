@@ -6,18 +6,26 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quiz</property>
+        <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.connection.username">user</property>
         <property name="hibernate.connection.password">user</property>
-        <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <mapping class="com.kuznetsov.entities.SubjectQuiz"/>
-        <mapping class="com.kuznetsov.entities.Users"/>
-        <mapping class="com.kuznetsov.entities.Themes"/>
-        <mapping class="com.kuznetsov.entities.Subjects"/>
-        <mapping class="com.kuznetsov.entities.Questions"/>
-        <mapping class="com.kuznetsov.entities.Quizzes"/>
+        <mapping class="com.kuznetsov.entities.UsersEntity"/>
+        <!--<mapping class="com.kuznetsov.entities.ThemesEntity"/>
+        <mapping class="com.kuznetsov.entities.SubjectsEntity"/>
+        <mapping class="com.kuznetsov.entities.QuestionsEntity"/>
+        <mapping class="com.kuznetsov.entities.QuizzesEntity"/>-->
+
+        <mapping resource="mapping/UsersEntity.hbm.xml"/>
+        <!--<mapping resource="mapping/ThemesEntity.hbm.xml"/>
+        <mapping resource="mapping/SubjectsEntity.hbm.xml"/>
+        <mapping resource="mapping/QuestionsEntity.hbm.xml"/>
+        <mapping resource="mapping/QuizzesEntity.hbm.xml"/>-->
+
+
+
     </session-factory>
 </hibernate-configuration>

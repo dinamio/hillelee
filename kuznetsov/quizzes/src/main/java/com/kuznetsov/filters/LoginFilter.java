@@ -37,15 +37,15 @@ public class LoginFilter implements Filter {
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
 
-        boolean trueUser = quizDao.isCredentialsEqual(sessionLogin, sessionPwd);
+//        boolean trueUser = quizDao.isCredentialsEqual(sessionLogin, sessionPwd);
 
-        if (sessionLogin != null && trueUser) {
+//        if (sessionLogin != null && trueUser) {
             filterChain.doFilter(servletRequest, servletResponse);
 
-        } else {
+//        } else {
             resp.sendRedirect("/");
         }
-    }
+
 
     @Override
     public void destroy() {
