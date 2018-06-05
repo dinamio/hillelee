@@ -2,31 +2,32 @@ package com.kuznetsov.entities;
 
 import java.util.Map;
 
+
 public class SubjectQuiz {
     private static int count;
     private String subject;
     private String theme;
     private String login;
     private int id;
-    private Map<String, String> questionMap;
+    private Map<String, String> questions;
 
     public SubjectQuiz() {
     }
 
-    public SubjectQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
+    public SubjectQuiz(String subject, String theme, String login, Map<String, String> questions) {
         this.subject = subject;
         this.theme = theme;
         this.login = login;
-        this.questionMap = questionMap;
+        this.questions = questions;
         id = count += 1;
     }
 
-    public Map<String, String> getQuestionMap() {
-        return questionMap;
+    public Map<String, String> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionMap(Map<String, String> questionMap) {
-        this.questionMap = questionMap;
+    public void setQuestions(Map<String, String> questions) {
+        this.questions = questions;
     }
 
     public int getId() {

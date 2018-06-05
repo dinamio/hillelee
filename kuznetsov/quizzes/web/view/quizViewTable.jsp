@@ -45,7 +45,7 @@
             <td>${t.theme}</td>
             <td>
               <table>
-                <c:forEach var="entry" items="${t.questionMap}">
+                <c:forEach var="entry" items="${t.questions}">
                 <tr>
                     ${entry.value} | ${entry.key}<br/>
                 </tr>

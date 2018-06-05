@@ -56,14 +56,15 @@ public class LoginController {
     }
 
     private void signUpButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+        UserDataFromLoginJSP userDataFromLoginJSP = new UserDataFromLoginJSP();
         boolean userExist = quizDao.isUserExistInDB(login);
 
         if (!userExist) {
             String salt = BCrypt.gensalt();
-            String hashPwd = BCrypt.hashpw(pwd, salt);
-            quizDao.saveCredentialsToDB(login, hashPwd, salt);
-            setCredentialsToSession(login, hashPwd, req, resp);
+            userDataFromLoginJSP.setPwd(BCrypt.hashpw(pwd, salt));
+            userDataFromLoginJSP.setLogin(login);
+            quizDao.saveCredentialsToDB(userDataFromLoginJSP, salt);
+            setCredentialsToSession(userDataFromLoginJSP, req, resp);
 
         } else {
             String wrongMessage = "<p>Username already exist</p>";
@@ -73,16 +74,18 @@ public class LoginController {
     }
 
     private void signInButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
+        UserDataFromLoginJSP userDataFromLoginJSP = new UserDataFromLoginJSP();
         String salt = quizDao.getSalt(login);
         if (salt == null) {
             setWrongMessageToLoginJSP(req, resp);
         } else {
-            String hashPwd = BCrypt.hashpw(pwd, salt);
+            userDataFromLoginJSP.setPwd(BCrypt.hashpw(pwd, salt));
+            userDataFromLoginJSP.setLogin(login);
 
-            boolean equalsCredentialsWithSavedInDB = quizDao.isCredentialsEqual(login, hashPwd);
+
+            boolean equalsCredentialsWithSavedInDB = quizDao.isCredentialsEqual(userDataFromLoginJSP);
             if (equalsCredentialsWithSavedInDB) {
-                setCredentialsToSession(login, hashPwd, req, resp);
+                setCredentialsToSession(userDataFromLoginJSP, req, resp);
             } else {
                 setWrongMessageToLoginJSP(req, resp);
             }
@@ -97,10 +100,10 @@ public class LoginController {
         getLoginView(req, resp);
     }
 
-    private void setCredentialsToSession(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void setCredentialsToSession(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        req.getSession().setAttribute("login", login);
-        req.getSession().setAttribute("pwd", pwd);
+        req.getSession().setAttribute("login", userDataFromLoginJSP.getLogin());
+        req.getSession().setAttribute("pwd", userDataFromLoginJSP.getPwd());
 
         resp.sendRedirect("/quiz");
     }

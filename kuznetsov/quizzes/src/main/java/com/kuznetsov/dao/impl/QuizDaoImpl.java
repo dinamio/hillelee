@@ -7,6 +7,7 @@ import com.kuznetsov.dao.impl.services.QuestionsDB;
 import com.kuznetsov.dao.impl.services.UsersDB;
 import com.kuznetsov.entities.SubjectQuiz;
 
+import com.kuznetsov.entities.UserDataFromLoginJSP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,7 +64,7 @@ public class QuizDaoImpl implements QuizDao {
                 quiz.setLogin(sLogin);
                 quiz.setSubject(sSubject);
                 quiz.setTheme(sTheme);
-                quiz.setQuestionMap(mQuestions);
+                quiz.setQuestions(mQuestions);
 
                 result.add(quiz);
             }
@@ -108,7 +109,7 @@ public class QuizDaoImpl implements QuizDao {
 
             questionsStatement.close();
 
-            questionsDB.setToDB(auto_id, quiz.getQuestionMap());
+            questionsDB.setToDB(auto_id, quiz.getQuestions());
         } catch (SQLException e) {
             e.printStackTrace();
             logger.info("Can't add new quiz to data base");
@@ -131,13 +132,13 @@ public class QuizDaoImpl implements QuizDao {
         }
     }
 
-    public boolean isCredentialsEqual(String sessionLogin, String sessionPwd) {
+    public boolean isCredentialsEqual(UserDataFromLoginJSP userDataFromLoginJSP) {
 
         try {
             String query = "Select login, pwd from Users where login = ? AND pwd = ?";
             PreparedStatement preparedStatement = Connector.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, sessionLogin);
-            preparedStatement.setString(2, sessionPwd);
+            preparedStatement.setString(1, userDataFromLoginJSP.getLogin());
+            preparedStatement.setString(2, userDataFromLoginJSP.getPwd());
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -170,15 +171,15 @@ public class QuizDaoImpl implements QuizDao {
         return usersDB.getSalt(login);
     }
 
-    public void saveCredentialsToDB(String login, String pwd, String salt) {
+    public void saveCredentialsToDB(UserDataFromLoginJSP userDataFromLoginJSP, String salt) {
 
         PreparedStatement statement;
 
         try {
             statement = Connector.getConnection().prepareStatement("INSERT into Users(login, pwd, salt) VALUES (?,?,?)");
 
-            statement.setString(1, login);
-            statement.setString(2, pwd);
+            statement.setString(1, userDataFromLoginJSP.getLogin());
+            statement.setString(2, userDataFromLoginJSP.getPwd());
             statement.setString(3, salt);
             statement.execute();
 
