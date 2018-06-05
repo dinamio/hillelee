@@ -14,8 +14,7 @@ public class Questions {
     String question;
     Integer answer;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "questions")
     private Quizzes quizzes;
 
     public Questions() {

@@ -12,9 +12,9 @@ public class Subjects {
 
     private String subject;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subject")
-    private Quizzes quizzes;*/
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "subjects")
+
+    private Quizzes quizzes;
 
     public Subjects(String subject, Quizzes quizzes) {
         super();

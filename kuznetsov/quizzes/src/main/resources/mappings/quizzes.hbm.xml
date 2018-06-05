@@ -8,16 +8,16 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="loginId" type="java.lang.Integer">
+        <property name="users" type="java.lang.Integer">
             <column name="login"/>
         </property>
-        <property name="subjectId" type="java.lang.Integer">
+        <property name="subjects" type="java.lang.Integer">
             <column name="subject"/>
         </property>
-        <property name="themeId" type="java.lang.Integer">
+        <property name="themes" type="java.lang.Integer">
             <column name="theme"/>
         </property>
-        <property name="questionsId" type="java.lang.Integer">
+        <property name="questions" type="java.lang.Integer">
             <column name="questions"/>
         </property>
     </class>

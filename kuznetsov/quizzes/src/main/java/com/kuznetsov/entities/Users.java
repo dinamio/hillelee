@@ -15,7 +15,7 @@ public class Users {
     String pwd;
     String salt;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
     private Quizzes quizzes;
 
     public Users() {

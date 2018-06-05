@@ -13,8 +13,7 @@ public class Themes {
     @Column(name = "theme")
     String theme;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "theme")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "themes")
     private Quizzes quizzes;
 
     public Themes() {

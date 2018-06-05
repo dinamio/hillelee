@@ -10,12 +10,12 @@ public class Quizzes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @OneToOne
+    @JoinColumn(name = "questions")
+    private Questions questions;
 
-
-    @OneToMany(mappedBy = "questions")
-
-
-    @OneToOne(mappedBy = "subjects")
+    @OneToOne
+    @JoinColumn(name = "subject")
     private Subjects subjects;
 
     @OneToOne
@@ -33,8 +33,6 @@ public class Quizzes {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public Subjects getSubjects() {
         return subjects;
@@ -60,4 +58,11 @@ public class Quizzes {
         this.users = users;
     }
 
+    public Questions getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(Questions questions) {
+        this.questions = questions;
+    }
 }
