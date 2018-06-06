@@ -15,8 +15,11 @@ public class JspFilter implements Filter {
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         HttpSession session = servletRequest.getSession();
 
-        if (session.getAttribute("userID")== null && servletRequest.getRequestURI().endsWith(".jsp")) {
+        if (session.getAttribute("userID") == null && servletRequest.getRequestURI().endsWith(".jsp")) {
             servletResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Authentication required");
+        } else {
+            chain.doFilter(request, response);
         }
+
     }
 }

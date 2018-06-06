@@ -17,11 +17,8 @@ public class QuizFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession();
-        String action = request.getParameter("action");
 
         if (session.getAttribute("userID") != null) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else if ("login".equals(action) || "registration".equals(action)){
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Authentication required");
