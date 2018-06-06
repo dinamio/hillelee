@@ -7,33 +7,21 @@
     <link type="text/css"
           rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/css/quiz.css">
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 </head>
 <body>
 
 <%@include file="parts/header.jsp"%>
 
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Add quiz<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Statistics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Account</a>
-                </li>
-            </ul>
 
-        </nav>
+    <div class="row">
+
+        <jsp:include page="parts/sidebar.jsp">
+            <jsp:param name="currentPage" value="add"/>
+        </jsp:include>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-
 
             <div class="signup-form">
                 <form action="/add" method="post">

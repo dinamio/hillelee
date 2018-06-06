@@ -1,7 +1,6 @@
 package service;
 
 import dao.UserDAO;
-import dao.UserDAOImpl;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class UserService {
 
     @Autowired
+    @Qualifier("hibernateUserDAO")
     UserDAO userDAO;
 
     public boolean addUser(User user) {

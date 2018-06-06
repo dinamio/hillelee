@@ -7,8 +7,6 @@ import entity.Subject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import service.AnswerService;
-import service.QuestionService;
 import service.QuizService;
 import service.SubjectService;
 
@@ -28,10 +26,6 @@ public class QuizBuilder {
     private QuizService quizService;
     @Autowired
     private SubjectService subjectService;
-    @Autowired
-    private QuestionService questionService;
-    @Autowired
-    private AnswerService answerService;
 
     public void addTheme (String theme){
         logger.info("Added theme "+theme+ " to QuizBuilder");
@@ -55,33 +49,40 @@ public class QuizBuilder {
 
    public void saveToDB (){
 
-        //1. Saving Subject to db
-       Subject subj = new Subject(this.subject);
-
-       //check Subject for uniqueness
+        //1. Getting Subject
+       Subject subj;
        int subjId =subjectService.getIdByName(subject);
        if(subjId == -1){
-           logger.info("Saving subject "+subject+" to db");
+           subj = new Subject(subject);
            subjId = subjectService.addSubject(subj);
+           subj.setId(subjId);
+       }else{
+           subj = subjectService.getSubject(subjId);
        }
 
-       //2. Saving Quiz
+       //2. Creating Quiz graph
        Quiz quiz = new Quiz(subj, theme, author);
-       logger.info("Saving quiz "+theme+" to db");
-       int quizId = quizService.addQuiz(quiz, subjId);
+       List<Question> questionList = new ArrayList<>();
 
-       //3.Saving Questions and Answers to DB
+       //2.1. Creating Questions and Answers and bounding them to Quiz
        for (String key : map.keySet()) {
-           logger.info("Saving question "+key+" to db");
-          int questId =  questionService.addQuestion(new Question(key), quizId);
-
           List<Answer> answers = map.get(key);
-           for (Answer answer: answers) {
-               logger.info("Saving answer "+answer.getAnswer()+" to db");
-               answerService.addAnswer(answer, questId);
-           }
-
+          Question question = new Question();
+          for (Answer answer : answers){
+              answer.setQuestion(question);
+          }
+          question.setIssue(key);
+          question.setListOfAnswers(answers);
+          question.setQuiz(quiz);
+          questionList.add(question);
        }
+
+       quiz.setQuestionsList(questionList);
+       quiz.setSubject(subj);
+
+       //4. Finally! Saving quiz to DB
+       quizService.addQuiz(quiz);
+
    }
 
    public void clean(){
@@ -90,7 +91,5 @@ public class QuizBuilder {
         this.theme = null;
         this.map.clear();
    }
-
-
 
 }

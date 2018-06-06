@@ -1,14 +1,26 @@
 package entity;
 
-import org.springframework.stereotype.Component;
-
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
 
     public User() { }
@@ -19,6 +31,7 @@ public class User {
         this.name = name;
         this.email = email;
     }
+
 
     public String getLogin() {
         return login;

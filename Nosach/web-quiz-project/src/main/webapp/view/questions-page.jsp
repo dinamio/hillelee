@@ -3,14 +3,14 @@
 
 <head>
     <title>Add Quiz</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <link type="text/css"
           rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/css/question-page.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/questions-page.js"></script>
 </head>
 <body>
@@ -18,24 +18,12 @@
 <%@include file="parts/header.jsp"%>
 
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Add quiz<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Statistics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Account</a>
-                </li>
-            </ul>
 
-        </nav>
+    <div class="row">
+
+        <jsp:include page="parts/sidebar.jsp">
+            <jsp:param name="currentPage" value="add"/>
+        </jsp:include>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 
@@ -93,23 +81,22 @@
                         </div>
                         <a id='delete_row' class="pull-left" href="#">Delete</a><a id="add_row" class="pull-right" href="#">Add</a>
                     </div>
-                    <hr>
+                    <hr class="under-form">
                     <div class="container">
 
                         <input type="hidden" name="questionsCount" value="${questionsCount}">
 
-                        <div class="col-xs-6 text-left">
+                        <div class="col-xs-6 text-left save-btn-div">
                             <button type="submit" name="save" value="Save Button" class="btn btn-default btn-lg">
                                 Save Quiz
                             </button>
 
                         </div>
-                        <div class="col-xs-6 text-right">
+                        <div class="col-xs-6 text-right add-btn-div">
                             <button type="submit" name ="add" value ="Add Button" class="btn btn-default btn-lg">
                                 Add Question
                             </button>
                         </div>
-
 
                     </div>
                 </form>

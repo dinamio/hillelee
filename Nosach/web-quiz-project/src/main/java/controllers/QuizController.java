@@ -5,18 +5,15 @@ import entity.Quiz;
 import entity.Subject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 import service.QuizService;
 import service.SubjectService;
 import service.builder.QuizBuilder;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,10 +104,10 @@ public class QuizController {
         return "questions-page";
     }
 
-    @RequestMapping(method = DELETE, value = "delete")
-    public String deleteQuiz(WebRequest req){
-        int id = Integer.parseInt(req.getParameter("id"));
+    @RequestMapping( value = "/delete/{id}", method = DELETE)
+    public String deleteQuiz(@PathVariable("id") int id){
+        logger.info("deleting quiz");
         quizService.deleteQuiz(id);
-        return "redirect:list";
+        return "redirect:/list";
     }
 }
