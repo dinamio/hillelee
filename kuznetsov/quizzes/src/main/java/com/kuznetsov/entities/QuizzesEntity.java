@@ -9,25 +9,24 @@ import java.util.Objects;
 @Table(name = "quizzes", schema = "quiz")
 @Component
 public class QuizzesEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer login;
     private Integer subject;
     private Integer theme;
-    private Integer questions;
 
-    public QuizzesEntity(Integer id, Integer login, Integer subject, Integer theme, Integer questions) {
-        this.id = id;
+    public QuizzesEntity(Integer login, Integer subject, Integer theme) {
+
         this.login = login;
         this.subject = subject;
         this.theme = theme;
-        this.questions = questions;
     }
 
     public QuizzesEntity() {
     }
 
-    @Id
-    @Column(name = "id", nullable = false)
     public Integer getId() {
         return id;
     }
@@ -36,16 +35,11 @@ public class QuizzesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "login", nullable = false)
-
     public Integer getLogin() { return login; }
 
     public void setLogin(Integer login) { this.login = login;
     }
 
-    @Basic
-    @Column(name = "subject", nullable = true)
     public Integer getSubject() {
         return subject;
     }
@@ -54,8 +48,6 @@ public class QuizzesEntity {
         this.subject = subject;
     }
 
-    @Basic
-    @Column(name = "theme", nullable = true)
     public Integer getTheme() {
         return theme;
     }
@@ -64,15 +56,6 @@ public class QuizzesEntity {
         this.theme = theme;
     }
 
-    @Basic
-    @Column(name = "questions", nullable = true)
-    public Integer getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Integer questions) {
-        this.questions = questions;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -81,13 +64,13 @@ public class QuizzesEntity {
         QuizzesEntity that = (QuizzesEntity) o;
         return id == that.id &&
                 Objects.equals(subject, that.subject) &&
-                Objects.equals(theme, that.theme) &&
-                Objects.equals(questions, that.questions);
+                Objects.equals(theme, that.theme);
+
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, subject, theme, questions);
+        return Objects.hash(id, subject, theme);
     }
 }

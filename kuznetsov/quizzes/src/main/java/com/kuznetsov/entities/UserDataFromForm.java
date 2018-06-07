@@ -1,12 +1,12 @@
 package com.kuznetsov.entities;
 
-public class UserDataFromLoginJSP {
+public class UserDataFromForm {
 
     private String login;
     private String pwd;
     private String submit;
 
-    public UserDataFromLoginJSP() {
+    public UserDataFromForm() {
     }
 
     public String getLogin() {

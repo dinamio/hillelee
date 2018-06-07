@@ -4,13 +4,22 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "themes", schema = "quiz", catalog = "")
+@Table(name = "themes", schema = "quiz")
 public class ThemesEntity {
-    private int id;
-    private String theme;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String theme;
+
+    public ThemesEntity(String theme) {
+        this.theme = theme;
+    }
+
+    public ThemesEntity() {
+    }
+
     public int getId() {
         return id;
     }
@@ -19,8 +28,6 @@ public class ThemesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "theme", nullable = true, length = 45)
     public String getTheme() {
         return theme;
     }

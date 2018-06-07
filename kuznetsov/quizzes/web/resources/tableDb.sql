@@ -25,7 +25,7 @@ CREATE TABLE `quiz`.`themes` (
 
 CREATE TABLE `quiz`.`questions` (
   `id` INT(5) NOT NULL AUTO_INCREMENT,
-  `quizid` INT(5) NOT NULL,
+  `themeId` INT(5) NOT NULL,
   `question` VARCHAR(300) NOT NULL,
   `answer` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`));

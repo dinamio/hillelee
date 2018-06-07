@@ -1,26 +1,35 @@
 package com.kuznetsov.entities;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "subjects", schema = "quiz", catalog = "")
+@Table(name = "subjects", schema = "quiz")
 public class SubjectsEntity {
-    private int id;
-    private String subject;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    private Integer id;
+    @NaturalId
+    private String subject;
+
+    public SubjectsEntity() {
+    }
+
+    public SubjectsEntity(Integer id, String subject) {
+        this.id = id;
+        this.subject = subject;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "subject", nullable = true, length = 45)
     public String getSubject() {
         return subject;
     }

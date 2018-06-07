@@ -14,9 +14,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
         <mapping class="com.kuznetsov.entities.UsersEntity"/>
-        <!--<mapping class="com.kuznetsov.entities.ThemesEntity"/>-->
-        <!--<mapping class="com.kuznetsov.entities.SubjectsEntity"/>-->
-        <!--<mapping class="com.kuznetsov.entities.QuestionsEntity"/>-->
+        <mapping class="com.kuznetsov.entities.ThemesEntity"/>
+        <mapping class="com.kuznetsov.entities.SubjectsEntity"/>
+        <mapping class="com.kuznetsov.entities.QuestionsEntity"/>
         <mapping class="com.kuznetsov.entities.QuizzesEntity"/>
 
         <!--<mapping resource="mapping/UsersEntity.hbm.xml"/>-->

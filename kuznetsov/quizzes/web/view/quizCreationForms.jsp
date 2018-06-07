@@ -21,7 +21,7 @@
     <title>Forms</title>
 </head>
 <body>
-<form:form method="POST" action="/quiz" modelattribute="subjectQuiz">
+<form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
         <thead>
         <tr>

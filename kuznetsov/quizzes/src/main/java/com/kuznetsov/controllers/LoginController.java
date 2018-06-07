@@ -1,7 +1,7 @@
 package com.kuznetsov.controllers;
 
 import com.kuznetsov.dao.impl.QuizDaoHibernate;
-import com.kuznetsov.entities.UserDataFromLoginJSP;
+import com.kuznetsov.entities.UserDataFromForm;
 import com.kuznetsov.entities.UsersEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,27 +45,27 @@ public class LoginController {
 
 
     @RequestMapping(method = POST, value = "")
-    public void userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        String buttonType = userDataFromLoginJSP.getSubmit();
+        String buttonType = userDataFromForm.getSubmit();
 
         if (buttonType.equals("Sign up")) {
-            signUpButtonAction(userDataFromLoginJSP, req, resp);
+            signUpButtonAction(userDataFromForm, req, resp);
         }
         if (buttonType.equals("Sign in")) {
-            signInButtonAction(userDataFromLoginJSP, req, resp);
+            signInButtonAction(userDataFromForm, req, resp);
         }
     }
 
-    private void signUpButtonAction(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void signUpButtonAction(UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        boolean userExist = quizDao.getUserFromDB(userDataFromLoginJSP.getLogin()) != null;
+        boolean userExist = quizDao.getUserFromDB(userDataFromForm.getLogin()) != null;
 
         if (!userExist) {
             String salt = BCrypt.gensalt();
-            String pwd = BCrypt.hashpw(userDataFromLoginJSP.getPwd(), salt);
+            String pwd = BCrypt.hashpw(userDataFromForm.getPwd(), salt);
 
-            usersEntity = new UsersEntity(userDataFromLoginJSP.getLogin(), pwd, salt);
+            usersEntity = new UsersEntity(userDataFromForm.getLogin(), pwd, salt);
 
             quizDao.saveCredentialsToDB(usersEntity);
             setCredentialsToSession(usersEntity, req);
@@ -78,12 +78,12 @@ public class LoginController {
         }
     }
 
-    private void signInButtonAction(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void signInButtonAction(UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Boolean checkPwd = false;
-        usersEntity = quizDao.getUserFromDB(userDataFromLoginJSP.getLogin());
+        usersEntity = quizDao.getUserFromDB(userDataFromForm.getLogin());
 
         if (usersEntity != null) {
-            checkPwd = (usersEntity.getPwd().equals(BCrypt.hashpw(userDataFromLoginJSP.getPwd(), usersEntity.getSalt())));
+            checkPwd = (usersEntity.getPwd().equals(BCrypt.hashpw(userDataFromForm.getPwd(), usersEntity.getSalt())));
         }
 
         if (checkPwd) {

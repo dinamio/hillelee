@@ -1,7 +1,7 @@
 package com.kuznetsov.controllers;
 
 
-import com.kuznetsov.entities.QuizzesEntity;
+import com.kuznetsov.entities.QuizDataFromForm;
 import com.kuznetsov.services.JspIncluder;
 import com.kuznetsov.services.QuestionAggregator;
 import com.kuznetsov.services.QuizServices;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,20 +44,19 @@ public class QuizController {
     }
 
     @RequestMapping(method = POST, value = "")
-    public void addNewQuiz(@ModelAttribute("subjectQuiz") QuizzesEntity quizzesEntity, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String theme = String.valueOf(quizzesEntity.getTheme());
+    public void addNewQuiz(@ModelAttribute("dataFromForm") QuizDataFromForm dataFromForm, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String theme = dataFromForm.getTheme();
 
         if (theme != null) {
-
-            Integer subject = quizzesEntity.getSubject();
+            String subject = dataFromForm.getSubject();
             String sessionLogin = (String) req.getSession().getAttribute("login");
 
-            Map<String, String> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));
+            Map<String, Byte> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));
             services.addNewQuiz(subject, theme, sessionLogin, questionMap);
         }
         includeJsp(req, resp);
     }
+
 
     @RequestMapping(method = DELETE, value = "/{id}")
     public void deleteQuiz(@PathVariable("id") Integer id, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

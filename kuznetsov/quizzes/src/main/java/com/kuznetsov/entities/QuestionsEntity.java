@@ -4,15 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "questions", schema = "quiz", catalog = "")
+@Table(name = "questions", schema = "quiz")
 public class QuestionsEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Integer quizid;
+    private Integer themeId;
     private String question;
     private Byte answer;
 
-    @Id
-    @Column(name = "id", nullable = false)
+    public QuestionsEntity(Integer themeId, String question, Byte answer) {
+        this.themeId = themeId;
+        this.question = question;
+        this.answer = answer;
+    }
+
+    public QuestionsEntity() {
+    }
+
     public int getId() {
         return id;
     }
@@ -21,18 +30,16 @@ public class QuestionsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "quizid", nullable = true)
-    public Integer getQuizid() {
-        return quizid;
+
+    public Integer getThemeId() {
+        return themeId;
     }
 
-    public void setQuizid(Integer quizid) {
-        this.quizid = quizid;
+    public void setThemeId(Integer themeId) {
+        this.themeId = themeId;
     }
 
-    @Basic
-    @Column(name = "question", nullable = true, length = 300)
+
     public String getQuestion() {
         return question;
     }
@@ -41,8 +48,7 @@ public class QuestionsEntity {
         this.question = question;
     }
 
-    @Basic
-    @Column(name = "answer", nullable = true)
+
     public Byte getAnswer() {
         return answer;
     }
@@ -57,7 +63,7 @@ public class QuestionsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         QuestionsEntity that = (QuestionsEntity) o;
         return id == that.id &&
-                Objects.equals(quizid, that.quizid) &&
+                Objects.equals(themeId, that.themeId) &&
                 Objects.equals(question, that.question) &&
                 Objects.equals(answer, that.answer);
     }
@@ -65,6 +71,6 @@ public class QuestionsEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, quizid, question, answer);
+        return Objects.hash(id, themeId, question, answer);
     }
 }

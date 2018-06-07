@@ -8,8 +8,8 @@
         <id name="id">
             <column name="id" sql-type="int(11)"/>
         </id>
-        <property name="quizid">
-            <column name="quizid" sql-type="int(11)" not-null="true"/>
+        <property name="themeId">
+            <column name="themeId" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="question">
             <column name="question" sql-type="varchar(300)" length="300" not-null="true"/>
