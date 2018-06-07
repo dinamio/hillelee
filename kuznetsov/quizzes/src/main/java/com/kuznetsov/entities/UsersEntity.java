@@ -1,28 +1,53 @@
 package com.kuznetsov.entities;
 
+import org.hibernate.annotations.NaturalId;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users", schema = "quiz")
+@Component
 public class UsersEntity {
-    private int id;
-    private String login;
-    private String pwd;
-    private String salt;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NaturalId
+    @Column(name = "login")
+    private String login;
+
+    private String pwd;
+
+    private String salt;
+
+    public UsersEntity() {
+    }
+
+    public UsersEntity(Integer id, String login, String pwd, String salt) {
+        this.id = id;
+        this.login = login;
+        this.pwd = pwd;
+        this.salt = salt;
+    }
+
+    public UsersEntity(String login, String pwd, String salt) {
+        this.login = login;
+        this.pwd = pwd;
+        this.salt = salt;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
 
-   /* @Column(name = "login", nullable = true, length = 45)*/
     public String getLogin() {
         return login;
     }
@@ -31,8 +56,6 @@ public class UsersEntity {
         this.login = login;
     }
 
-    @Basic
-    @Column(name = "pwd", nullable = true, length = 300)
     public String getPwd() {
         return pwd;
     }
@@ -41,8 +64,6 @@ public class UsersEntity {
         this.pwd = pwd;
     }
 
-    @Basic
-    @Column(name = "salt", nullable = true, length = 300)
     public String getSalt() {
         return salt;
     }
@@ -66,5 +87,15 @@ public class UsersEntity {
     public int hashCode() {
 
         return Objects.hash(id, login, pwd, salt);
+    }
+
+    @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", salt='" + salt + '\'' +
+                '}';
     }
 }

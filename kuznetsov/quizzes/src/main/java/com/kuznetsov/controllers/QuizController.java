@@ -1,7 +1,7 @@
 package com.kuznetsov.controllers;
 
 
-import com.kuznetsov.entities.SubjectQuiz;
+import com.kuznetsov.entities.QuizzesEntity;
 import com.kuznetsov.services.JspIncluder;
 import com.kuznetsov.services.QuestionAggregator;
 import com.kuznetsov.services.QuizServices;
@@ -26,6 +26,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @Controller
 @RequestMapping(value = "/quiz")
 public class QuizController {
+
     private Logger logger = Logger.getLogger(QuizController.class.getName());
     @Autowired
     private QuizServices services;
@@ -44,13 +45,13 @@ public class QuizController {
     }
 
     @RequestMapping(method = POST, value = "")
-    public void addNewQuiz(@ModelAttribute("subjectQuiz") SubjectQuiz subjectQuiz, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void addNewQuiz(@ModelAttribute("subjectQuiz") QuizzesEntity quizzesEntity, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String theme = subjectQuiz.getTheme();
+        String theme = String.valueOf(quizzesEntity.getTheme());
 
         if (theme != null) {
 
-            String subject = subjectQuiz.getSubject();
+            Integer subject = quizzesEntity.getSubject();
             String sessionLogin = (String) req.getSession().getAttribute("login");
 
             Map<String, String> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));

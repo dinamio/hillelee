@@ -1,21 +1,21 @@
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-mapping PUBLIC
-    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.kuznetsov.entities.UsersEntity" table="users" schema="quiz">
-        <id name="id">
-            <column name="id" sql-type="int(11)"/>
+    <class name="com.kuznetsov.entities.UsersEntity" table="users">
+        <id name="id" type="java.lang.Integer">
+            <column name="id"/>
+            <generator class="identity"/>
         </id>
-        <property name="login">
-            <column name="login" sql-type="varchar(45)" length="45" not-null="true"/>
+        <property name="login" type="java.lang.String">
+            <column name="login"/>
         </property>
-        <property name="pwd">
-            <column name="pwd" sql-type="varchar(300)" length="300" not-null="true"/>
+        <property name="pwd" type="java.lang.String">
+            <column name="pwd"/>
         </property>
-        <property name="salt">
-            <column name="salt" sql-type="varchar(300)" length="300" not-null="true"/>
+        <property name="salt" type="java.lang.String">
+            <column name="salt"/>
         </property>
     </class>
 </hibernate-mapping>

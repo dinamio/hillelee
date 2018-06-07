@@ -1,24 +1,38 @@
 package com.kuznetsov.entities;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "quizzes", schema = "quiz", catalog = "")
+@Table(name = "quizzes", schema = "quiz")
+@Component
 public class QuizzesEntity {
-    private int id;
+    private Integer id;
     private Integer login;
     private Integer subject;
     private Integer theme;
     private Integer questions;
 
+    public QuizzesEntity(Integer id, Integer login, Integer subject, Integer theme, Integer questions) {
+        this.id = id;
+        this.login = login;
+        this.subject = subject;
+        this.theme = theme;
+        this.questions = questions;
+    }
+
+    public QuizzesEntity() {
+    }
+
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

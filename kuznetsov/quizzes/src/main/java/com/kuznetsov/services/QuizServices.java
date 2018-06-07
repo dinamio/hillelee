@@ -1,7 +1,7 @@
 package com.kuznetsov.services;
 
 
-import com.kuznetsov.dao.impl.QuizDaoImpl;
+import com.kuznetsov.dao.impl.QuizDaoHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ public class QuizServices {
     private Logger logger = Logger.getLogger(QuizServices.class.getName());
 
     @Autowired
-    private QuizDaoImpl quizDao;
+    private QuizDaoHibernate quizDao;
 
     private List subjectQuizList = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class QuizServices {
         return quizDao.getAllQuizzesFromDB();
     }
 
-    public void addNewQuiz(String subject, String theme, String login, Map<String, String> questionMap) {
+    public void addNewQuiz(Integer subject, String theme, String login, Map<String, String> questionMap) {
        /* SubjectQuiz subjectQuiz = new SubjectQuiz(subject, theme, login, questionMap);
         quizDao.addNewQuizToDB(subjectQuiz);*/
     }

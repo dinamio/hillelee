@@ -1,6 +1,8 @@
 package com.kuznetsov.filters;
 
-import com.kuznetsov.dao.impl.QuizDaoImpl;
+
+import com.kuznetsov.dao.impl.QuizDaoHibernate;
+import com.kuznetsov.entities.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -16,8 +18,12 @@ import java.io.IOException;
 @WebFilter("/quiz")
 public class LoginFilter implements Filter {
 
-    @Autowired
-    private QuizDaoImpl quizDao;
+@Autowired
+    QuizDaoHibernate quizDao;
+
+@Autowired
+    UsersEntity usersEntity;
+
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -37,15 +43,15 @@ public class LoginFilter implements Filter {
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
 
-//        boolean trueUser = quizDao.isCredentialsEqual(sessionLogin, sessionPwd);
+        usersEntity = quizDao.getUserFromDB(sessionLogin);
 
-//        if (sessionLogin != null && trueUser) {
+        if (sessionPwd.equals(usersEntity.getPwd())) {
             filterChain.doFilter(servletRequest, servletResponse);
 
-//        } else {
+        } else {
             resp.sendRedirect("/");
         }
-
+    }
 
     @Override
     public void destroy() {

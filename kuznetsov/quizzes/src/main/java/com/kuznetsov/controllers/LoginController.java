@@ -27,6 +27,9 @@ public class LoginController {
     @Autowired
     private QuizDaoHibernate quizDao;
 
+    @Autowired
+    private UsersEntity usersEntity;
+
     @RequestMapping(method = GET, value = "")
     public void getLoginView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,29 +48,28 @@ public class LoginController {
     public void userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String buttonType = userDataFromLoginJSP.getSubmit();
-        String login = userDataFromLoginJSP.getLogin();
-        String pwd = userDataFromLoginJSP.getPwd();
 
         if (buttonType.equals("Sign up")) {
-            signUpButtonAction(login, pwd, req, resp);
+            signUpButtonAction(userDataFromLoginJSP, req, resp);
         }
         if (buttonType.equals("Sign in")) {
-            signInButtonAction(login, pwd, req, resp);
+            signInButtonAction(userDataFromLoginJSP, req, resp);
         }
     }
 
-    private void signUpButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        UsersEntity usersEntity = new UsersEntity();
-        boolean userExist = quizDao.isUserExistInDB(login);
+    private void signUpButtonAction(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+        boolean userExist = quizDao.getUserFromDB(userDataFromLoginJSP.getLogin()) != null;
 
         if (!userExist) {
             String salt = BCrypt.gensalt();
-            usersEntity.setPwd(BCrypt.hashpw(pwd, salt));
-            usersEntity.setLogin(login);
-            usersEntity.setSalt(salt);
+            String pwd = BCrypt.hashpw(userDataFromLoginJSP.getPwd(), salt);
+
+            usersEntity = new UsersEntity(userDataFromLoginJSP.getLogin(), pwd, salt);
 
             quizDao.saveCredentialsToDB(usersEntity);
-            setCredentialsToSession(usersEntity, req, resp);
+            setCredentialsToSession(usersEntity, req);
+            resp.sendRedirect("/quiz");
 
         } else {
             String wrongMessage = "<p>Username already exist</p>";
@@ -76,26 +78,19 @@ public class LoginController {
         }
     }
 
-    private void signInButtonAction(String login, String pwd, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        UserDataFromLoginJSP userDataFromLoginJSP = new UserDataFromLoginJSP();
-        UsersEntity usersEntity = new UsersEntity();
-        usersEntity.setLogin(login);
-        usersEntity.setPwd(pwd);
-        String salt = quizDao.getSalt(login);
-        if (salt == null) {
-            setWrongMessageToLoginJSP(req, resp);
+    private void signInButtonAction(UserDataFromLoginJSP userDataFromLoginJSP, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Boolean checkPwd = false;
+        usersEntity = quizDao.getUserFromDB(userDataFromLoginJSP.getLogin());
+
+        if (usersEntity != null) {
+            checkPwd = (usersEntity.getPwd().equals(BCrypt.hashpw(userDataFromLoginJSP.getPwd(), usersEntity.getSalt())));
+        }
+
+        if (checkPwd) {
+            setCredentialsToSession(usersEntity, req);
+            resp.sendRedirect("/quiz");
         } else {
-            userDataFromLoginJSP.setPwd(BCrypt.hashpw(pwd, salt));
-            userDataFromLoginJSP.setLogin(login);
-
-
-            boolean equalsCredentialsWithSavedInDB = quizDao.isCredentialsEqual(userDataFromLoginJSP);
-            if (equalsCredentialsWithSavedInDB) {
-
-                setCredentialsToSession(usersEntity, req, resp);
-            } else {
-                setWrongMessageToLoginJSP(req, resp);
-            }
+            setWrongMessageToLoginJSP(req, resp);
         }
     }
 
@@ -107,11 +102,9 @@ public class LoginController {
         getLoginView(req, resp);
     }
 
-    private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req) throws IOException {
 
         req.getSession().setAttribute("login", usersEntity.getLogin());
         req.getSession().setAttribute("pwd", usersEntity.getPwd());
-
-        resp.sendRedirect("/quiz");
     }
 }
