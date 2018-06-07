@@ -10,6 +10,6 @@ public interface QuizDao {
 
     void removeQuizFromDB(int id);
 
-//    void addNewQuizToDB(SubjectQuiz quiz);
+   void addNewQuizToDB(QuizzesEntity quiz);
 
 }

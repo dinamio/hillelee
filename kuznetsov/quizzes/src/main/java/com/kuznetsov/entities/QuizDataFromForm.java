@@ -72,11 +72,11 @@ public class QuizDataFromForm {
                 ", questions=" + mapToString(questions);
     }
 
-    private String mapToString(Map<String, Byte> map){
+    private String mapToString(Map<String, Byte> map) {
         String result = "";
-        for(Map.Entry<String, Byte> entry : map.entrySet()){
-            result +=(" | question " + entry.getKey());
-            result +=(" | answer " + entry.getValue());
+        for (Map.Entry<String, Byte> entry : map.entrySet()) {
+            result += (" | question " + entry.getKey());
+            result += (" | answer " + entry.getValue());
         }
         return result;
     }

@@ -102,7 +102,7 @@ public class LoginController {
         getLoginView(req, resp);
     }
 
-    private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req) throws IOException {
+    private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req) {
 
         req.getSession().setAttribute("login", usersEntity.getLogin());
         req.getSession().setAttribute("pwd", usersEntity.getPwd());

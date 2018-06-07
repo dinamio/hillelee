@@ -9,12 +9,13 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class QuizDaoHibernate implements QuizDao {
-    private Logger logger = Logger.getLogger(getClass().getName());
 
 
     public List<QuizzesEntity> getAllQuizzesFromDB() {
@@ -24,31 +25,36 @@ public class QuizDaoHibernate implements QuizDao {
         return query.list();
     }
 
-    public SubjectsEntity getSubjectsFromDb(String subject){
+    public SubjectsEntity getSubjectsFromDb(String subject) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         SubjectsEntity subjectsEntity = session.byNaturalId(SubjectsEntity.class).using("subject", subject).load();
         transaction.commit();
+
         return subjectsEntity;
     }
 
-    public SubjectsEntity getSubjectsFromDb(Integer id){
+    public SubjectsEntity getSubjectsFromDb(Integer id) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         SubjectsEntity subjectsEntity = session.get(SubjectsEntity.class, id);
         transaction.commit();
+
         return subjectsEntity;
     }
 
-    public Integer addThemeToBd(ThemesEntity themesEntity){
+    public Integer addThemeToBd(ThemesEntity themesEntity) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(themesEntity);
         transaction.commit();
+
         return themesEntity.getId();
     }
-
-
+    @Override
     public void addNewQuizToDB(QuizzesEntity quiz) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -56,7 +62,6 @@ public class QuizDaoHibernate implements QuizDao {
         session.save(quiz);
         transaction.commit();
     }
-
 
     @Override
     public void removeQuizFromDB(int id) {
@@ -95,20 +100,20 @@ public class QuizDaoHibernate implements QuizDao {
         Transaction transaction = session.beginTransaction();
         session.save(usersEntity);
         transaction.commit();
-
     }
 
     public void addQuestionsToBd(Integer themeId, Map<String, Byte> questionMap) {
 
-        for(Map.Entry<String, Byte> entry : questionMap.entrySet()){
+        for (Map.Entry<String, Byte> entry : questionMap.entrySet()) {
             Session session = HibernateUtil.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
-        session.save(new QuestionsEntity(themeId, entry.getKey(), entry.getValue()));
-        transaction.commit();
+            session.save(new QuestionsEntity(themeId, entry.getKey(), entry.getValue()));
+            transaction.commit();
         }
     }
 
     public ThemesEntity getThemeFromDb(Integer id) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         ThemesEntity themesEntity = session.get(ThemesEntity.class, id);
@@ -118,6 +123,7 @@ public class QuizDaoHibernate implements QuizDao {
     }
 
     public Map<String, Byte> getQuestionsFromDB(Integer themeId) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<QuestionsEntity> questionsEntities = new ArrayList<>();
         Map<String, Byte> questions = new HashMap<>();
@@ -127,17 +133,11 @@ public class QuizDaoHibernate implements QuizDao {
         query.setInteger("userid", themeId);
         questionsEntities = query.list();
 
-        for(int i = 0; i < questionsEntities.size(); i++) {
+        for (int i = 0; i < questionsEntities.size(); i++) {
             QuestionsEntity entry = questionsEntities.get(i);
             questions.put(entry.getQuestion(), entry.getAnswer());
         }
         return questions;
-
-
-    }
-
-    public QuizzesEntity getIdFromDb(Integer id) {
-        return null;
     }
 }
 

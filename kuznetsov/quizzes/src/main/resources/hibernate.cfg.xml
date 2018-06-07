@@ -19,13 +19,5 @@
         <mapping class="com.kuznetsov.entities.QuestionsEntity"/>
         <mapping class="com.kuznetsov.entities.QuizzesEntity"/>
 
-        <!--<mapping resource="mapping/UsersEntity.hbm.xml"/>-->
-        <!--<mapping resource="mapping/ThemesEntity.hbm.xml"/>
-        <mapping resource="mapping/SubjectsEntity.hbm.xml"/>
-        <mapping resource="mapping/QuestionsEntity.hbm.xml"/>>-->
-        <!--<mapping resource="mapping/QuizzesEntity.hbm.xml"/>-->
-
-
-
     </session-factory>
 </hibernate-configuration>

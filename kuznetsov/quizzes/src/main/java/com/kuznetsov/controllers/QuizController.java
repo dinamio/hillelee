@@ -57,7 +57,6 @@ public class QuizController {
         includeJsp(req, resp);
     }
 
-
     @RequestMapping(method = DELETE, value = "/{id}")
     public void deleteQuiz(@PathVariable("id") Integer id, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

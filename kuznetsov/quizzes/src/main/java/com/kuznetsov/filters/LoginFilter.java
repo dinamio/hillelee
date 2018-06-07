@@ -18,10 +18,10 @@ import java.io.IOException;
 @WebFilter("/quiz")
 public class LoginFilter implements Filter {
 
-@Autowired
+    @Autowired
     QuizDaoHibernate quizDao;
 
-@Autowired
+    @Autowired
     UsersEntity usersEntity;
 
 

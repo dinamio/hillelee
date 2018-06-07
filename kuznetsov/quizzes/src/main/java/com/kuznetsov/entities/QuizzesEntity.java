@@ -35,9 +35,12 @@ public class QuizzesEntity {
         this.id = id;
     }
 
-    public Integer getLogin() { return login; }
+    public Integer getLogin() {
+        return login;
+    }
 
-    public void setLogin(Integer login) { this.login = login;
+    public void setLogin(Integer login) {
+        this.login = login;
     }
 
     public Integer getSubject() {
@@ -65,7 +68,6 @@ public class QuizzesEntity {
         return id == that.id &&
                 Objects.equals(subject, that.subject) &&
                 Objects.equals(theme, that.theme);
-
     }
 
     @Override

@@ -11,7 +11,6 @@
             <column name="login" type="int(5)"/>
             <column name="subject" type="int(5)"/>
             <column name="theme" type="int(5)"/>
-            <!--<column name="questions" type="int(5)"/>-->
         </createTable>
 
         <createTable tableName="users">
@@ -50,16 +49,6 @@
             <column name="subject" type="STRING"/>
 
         </loadData>
-
-        <!--<addForeignKeyConstraint baseTableName="quizzes" baseColumnNames="login" constraintName="fk_login_quizzes"
-                                 referencedTableName="users"
-                                 referencedColumnNames="id"/>-->
-        <!--<addForeignKeyConstraint baseTableName="quizzes" baseColumnNames="subject" constraintName="fk_subject_quizzes"
-                                 referencedTableName="subjects"
-                                 referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="quizzes" baseColumnNames="theme" constraintName="fk_theme_quizzes"
-                                 referencedTableName="themes"
-                                 referencedColumnNames="id"/>-->
 
     </changeSet>
 </databaseChangeLog>
