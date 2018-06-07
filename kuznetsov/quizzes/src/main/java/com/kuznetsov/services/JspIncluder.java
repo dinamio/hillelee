@@ -1,20 +1,18 @@
 package com.kuznetsov.services;
 
-import com.kuznetsov.controllers.QuizController;
+import com.kuznetsov.entities.QuizDataFromForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.util.List;
 
 @Component
 public class JspIncluder {
-    Logger logger = Logger.getLogger(QuizController.class.getName());
 
     @Autowired
     private QuizServices services;
@@ -26,8 +24,9 @@ public class JspIncluder {
 
         logoutButton.include(req, resp);
         formDispatcher.include(req, resp);
+        List<QuizDataFromForm> quizDataFromForms = services.getAllQuizzes();
 
-        req.setAttribute("list", services.getSubjectQuizList());
+        req.setAttribute("list", quizDataFromForms);
 
         responseDispatcher.include(req, resp);
     }

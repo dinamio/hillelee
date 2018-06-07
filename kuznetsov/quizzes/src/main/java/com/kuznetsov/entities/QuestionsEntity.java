@@ -1,5 +1,7 @@
 package com.kuznetsov.entities;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ public class QuestionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NaturalId
     private Integer themeId;
     private String question;
     private Byte answer;
