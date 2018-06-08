@@ -3,6 +3,8 @@ package com.kuznetsov.controllers;
 import com.kuznetsov.dao.impl.daoServices.UserDao;
 import com.kuznetsov.entities.UserDataFromForm;
 import com.kuznetsov.entities.UsersEntity;
+
+import org.hibernate.Session;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping(value = "/")
-
 public class LoginController {
 
     @Autowired
@@ -30,21 +30,18 @@ public class LoginController {
     @Autowired
     private UsersEntity usersEntity;
 
-    @RequestMapping(method = GET, value = "")
-    public void getLoginView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(method = GET, value = "/")
+    public String getLoginView (HttpSession session){
 
-        RequestDispatcher loginDispatcher = req.getRequestDispatcher("/view/login.jsp");
-
-        HttpSession session = req.getSession();
-
-        if (session.getAttribute("wrongMessage") == null) {
+        if (session. getAttribute("wrongMessage") == null) {
             session.setAttribute("wrongMessage", "");
         }
-        loginDispatcher.include(req, resp);
+
+        return "redirect:login";
     }
 
 
-    @RequestMapping(method = POST, value = "")
+    @RequestMapping(method = POST, value = "/login.jsp")
     public void userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String buttonType = userDataFromForm.getSubmit();
@@ -73,8 +70,9 @@ public class LoginController {
 
         } else {
             String wrongMessage = "<p>Username already exist</p>";
-            req.getSession().setAttribute("wrongMessage", wrongMessage);
-            getLoginView(req, resp);
+            HttpSession session = req.getSession();
+            session.setAttribute("wrongMessage", wrongMessage);
+            getLoginView(session);
         }
     }
 
@@ -97,9 +95,10 @@ public class LoginController {
     private void setWrongMessageToLoginJSP(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
-        req.getSession().setAttribute("wrongMessage", wrongMessage);
+        HttpSession session = req.getSession();
+        session.setAttribute("wrongMessage", wrongMessage);
 
-        getLoginView(req, resp);
+        getLoginView(session);
     }
 
     private void setCredentialsToSession(UsersEntity usersEntity, HttpServletRequest req) {
