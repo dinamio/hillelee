@@ -1,6 +1,10 @@
 package com.kuznetsov.services;
 
 import com.kuznetsov.dao.impl.QuizDaoHibernate;
+import com.kuznetsov.dao.impl.daoServices.QuestionsDao;
+import com.kuznetsov.dao.impl.daoServices.SubjectsDao;
+import com.kuznetsov.dao.impl.daoServices.ThemesDao;
+import com.kuznetsov.dao.impl.daoServices.UserDao;
 import com.kuznetsov.entities.QuizDataFromForm;
 import com.kuznetsov.entities.QuizzesEntity;
 import com.kuznetsov.entities.ThemesEntity;
@@ -16,6 +20,14 @@ public class QuizServices {
 
     @Autowired
     private QuizDaoHibernate quizDao;
+    @Autowired
+    QuestionsDao questionsDao;
+    @Autowired
+    SubjectsDao subjectsDao;
+    @Autowired
+    ThemesDao themesDao;
+    @Autowired
+    UserDao userDao;
 
     List<QuizDataFromForm> getAllQuizzes() {
         List<QuizzesEntity> quizzesEntities = quizDao.getAllQuizzesFromDB();
@@ -24,10 +36,10 @@ public class QuizServices {
         quizzesEntities.forEach(quizzesEntity -> {
             QuizDataFromForm quizDataFromForm = new QuizDataFromForm(
                     String.valueOf(quizzesEntity.getId()),
-                    quizDao.getUserFromDB(quizzesEntity.getLogin()).getLogin(),
-                    quizDao.getSubjectsFromDb(quizzesEntity.getSubject()).getSubject(),
-                    quizDao.getThemeFromDb(quizzesEntity.getTheme()).getTheme(),
-                    quizDao.getQuestionsFromDB(quizzesEntity.getTheme()));
+                    userDao.getUserFromDB(quizzesEntity.getLogin()).getLogin(),
+                    subjectsDao.getSubjectsFromDb(quizzesEntity.getSubject()).getSubject(),
+                    themesDao.getThemeFromDb(quizzesEntity.getTheme()).getTheme(),
+                    questionsDao.getQuestionsFromDB(quizzesEntity.getTheme()));
 
             quizDataFromForms.add(quizDataFromForm);
 
@@ -36,10 +48,10 @@ public class QuizServices {
     }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, Byte> questionMap) {
-        Integer subjectId = quizDao.getSubjectsFromDb(subject).getId();
-        Integer themeId = quizDao.addThemeToBd(new ThemesEntity(theme));
-        Integer loginId = quizDao.getUserFromDB(login).getId();
-        quizDao.addQuestionsToBd(themeId, questionMap);
+        Integer subjectId = subjectsDao.getSubjectsFromDb(subject).getId();
+        Integer themeId = themesDao.saveThemeToBd(new ThemesEntity(theme));
+        Integer loginId = userDao.getUserFromDB(login).getId();
+        questionsDao.saveQuestionsToBd(themeId, questionMap);
 
         quizDao.addNewQuizToDB(new QuizzesEntity(loginId, subjectId, themeId));
     }

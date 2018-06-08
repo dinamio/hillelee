@@ -1,6 +1,6 @@
 package com.kuznetsov.controllers;
 
-import com.kuznetsov.dao.impl.QuizDaoHibernate;
+import com.kuznetsov.dao.impl.daoServices.UserDao;
 import com.kuznetsov.entities.UserDataFromForm;
 import com.kuznetsov.entities.UsersEntity;
 import org.mindrot.jbcrypt.BCrypt;
@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class LoginController {
 
     @Autowired
-    private QuizDaoHibernate quizDao;
+    private UserDao userDao;
 
     @Autowired
     private UsersEntity usersEntity;
@@ -59,7 +59,7 @@ public class LoginController {
 
     private void signUpButtonAction(UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        boolean userExist = quizDao.getUserFromDB(userDataFromForm.getLogin()) != null;
+        boolean userExist = userDao.getUserFromDB(userDataFromForm.getLogin()) != null;
 
         if (!userExist) {
             String salt = BCrypt.gensalt();
@@ -67,7 +67,7 @@ public class LoginController {
 
             usersEntity = new UsersEntity(userDataFromForm.getLogin(), pwd, salt);
 
-            quizDao.saveCredentialsToDB(usersEntity);
+            userDao.saveCredentialsToDB(usersEntity);
             setCredentialsToSession(usersEntity, req);
             resp.sendRedirect("/quiz");
 
@@ -80,7 +80,7 @@ public class LoginController {
 
     private void signInButtonAction(UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Boolean checkPwd = false;
-        usersEntity = quizDao.getUserFromDB(userDataFromForm.getLogin());
+        usersEntity = userDao.getUserFromDB(userDataFromForm.getLogin());
 
         if (usersEntity != null) {
             checkPwd = (usersEntity.getPwd().equals(BCrypt.hashpw(userDataFromForm.getPwd(), usersEntity.getSalt())));

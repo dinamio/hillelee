@@ -7,7 +7,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "quizzes", schema = "quiz")
-@Component
 public class QuizzesEntity {
 
     @Id
