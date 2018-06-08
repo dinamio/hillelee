@@ -1,9 +1,9 @@
 package service;
 
 import dao.SubjectDAO;
-import dao.SubjectDAOImpl;
 import entity.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,21 +12,22 @@ import java.util.List;
 public class SubjectService {
 
     @Autowired
-    SubjectDAO sd;
+    @Qualifier("subjectHibernateDao")
+    SubjectDAO subjectDAO;
 
     public int addSubject(Subject subject) {
-        return sd.addSubject(subject);
+        return subjectDAO.addSubject(subject);
     }
 
     public Subject getSubject(int id) {
-        return sd.getSubject(id);
+        return subjectDAO.getSubject(id);
     }
 
     public List<Subject> getAllSubjects() {
-        return sd.getAllSubjects();
+        return subjectDAO.getAllSubjects();
     }
 
     public int getIdByName(String subj) {
-        return sd.getIdByName(subj);
+        return subjectDAO.getIdByName(subj);
     }
 }

@@ -1,9 +1,26 @@
 package entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "answers")
 public class Answer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "answer")
     private String answer;
+
+    @Column(name = "correct")
     private boolean correctness;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+
+    public Answer() { }
 
     public Answer(String answer, boolean correctness) {
         this.answer = answer;
@@ -18,14 +35,25 @@ public class Answer {
         this.answer = answer;
     }
 
-    public boolean isCorrect() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public boolean isCorrectness() {
         return correctness;
     }
 
-    public void setCorrectness(boolean correctness) {
-        this.correctness = correctness;
+    public Question getQuestion() {
+        return question;
     }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     @Override
     public String toString() {

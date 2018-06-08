@@ -1,12 +1,31 @@
 package entity;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "quizzies")
 public class Quiz {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id = -1;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "subjects_id")
     private Subject subject;
+
+    @Column(name = "theme")
     private String theme;
+
+    @Column(name = "author")
     private String author;
-    private int id = -1; //-1 means id was not set
+
+    @OneToMany(mappedBy = "quiz", cascade = {CascadeType.ALL})
+    private List<Question> questionsList;
+
+    public Quiz() { }
 
     public Quiz(Subject subject, String theme, String author) {
         this.subject = subject;
@@ -44,6 +63,21 @@ public class Quiz {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Question> getQuestionsList() {
+        return questionsList;
+    }
+
+    public void addQuestion(Question question){
+        if (questionsList == null) {
+            questionsList = new ArrayList<>();
+        }
+        questionsList.add(question);
+    }
+
+    public void setQuestionsList (List<Question> questionsList){
+        this.questionsList = questionsList;
     }
 
     @Override

@@ -8,30 +8,19 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/css/list-of-quizies.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 </head>
 <body>
 
 <%@include file="parts/header.jsp"%>
 
 <div class="container-fluid">
-    <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="list">Overview <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="add">Add quiz</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Statistics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Account</a>
-                </li>
-            </ul>
 
-        </nav>
+    <div class="row">
+
+        <jsp:include page="parts/sidebar.jsp">
+            <jsp:param name="currentPage" value="list"/>
+        </jsp:include>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 
@@ -64,7 +53,7 @@
                                                 $(".delete${id}").click(function () {
                                                     $.ajax({
                                                         type: "delete",
-                                                        url:"/delete?id=${quiz.getId()}"
+                                                        url:"/delete/${quiz.getId()}"
                                                     })
                                                 })
                                             })

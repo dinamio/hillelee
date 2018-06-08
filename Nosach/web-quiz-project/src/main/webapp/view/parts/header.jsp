@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=utf-8" %>
+<link type="text/css"
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/resources/css/header.css">
 
 <div class="header">
 
