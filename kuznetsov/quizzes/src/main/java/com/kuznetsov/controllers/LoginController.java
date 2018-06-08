@@ -21,7 +21,7 @@ import java.io.IOException;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@Controller
+@Controller ()
 public class LoginController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class LoginController {
             session.setAttribute("wrongMessage", "");
         }
 
-        return "redirect:login";
+        return "login";
     }
 
 
@@ -53,6 +53,12 @@ public class LoginController {
             signInButtonAction(userDataFromForm, req, resp);
         }
     }
+
+
+   /* @RequestMapping(method = GET, value = "login")
+    public void userData() {
+    }
+*/
 
     private void signUpButtonAction(UserDataFromForm userDataFromForm, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
