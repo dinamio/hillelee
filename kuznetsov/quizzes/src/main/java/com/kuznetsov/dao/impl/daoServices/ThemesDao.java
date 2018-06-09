@@ -1,6 +1,6 @@
 package com.kuznetsov.dao.impl.daoServices;
 
-import com.kuznetsov.entities.ThemesEntity;
+import com.kuznetsov.entities.Themes;
 import com.kuznetsov.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,22 +8,21 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ThemesDao {
-    public ThemesEntity getThemeFromDb(Integer id) {
+    public Themes getThemeFromDb(Integer id) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        ThemesEntity themesEntity = session.get(ThemesEntity.class, id);
+        Themes themes = session.get(Themes.class, id);
 
-
-        return themesEntity;
+        return themes;
     }
 
-    public Integer saveThemeToBd(ThemesEntity themesEntity) {
+    public Integer saveThemeToBd(Themes themes) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(themesEntity);
+        session.save(themes);
         transaction.commit();
 
-        return themesEntity.getId();
+        return themes.getId();
     }
 }

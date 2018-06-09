@@ -1,6 +1,5 @@
 package com.kuznetsov.entities;
 
-import org.hibernate.annotations.NaturalId;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -9,13 +8,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "quiz")
 @Component
-public class UsersEntity {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NaturalId
     @Column(name = "login")
     private String login;
 
@@ -23,17 +21,17 @@ public class UsersEntity {
 
     private String salt;
 
-    public UsersEntity() {
+    public Users() {
     }
 
-    public UsersEntity(Integer id, String login, String pwd, String salt) {
+    public Users(Integer id, String login, String pwd, String salt) {
         this.id = id;
         this.login = login;
         this.pwd = pwd;
         this.salt = salt;
     }
 
-    public UsersEntity(String login, String pwd, String salt) {
+    public Users(String login, String pwd, String salt) {
         this.login = login;
         this.pwd = pwd;
         this.salt = salt;
@@ -76,7 +74,7 @@ public class UsersEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersEntity that = (UsersEntity) o;
+        Users that = (Users) o;
         return id == that.id &&
                 Objects.equals(login, that.login) &&
                 Objects.equals(pwd, that.pwd) &&

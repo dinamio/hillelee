@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "themes", schema = "quiz")
-public class ThemesEntity {
+public class Themes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +13,11 @@ public class ThemesEntity {
 
     private String theme;
 
-    public ThemesEntity(String theme) {
+    public Themes(String theme) {
         this.theme = theme;
     }
 
-    public ThemesEntity() {
+    public Themes() {
     }
 
     public int getId() {
@@ -40,7 +40,7 @@ public class ThemesEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ThemesEntity that = (ThemesEntity) o;
+        Themes that = (Themes) o;
         return id == that.id &&
                 Objects.equals(theme, that.theme);
     }

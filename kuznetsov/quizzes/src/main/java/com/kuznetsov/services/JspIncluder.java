@@ -18,9 +18,9 @@ public class JspIncluder {
     private QuizServices services;
 
     public void includeJspToPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher logoutButton = req.getRequestDispatcher("/view/logOutButton.jsp");
-        RequestDispatcher formDispatcher = req.getRequestDispatcher("/view/quizCreationForms.jsp");
-        RequestDispatcher responseDispatcher = req.getRequestDispatcher("/view/quizViewTable.jsp");
+        RequestDispatcher logoutButton = req.getRequestDispatcher("WEB-INF/view/logOutButton.jsp");
+        RequestDispatcher formDispatcher = req.getRequestDispatcher("WEB-INF/view/quizCreationForms.jsp");
+        RequestDispatcher responseDispatcher = req.getRequestDispatcher("WEB-INF/view/quizViewTable.jsp");
 
         logoutButton.include(req, resp);
         formDispatcher.include(req, resp);

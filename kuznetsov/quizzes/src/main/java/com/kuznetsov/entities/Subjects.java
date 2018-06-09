@@ -9,17 +9,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "subjects", schema = "quiz")
-public class SubjectsEntity {
+public class Subjects {
 
     @Id
     private Integer id;
     @NaturalId
     private String subject;
 
-    public SubjectsEntity() {
+    public Subjects() {
     }
 
-    public SubjectsEntity(Integer id, String subject) {
+    public Subjects(Integer id, String subject) {
         this.id = id;
         this.subject = subject;
     }
@@ -44,7 +44,7 @@ public class SubjectsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SubjectsEntity that = (SubjectsEntity) o;
+        Subjects that = (Subjects) o;
         return id == that.id &&
                 Objects.equals(subject, that.subject);
     }

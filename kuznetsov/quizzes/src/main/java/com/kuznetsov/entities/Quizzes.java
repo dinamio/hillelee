@@ -1,13 +1,11 @@
 package com.kuznetsov.entities;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "quizzes", schema = "quiz")
-public class QuizzesEntity {
+public class Quizzes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,14 +14,14 @@ public class QuizzesEntity {
     private Integer subject;
     private Integer theme;
 
-    public QuizzesEntity(Integer login, Integer subject, Integer theme) {
+    public Quizzes(Integer login, Integer subject, Integer theme) {
 
         this.login = login;
         this.subject = subject;
         this.theme = theme;
     }
 
-    public QuizzesEntity() {
+    public Quizzes() {
     }
 
     public Integer getId() {
@@ -63,7 +61,7 @@ public class QuizzesEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuizzesEntity that = (QuizzesEntity) o;
+        Quizzes that = (Quizzes) o;
         return id == that.id &&
                 Objects.equals(subject, that.subject) &&
                 Objects.equals(theme, that.theme);

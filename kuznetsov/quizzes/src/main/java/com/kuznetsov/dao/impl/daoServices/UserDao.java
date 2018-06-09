@@ -1,39 +1,43 @@
 package com.kuznetsov.dao.impl.daoServices;
 
-import com.kuznetsov.entities.UsersEntity;
+import com.kuznetsov.entities.Users;
 import com.kuznetsov.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDao {
 
-    public UsersEntity getUserFromDB(String sessionLogin) {
+    public Users getUserFromDB(String sessionLogin) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        UsersEntity usersEntity = session.byNaturalId(UsersEntity.class).using("login", sessionLogin).load();
+        Criteria criteria = session.createCriteria(Users.class);
+        Users users = (Users) criteria.add(Restrictions.eq("login", sessionLogin))
+                .uniqueResult();
         transaction.commit();
 
-        return usersEntity;
+        return users;
     }
 
-    public UsersEntity getUserFromDB(Integer id) {
+    public Users getUserFromDB(Integer id) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        UsersEntity usersEntity = session.get(UsersEntity.class, id);
+        Users users = session.get(Users.class, id);
         transaction.commit();
 
-        return usersEntity;
+        return users;
     }
 
-    public void saveCredentialsToDB(UsersEntity usersEntity) {
+    public void saveCredentialsToDB(Users users) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(usersEntity);
+        session.save(users);
         transaction.commit();
     }
 }

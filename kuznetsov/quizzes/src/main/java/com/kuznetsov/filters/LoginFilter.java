@@ -3,7 +3,7 @@ package com.kuznetsov.filters;
 
 import com.kuznetsov.dao.impl.QuizDaoHibernate;
 import com.kuznetsov.dao.impl.daoServices.UserDao;
-import com.kuznetsov.entities.UsersEntity;
+import com.kuznetsov.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -23,7 +23,7 @@ public class LoginFilter implements Filter {
     QuizDaoHibernate quizDao;
 
     @Autowired
-    UsersEntity usersEntity;
+    Users users;
 
     @Autowired
     UserDao userDao;
@@ -47,9 +47,9 @@ public class LoginFilter implements Filter {
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
 
-        usersEntity = userDao.getUserFromDB(sessionLogin);
+        users = userDao.getUserFromDB(sessionLogin);
 
-        if (sessionPwd.equals(usersEntity.getPwd())) {
+        if (sessionPwd.equals(users.getPwd())) {
             filterChain.doFilter(servletRequest, servletResponse);
 
         } else {

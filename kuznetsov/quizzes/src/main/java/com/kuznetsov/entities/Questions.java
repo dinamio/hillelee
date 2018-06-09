@@ -1,28 +1,25 @@
 package com.kuznetsov.entities;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "questions", schema = "quiz")
-public class QuestionsEntity {
+public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NaturalId
     private Integer themeId;
     private String question;
     private Byte answer;
 
-    public QuestionsEntity(Integer themeId, String question, Byte answer) {
+    public Questions(Integer themeId, String question, Byte answer) {
         this.themeId = themeId;
         this.question = question;
         this.answer = answer;
     }
 
-    public QuestionsEntity() {
+    public Questions() {
     }
 
     public int getId() {
@@ -64,7 +61,7 @@ public class QuestionsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuestionsEntity that = (QuestionsEntity) o;
+        Questions that = (Questions) o;
         return id == that.id &&
                 Objects.equals(themeId, that.themeId) &&
                 Objects.equals(question, that.question) &&

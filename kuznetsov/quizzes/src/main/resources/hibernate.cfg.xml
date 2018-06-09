@@ -13,11 +13,11 @@
         <property name="format_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <mapping class="com.kuznetsov.entities.UsersEntity"/>
-        <mapping class="com.kuznetsov.entities.ThemesEntity"/>
-        <mapping class="com.kuznetsov.entities.SubjectsEntity"/>
-        <mapping class="com.kuznetsov.entities.QuestionsEntity"/>
-        <mapping class="com.kuznetsov.entities.QuizzesEntity"/>
+        <mapping class="com.kuznetsov.entities.Users"/>
+        <mapping class="com.kuznetsov.entities.Themes"/>
+        <mapping class="com.kuznetsov.entities.Subjects"/>
+        <mapping class="com.kuznetsov.entities.Questions"/>
+        <mapping class="com.kuznetsov.entities.Quizzes"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,7 @@
 package com.kuznetsov.dao.impl;
 
 import com.kuznetsov.dao.QuizDao;
-import com.kuznetsov.entities.QuizzesEntity;
+import com.kuznetsov.entities.Quizzes;
 import com.kuznetsov.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,15 +14,15 @@ import java.util.List;
 public class QuizDaoHibernate implements QuizDao {
 
     @Override
-    public List<QuizzesEntity> getAllQuizzesFromDB() {
+    public List<Quizzes> getAllQuizzesFromDB() {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query query = session.createQuery("from " + QuizzesEntity.class.getName());
+        Query query = session.createQuery("from " + Quizzes.class.getName());
         return query.list();
     }
 
     @Override
-    public void addNewQuizToDB(QuizzesEntity quiz) {
+    public void addNewQuizToDB(Quizzes quiz) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -35,7 +35,7 @@ public class QuizDaoHibernate implements QuizDao {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        QuizzesEntity quiz = session.find(QuizzesEntity.class, id);
+        Quizzes quiz = session.find(Quizzes.class, id);
         session.remove(quiz);
         transaction.commit();
     }
