@@ -2,7 +2,6 @@ package com.kuznetsov.controllers;
 
 
 import com.kuznetsov.entities.QuizDataFromForm;
-import com.kuznetsov.services.JspIncluder;
 import com.kuznetsov.services.QuestionAggregator;
 import com.kuznetsov.services.QuizServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -30,21 +26,21 @@ public class QuizController {
     @Autowired
     private QuizServices services;
     @Autowired
-    private JspIncluder jspIncluder;
-    @Autowired
     private QuestionAggregator questionAggregator;
 
 
     @RequestMapping(method = GET, value = "")
-    public void includeJsp(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String GetQuizJsp(HttpServletRequest req){
 
         if (req.getSession().getAttribute("login") != null && req.getSession().getAttribute("pwd") != null) {
-            jspIncluder.includeJspToPage(req, resp);
+            req.setAttribute("list", services.getAllQuizzes());
+            return "quizzes";
         }
+        return "login";
     }
 
     @RequestMapping(method = POST, value = "")
-    public void addNewQuiz(@ModelAttribute("dataFromForm") QuizDataFromForm dataFromForm, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String addNewQuiz(@ModelAttribute("dataFromForm") QuizDataFromForm dataFromForm, HttpServletRequest req) {
         String theme = dataFromForm.getTheme();
 
         if (theme != null) {
@@ -53,15 +49,17 @@ public class QuizController {
 
             Map<String, Byte> questionMap = new HashMap<>(questionAggregator.createQuestionsMap(req));
             services.addNewQuiz(subject, theme, sessionLogin, questionMap);
+            req.setAttribute("list", services.getAllQuizzes());
         }
-        includeJsp(req, resp);
+        return "quizzes";
     }
 
     @RequestMapping(method = DELETE, value = "/{id}")
-    public void deleteQuiz(@PathVariable("id") Integer id, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String deleteQuiz(@PathVariable("id") Integer id, HttpServletRequest req){
 
         logger.info("Delete from quiz table id #" + id);
         services.removeQuizById(id);
-        includeJsp(req, resp);
+        req.setAttribute("list", services.getAllQuizzes());
+        return "quizzes";
     }
 }

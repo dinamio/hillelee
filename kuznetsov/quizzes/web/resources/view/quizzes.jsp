@@ -21,6 +21,7 @@
     <title>Forms</title>
 </head>
 <body>
+<%@ include file="/resources/view/logOutButton.jsp" %>
 <form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
         <thead>
@@ -83,6 +84,7 @@
 
     </table>
 </form:form>
+<%@ include file="/resources/view/quizViewTable.jsp" %>
 <script src="resources/js/addQuestion.js"></script>
 </body>
 </html>

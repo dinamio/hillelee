@@ -29,7 +29,7 @@ public class QuizServices {
     @Autowired
     UserDao userDao;
 
-    List<QuizDataFromForm> getAllQuizzes() {
+    public List<QuizDataFromForm> getAllQuizzes() {
         List<Quizzes> quizzesEntities = quizDao.getAllQuizzesFromDB();
         List<QuizDataFromForm> quizDataFromForms = new ArrayList<>();
 
