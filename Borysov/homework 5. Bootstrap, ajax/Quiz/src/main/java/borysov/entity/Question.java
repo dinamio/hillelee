@@ -1,6 +1,6 @@
 package borysov.entity;
 
-public class Quation {
+public class Question {
     private int id;
     private int idOfQuiz;
     private String textOfQuation;
@@ -29,10 +29,10 @@ public class Quation {
         this.textOfQuation = textOfQuation;
     }
 
-    public Quation() {
+    public Question() {
     }
 
-    public Quation(int id, int idOfQuiz, String textOfQuation) {
+    public Question(int id, int idOfQuiz, String textOfQuation) {
         this.id = id;
         this.idOfQuiz = idOfQuiz;
         this.textOfQuation = textOfQuation;
@@ -40,7 +40,7 @@ public class Quation {
 
     @Override
     public String toString() {
-        return "Quation{" +
+        return "Question{" +
                 "id=" + id +
                 ", idOfQuiz=" + idOfQuiz +
                 ", textOfQuation='" + textOfQuation + '\'' +

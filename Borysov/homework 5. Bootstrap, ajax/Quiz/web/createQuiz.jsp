@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<%@include file="head.jsp"%>
+<%@include file="/head.jsp"%>
 <body>
 <div id="main">
     <div id="header">
@@ -21,10 +21,10 @@
 
     <div id="site_content">
         <div class="sidebar">
-            <h3><a href="LogOut">Log out</a></h3>
+            <h3><a href="/logout">Log out</a></h3>
         </div>
         <div id="content">
-            <form method="post" action="AddQuiz">
+            <form method="post" action="/addQuiz">
                 <h3>Subject</h3>
                 <input required type="text" name="subject_field"
                        value="Math"/>

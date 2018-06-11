@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<%@include file="head.jsp"%>
+<%@include file="/head.jsp"%>
 <body>
 <div id="main">
     <div id="header">
@@ -27,7 +27,7 @@
                 <c:out value="Invalid params"/>
             </c:if>
             <h3>Log in</h3>
-            <form method="post" action="LoginController" class="form-group">
+            <form method="post" action="/login" class="form-group">
                 <h3>login</h3>
                 <input class="form-control" required type="text" name="login_field"/>
                 <h3>password</h3>
@@ -36,7 +36,7 @@
                 <input type="submit" class="btn btn-primary btn-lg active" value="Log in"/>
 
             </form>
-            or <a href="register.jsp">Register</a>
+            or <a href="/register">Register</a>
 
         </div>
         <div id="content">

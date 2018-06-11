@@ -49,5 +49,4 @@ public class EncodingFilter implements Filter {
         LOG.debug("Filter destruction");
     }
 
-
 }

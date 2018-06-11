@@ -13,7 +13,7 @@ public interface QuizDao {
 
     void deleteQuizFromDBById(int id);
 
-    void addQuationToDB(Integer quizId, String quationText);
+    void addQuestionToDB(Integer quizId, String quationText);
 
     Integer getQuiztionIdFromDB(Integer quizId, String quationText);
 

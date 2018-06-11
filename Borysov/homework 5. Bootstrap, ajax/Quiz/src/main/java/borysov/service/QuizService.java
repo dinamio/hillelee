@@ -39,8 +39,8 @@ public class QuizService {
         quizDao.deleteQuizFromDBById(id);
     }
 
-    public void addQuationAndAnswers(Integer quizId, String quationText, List<Answer> answersList) {
-        quizDao.addQuationToDB(quizId,quationText);
+    public void addQuestionAndAnswers(Integer quizId, String quationText, List<Answer> answersList) {
+        quizDao.addQuestionToDB(quizId,quationText);
         Integer quationId =  quizDao.getQuiztionIdFromDB(quizId,quationText);
         quizDao.addAnswersToDB(quationId,answersList);
 

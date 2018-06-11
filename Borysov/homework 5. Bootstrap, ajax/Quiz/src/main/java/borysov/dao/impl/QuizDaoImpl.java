@@ -76,8 +76,8 @@ public class QuizDaoImpl implements QuizDao {
         }
     }
 
-    public void addQuationToDB(Integer quizId, String quationText) {
-        String INSERT_NEW = "INSERT INTO quations (id_of_quiz, text_quation)  VALUES(?,?)";
+    public void addQuestionToDB(Integer quizId, String quationText) {
+        String INSERT_NEW = "INSERT INTO questions (id_of_quiz, text_question)  VALUES(?,?)";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEW);
@@ -92,7 +92,7 @@ public class QuizDaoImpl implements QuizDao {
     public Integer getQuiztionIdFromDB(Integer quizId, String quationText) {
         Integer quationId = null;
 
-        String SELECT = "SELECT id FROM quations WHERE id_of_quiz=? AND text_quation=?";
+        String SELECT = "SELECT id FROM questions WHERE id_of_quiz=? AND text_question=?";
 
         PreparedStatement statement = null;
         try {
@@ -113,7 +113,7 @@ public class QuizDaoImpl implements QuizDao {
     }
 
     public void addAnswersToDB(Integer quationId, List<Answer> answersList) {
-        String INSERT_NEW = "INSERT INTO answers (id_of_quation, answer_text, is_right_answer)  VALUES(?,?,?)";
+        String INSERT_NEW = "INSERT INTO answers (id_of_question, answer_text, is_right_answer)  VALUES(?,?,?)";
 
         try {
             int i = 0;

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<%@include file="head.jsp"%>
+<%@include file="/head.jsp"%>
 <body>
 <div id="main">
     <div id="header">
@@ -22,7 +22,7 @@
 
     <div id="site_content">
         <div class="sidebar">
-            <h3><a href="LogOut">Log out</a></h3>
+            <h3><a href="/logout">Log out</a></h3>
         </div>
         <div id="content">
             <table class="table table-striped  ">
@@ -41,18 +41,18 @@
                         <td align="center">${quiz.nameOfSubject}</td>
                         <td align="center">${quiz.theme}</td>
                         <td align="center">${quiz.author}</td>
-                        <c:url var="addQuationLink" value="/AddQuationAndAnswers">
+                        <c:url var="addQuestionLink" value="/addQuestionAndAnswers">
                             <c:param name="quiz_id" value="${quiz.id}" />
                         </c:url>
-                        <td align="center"><a href="${addQuationLink}">AddQuiation</a></td>
+                        <td align="center"><a href="${addQuestionLink}">AddQuestion</a></td>
                         <td>
-                            <a  class="delete${quiz.id}" href="/ShowQuizzes">Delete</a>
+                            <a  class="delete${quiz.id}" href="/showQuizzes">Delete</a>
                             <script>
                                 $(document).ready(function () {
                                     $(".delete${quiz.id}").click(function () {
                                         $.ajax({
                                             type: "delete",
-                                            url:"/DeleteQuiz?id_for_delete_field=${quiz.id}"
+                                            url:"/delete/${quiz.id}"
                                         })
                                     })
                                 })
