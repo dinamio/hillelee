@@ -34,8 +34,8 @@
                 <input required class="form-control" type="text" name="login_field"/>
                 <h3>password</h3>
                 <input required class="form-control" type="password" name="password_field"/>
-                <h3>email</h3>
-                <input required class="form-control" type="email" name="email_field"/>
+                <h3>name</h3>
+                <input required class="form-control" type="text" name="name_field"/>
                 <br/>
                 <button type="button" class="btn"><a href="index.jsp">Cancel</a></button>
                 <input type="submit" class="btn btn-primary active" value="Register"/>
