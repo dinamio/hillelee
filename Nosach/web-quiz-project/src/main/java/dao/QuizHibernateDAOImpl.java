@@ -1,28 +1,29 @@
 package dao;
 
 import entity.Quiz;
-import hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
-@Component
+@Repository
 @Qualifier("quizHibernateDao")
 public class QuizHibernateDAOImpl implements QuizDAO{
 
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    final Session session;
     Logger logger = Logger.getLogger(QuizHibernateDAOImpl.class);
 
+    public QuizHibernateDAOImpl(@Autowired SessionFactory sessionFactory) {
+        this.session = sessionFactory.openSession();
+    }
 
     @Override
     public int addQuiz(Quiz quiz) {
-        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(quiz);
         session.flush();
@@ -32,17 +33,11 @@ public class QuizHibernateDAOImpl implements QuizDAO{
 
     @Override
     public Quiz getQuiz(int id) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        Quiz quiz = session.get(Quiz.class, id);
-        session.flush();
-        transaction.commit();
-        return quiz;
+        return session.get(Quiz.class, id);
     }
 
     @Override
     public List<Quiz> getAllQuizzies() {
-        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Quiz");
         List<Quiz> quizList = query.list();
@@ -53,7 +48,6 @@ public class QuizHibernateDAOImpl implements QuizDAO{
 
     @Override
     public void deleteQuiz(int id) {
-        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("delete from Quiz where id=:quizId");
         query.setParameter("quizId", id);

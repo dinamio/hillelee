@@ -47,17 +47,7 @@
                                 <td>${quiz.getTheme()}</td>
                                 <td>${quiz.getAuthor()}</td>
                                 <td>
-                                    <a  class="delete${id}" href="list">Delete</a>
-                                        <script>
-                                            $(document).ready(function () {
-                                                $(".delete${id}").click(function () {
-                                                    $.ajax({
-                                                        type: "delete",
-                                                        url:"/delete/${quiz.getId()}"
-                                                    })
-                                                })
-                                            })
-                                        </script>
+                                    <a  class="delete${id}" href="/delete/${quiz.getId()}">Delete</a>
                                 </td>
                                 <c:set var="id" scope="page" value="${id+1}"/>
                              </tr>
