@@ -17,7 +17,7 @@ public class ConnectionHandler {
             return connection;
         } else {
 
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("jdbc");
 
             Properties properties = new Properties();
 
