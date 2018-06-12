@@ -1,41 +1,41 @@
 package services;
 
-import entity.User;
+import hibernate.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
+@Service
 public class UserService {
-private static Map<String,String> account =new LinkedHashMap<>();//All registered users. key -login, value -password
-    private User currentUser;
+    @Autowired
+    private hibernate.service.ServiceUser userServ;
+    private static User currentUser;
+    private static NavigableSet<User> allUsers= new TreeSet<>();
 
-    public boolean addAccount(String login, String password){
-        if (!account.containsKey(login)){
-            account.put(login,password);
-            User currentUser=new User(login,password);
-            return true;
+
+    public boolean addAccount(User user) {
+        allUsers = new TreeSet<>(userServ.findAll());
+        boolean result= allUsers.add(user);
+        if(result) {
+            userServ.persist(user);
+            currentUser = user;
         }
+            return result;
+    }
+
+    public boolean authorizate(String login, String pass) {
+        allUsers = new TreeSet<>(userServ.findAll());
+        currentUser = userServ.findByLogin(login);
+        if (currentUser!= null && pass.equals(currentUser.getPassword())) return true;
         return false;
-
-    }
-    public boolean authorizate(String log,String pass){
-        String passValue= account.get(log);
-       if(pass.equals(passValue)) return true;
-        return false;
     }
 
-
-
-
-    public static Map<String, String> getAccount() {
-        return account;
-    }
-
-    public User getCurrentUser() {
+    public static User getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
+    public static void setCurrentUser(User currentUser) {
+        UserService.currentUser = currentUser;
     }
 }

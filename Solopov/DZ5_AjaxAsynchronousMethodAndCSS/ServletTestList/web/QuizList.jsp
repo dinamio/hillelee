@@ -57,9 +57,9 @@
                 <tr>
                     <input type="hidden" name="table_id" value="${test.getId()}"/>
                     <td> ${test.getId()}</td>
-                    <td> ${test.getName()}</td>
+                    <td> <a href="\questions?id=${test.getId()}">${test.getName()}</a></td>
                     <td> ${test.getObjective()} </td>
-                    <td> ${test.getCreator()} </td>
+                    <td> ${test.getCreator().getLogin()} </td>
                     <td class="deleteRow">Delete</td>
 
                     <!--<td><a href="delQuiz?id=${test.getId()}" content=" ">Delete</a></td>-->
@@ -76,7 +76,7 @@
             var selectId = $(this).closest("tr").find("[name='table_id']").val();
 
             $.ajax({
-                type: "DELETE",
+                type: 'DELETE',
                 url: "/delQuiz?id=" + selectId,
                 success: function () {
                     if (evt.target.closest('.deleteRow')) {
