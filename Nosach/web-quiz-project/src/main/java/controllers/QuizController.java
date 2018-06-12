@@ -104,10 +104,11 @@ public class QuizController {
         return "questions-page";
     }
 
-    @RequestMapping( value = "/delete/{id}", method = DELETE)
+    @RequestMapping( value = "/delete/{id}", method = GET)
     public String deleteQuiz(@PathVariable("id") int id){
         logger.info("deleting quiz");
         quizService.deleteQuiz(id);
         return "redirect:/list";
     }
+
 }

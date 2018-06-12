@@ -15,7 +15,7 @@
         <li class="nav-item">
             <c:choose>
                 <c:when test="${param.currentPage eq 'add'}">
-                    <a class="nav-link active" href="/add">Add Quiz<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="list">Add Quiz<span class="sr-only">(current)</span></a>
                 </c:when>
                 <c:otherwise>
                     <a class="nav-link" href="/add">Add Quiz</a>

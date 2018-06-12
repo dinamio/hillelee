@@ -1,28 +1,39 @@
 package dao;
 
 import entity.Subject;
-import hibernate.HibernateUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
-@Component
+@Repository
 @Qualifier("subjectHibernateDao")
 public class SubjectHibernateDAOImpl implements SubjectDAO {
 
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    final Session session;
     Logger logger = Logger.getLogger(SubjectHibernateDAOImpl.class);
+
+    public SubjectHibernateDAOImpl(@Autowired SessionFactory sessionFactory) {
+        this.session = sessionFactory.openSession();
+    }
 
     @Override
     public int addSubject(Subject subject) {
-        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.save(subject);
         logger.info("subject "+subject.getSubjectName()+" saved with id "+subject.getId());
@@ -33,13 +44,11 @@ public class SubjectHibernateDAOImpl implements SubjectDAO {
 
     @Override
     public Subject getSubject(int id) {
-        Session session = sessionFactory.openSession();
         return session.get(Subject.class, id);
     }
 
     @Override
     public List<Subject> getAllSubjects() {
-        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Subject");
         List list = query.list();
@@ -50,13 +59,15 @@ public class SubjectHibernateDAOImpl implements SubjectDAO {
 
     @Override
     public int getIdByName(String subj) {
-        Session session = sessionFactory.openSession();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Subject> criteria = criteriaBuilder.createQuery(Subject.class);
+        Root<Subject> subjectRoot = criteria.from(Subject.class);
+        criteria.select(subjectRoot);
+        criteria.where(criteriaBuilder.equal(subjectRoot.get("subjectName"), subj));
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Subject where subjectName=:subjt");
-        query.setParameter("subjt", subj);
         Subject subject = null;
         try {
-             subject = (Subject) query.getSingleResult();
+             subject = entityManager.createQuery(criteria).getSingleResult();
         }catch (NoResultException ex){
             ex.printStackTrace();
         }
