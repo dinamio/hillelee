@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <preConditions>
+        <dbms type="MySql"/>
+    </preConditions>
+
+    <changeSet id="1" author="rpkyrych">
+
+        <createTable tableName="quiz">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="subject" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="topic" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quiz_author_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="rpkyrych">
+        <createTable tableName="user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="rpkyrych">
+        <addForeignKeyConstraint baseColumnNames="quiz_author_id"
+                                 baseTableName="quiz"
+                                 constraintName="fk_quiz_user"
+                                 onDelete="RESTRICT"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+
+</databaseChangeLog>

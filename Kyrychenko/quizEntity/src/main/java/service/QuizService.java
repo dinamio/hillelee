@@ -1,26 +1,17 @@
 package service;
 
 import dao.QuizDao;
-import dao.impl.QuizDaoImpl;
 import model.Quiz;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class QuizService {
+    @Autowired
     private QuizDao quizDao;
-
-    private QuizService() {
-        this.quizDao = new QuizDaoImpl();
-    }
-
-    private static class QuizServiceHolder {
-        private static final QuizService instance = new QuizService();
-    }
-
-    public static QuizService getInstance() {
-        return QuizServiceHolder.instance;
-    }
 
     public boolean addQuiz(Quiz quiz) {
         Objects.requireNonNull(quiz);

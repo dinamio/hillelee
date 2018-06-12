@@ -1,7 +1,5 @@
 package dao.connector;
 
-import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,6 +20,8 @@ public class ConnectionHandler {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("database");
 
             Properties properties = new Properties();
+
+            properties.setProperty("createDatabaseIfNotExist", resourceBundle.getString("db.createDatabaseIfNotExist"));
             properties.setProperty("user", resourceBundle.getString("db.user"));
             properties.setProperty("password", resourceBundle.getString("db.pass"));
             properties.setProperty("useUnicode", resourceBundle.getString("db.useUnicode"));

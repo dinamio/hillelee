@@ -1,8 +1,11 @@
 package ui;
 
 import model.Quiz;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.QuizService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +17,15 @@ import java.io.IOException;
 public class QuizServlet extends HttpServlet {
     private static final String ADD_QUIZ_PAGE = "/view/inputQuiz.jsp";
     private static final String VIEW_QUIZ_PAGE = "/view/outputQuiz.jsp";
+    @Autowired
+    private QuizService quizService;
 
-    private static QuizService quizService = QuizService.getInstance();
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,7 +55,7 @@ public class QuizServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //todo: create .sql table
+
         Integer id = Integer.parseInt(req.getParameter("quizID"));
         String subject = req.getParameter("subject");
         String topic = req.getParameter("topic");
