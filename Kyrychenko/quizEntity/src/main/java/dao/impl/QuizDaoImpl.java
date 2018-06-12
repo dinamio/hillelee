@@ -4,11 +4,13 @@ import dao.QuizDao;
 import dao.connector.ConnectionHandler;
 import model.Quiz;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class QuizDaoImpl implements QuizDao {
     private Connection connection;
     private Logger logger;
@@ -18,7 +20,6 @@ public class QuizDaoImpl implements QuizDao {
     private static final String GET_ALL_QUIZZES = "SELECT * FROM quiz INNER JOIN user ON quiz.quiz_author_id = user.id";
     private static final String UPDATE_QUIZ = "UPDATE quiz SET subject=?, topic=? WHERE quiz.id=?";
     private static final String DELETE_QUIZ = "DELETE FROM quiz WHERE quiz.id=?";
-
 
     public QuizDaoImpl() {
         this.logger = Logger.getLogger(this.getClass());

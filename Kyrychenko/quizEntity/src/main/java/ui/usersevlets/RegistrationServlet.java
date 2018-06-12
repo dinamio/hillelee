@@ -1,9 +1,12 @@
 package ui.usersevlets;
 
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import service.UserService;
 import ui.usersevlets.service.Service;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +17,14 @@ import java.io.IOException;
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
     private static final String REGISTRATION_PAGE = "/registration.jsp";
+    @Autowired
+    private UserService userService;
 
-    private static UserService userService = UserService.getInstance();
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

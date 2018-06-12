@@ -1,26 +1,17 @@
 package service;
 
 import dao.UserDao;
-import dao.impl.UserDaoImpl;
 import model.User;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Service
 public class UserService {
+    @Autowired
     private UserDao userDao;
-
-    private UserService() {
-        userDao = new UserDaoImpl();
-    }
-
-    private static class UserServiceHolder {
-        private static final UserService instance = new UserService();
-    }
-
-    public static UserService getInstance() {
-        return UserServiceHolder.instance;
-    }
 
     public boolean isUserAccountDataMatch(String login, String password) {
         return checkPass(password, userDao.getUserPass(login));
@@ -40,7 +31,7 @@ public class UserService {
         return userDao.update(user);
     }
 
-    private String hashPassword(String plainTextPassword){
+    private String hashPassword(String plainTextPassword) {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
 
