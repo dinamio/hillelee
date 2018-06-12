@@ -1,9 +1,7 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="1" author="muao">
         <createTable tableName="quizzes">
@@ -11,10 +9,8 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="int(5)"/>
-            <column name="lastname" type="int(5)"/>
             <column name="subject" type="int(5)"/>
             <column name="theme" type="int(5)"/>
-            <column name="questions" type="int(5)"/>
         </createTable>
 
         <createTable tableName="users">
@@ -44,7 +40,7 @@
             <column name="id" type="int(5)" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="quizid" type="int(5)"/>
+            <column name="themeId" type="int(5)"/>
             <column name="question" type="varchar(300)"/>
             <column name="answer" type="tinyint(5)"/>
         </createTable>

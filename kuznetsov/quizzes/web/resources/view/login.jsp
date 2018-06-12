@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
@@ -12,8 +13,8 @@
     <link href="http://getbootstrap.com/docs/4.0/examples/floating-labels/floating-labels.css" rel="stylesheet">
 </head>
 <body>
-<form class="form-signin" method="POST">
 
+<form:form action="/" method="post" modelAttribute="userDataFromForm" >
     <div class="text-center mb-4">
 
         <%= request.getSession().getAttribute("wrongMessage") %>
@@ -29,9 +30,9 @@
     </div>
     <div class="text-center button-bar">
         <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit" value="Sign in">Sign in</button>
-        <button class="btn btn-lg btn-outline-primary btn-block" name="submit" type="submit" value="Sign up">Sign up
-        </button>
+        <button class="btn btn-lg btn-outline-primary btn-block" name="submit" type="submit" value="Sign up">Sign up</button>
     </div>
-</form>
+</form:form>
+
 </body>
 </html>

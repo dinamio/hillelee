@@ -45,7 +45,7 @@
             <td>${t.theme}</td>
             <td>
               <table>
-                <c:forEach var="entry" items="${t.questionMap}">
+                <c:forEach var="entry" items="${t.questions}">
                 <tr>
                     ${entry.value} | ${entry.key}<br/>
                 </tr>
@@ -58,7 +58,7 @@
                         $(".del${t.id}").click(function () {
                             $.ajax({
                                 type: "delete",
-                                url: "/quiz?id=${t.id}",
+                                url: "/quiz/"+${t.id},
                                 success:  $(this).parent().parent().remove()
                             })
                         })

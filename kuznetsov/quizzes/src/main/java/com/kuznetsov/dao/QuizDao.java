@@ -1,15 +1,15 @@
-package dao;
+package com.kuznetsov.dao;
 
-import enteties.SubjectQuiz;
+import com.kuznetsov.entities.Quizzes;
 
 import java.util.List;
 
 public interface QuizDao {
 
-    List<SubjectQuiz> getAllQuizzesFromDB();
+    List<Quizzes> getAllQuizzesFromDB();
 
     void removeQuizFromDB(int id);
 
-    void addNewQuizToDB(SubjectQuiz quiz);
+   void addNewQuizToDB(Quizzes quiz);
 
 }

@@ -9,7 +9,7 @@ function addRow(input) {
         '<input type="checkbox" class="check-box-table-cell"  name="Checkbox'+(i+1)+'">'+
         '<input type="text" class="form-control" name="Question'+(i+1)+'">'+
         '<span class="input-group-btn">'+
-        '<button id="btn'+(i+1)+'" type="button" class="btn btn-primary" onclick="addRow(this); sendQuestionData(this)">'+
+        '<button id="btn'+(i+1)+'" type="button" class="btn btn-primary" onclick="addRow(this)">'+
         '<span id="icon'+(i+1)+'" class="glyphicon glyphicon-plus"></span>'+
         '</button>'+
         '</span>'+

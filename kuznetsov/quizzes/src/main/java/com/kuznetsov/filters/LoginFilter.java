@@ -1,6 +1,9 @@
-package filters;
+package com.kuznetsov.filters;
 
-import dao.impl.QuizDaoImpl;
+
+import com.kuznetsov.dao.impl.QuizDaoHibernate;
+import com.kuznetsov.dao.impl.daoServices.UserDao;
+import com.kuznetsov.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -17,16 +20,21 @@ import java.io.IOException;
 public class LoginFilter implements Filter {
 
     @Autowired
-    private QuizDaoImpl quizDao;
+    QuizDaoHibernate quizDao;
+
+    @Autowired
+    Users users;
+
+    @Autowired
+    UserDao userDao;
+
 
     @Override
     public void init(FilterConfig filterConfig) {
 
-
-           /* super.init(config);*/
-            SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-                    filterConfig.getServletContext());
-        }
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                filterConfig.getServletContext());
+    }
 
 
     @Override
@@ -39,9 +47,9 @@ public class LoginFilter implements Filter {
         String sessionLogin = (String) session.getAttribute("login");
         String sessionPwd = (String) session.getAttribute("pwd");
 
-        boolean trueUser = quizDao.isCredentialsCons(sessionLogin, sessionPwd);
+        users = userDao.getUserFromDB(sessionLogin);
 
-        if (sessionLogin != null && trueUser) {
+        if (sessionPwd.equals(users.getPwd())) {
             filterChain.doFilter(servletRequest, servletResponse);
 
         } else {
