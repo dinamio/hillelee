@@ -1,11 +1,7 @@
 package borysov.controller;
 
 import borysov.entity.*;
-import borysov.exception.DAOException;
-import borysov.extractor.impl.ExtractorQuationFormImpl;
 import borysov.service.QuizService;
-import borysov.extractor.ExtractorQuationForm;
-import borysov.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
@@ -84,7 +79,7 @@ public class QuizController {
 
             Answer answer = new Answer();
             answer.setText(answerText);
-            answer.setRightAnser(isRight);
+            answer.setRightAnswer(isRight);
             answersList.add(answer);
         }
 

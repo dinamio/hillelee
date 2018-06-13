@@ -1,9 +1,17 @@
 package borysov.entity;
 
-public class Quiz {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "quizzes")
+public class Quiz {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "subject")
     private String nameOfSubject;
+
     private String theme;
     private String author;
 

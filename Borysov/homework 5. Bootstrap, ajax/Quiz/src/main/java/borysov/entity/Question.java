@@ -1,9 +1,18 @@
 package borysov.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "questions")
 public class Question {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "id_of_quiz")
     private int idOfQuiz;
-    private String textOfQuation;
+
+    @Column(name = "text_question")
+    private String textOfQuestion;
 
     public int getId() {
         return id;
@@ -21,21 +30,21 @@ public class Question {
         this.idOfQuiz = idOfQuiz;
     }
 
-    public String getTextOfQuation() {
-        return textOfQuation;
+    public String getTextOfQuestion() {
+        return textOfQuestion;
     }
 
-    public void setTextOfQuation(String textOfQuation) {
-        this.textOfQuation = textOfQuation;
+    public void setTextOfQuestion(String textOfQuestion) {
+        this.textOfQuestion = textOfQuestion;
     }
 
     public Question() {
     }
 
-    public Question(int id, int idOfQuiz, String textOfQuation) {
+    public Question(int id, int idOfQuiz, String textOfQuestion) {
         this.id = id;
         this.idOfQuiz = idOfQuiz;
-        this.textOfQuation = textOfQuation;
+        this.textOfQuestion = textOfQuestion;
     }
 
     @Override
@@ -43,7 +52,7 @@ public class Question {
         return "Question{" +
                 "id=" + id +
                 ", idOfQuiz=" + idOfQuiz +
-                ", textOfQuation='" + textOfQuation + '\'' +
+                ", textOfQuestion='" + textOfQuestion + '\'' +
                 '}';
     }
 }

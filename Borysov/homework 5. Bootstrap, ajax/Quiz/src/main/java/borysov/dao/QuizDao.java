@@ -13,9 +13,9 @@ public interface QuizDao {
 
     void deleteQuizFromDBById(int id);
 
-    void addQuestionToDB(Integer quizId, String quationText);
+    void addQuestionToDB(Integer quizId, String questionText);
 
-    Integer getQuiztionIdFromDB(Integer quizId, String quationText);
+    Integer getQuestionIdFromDB(Integer quizId, String questionText);
 
-    void addAnswersToDB(Integer quationId, List<Answer> answersList);
+    void addAnswersToDB(Integer questionId, List<Answer> answersList);
 }
