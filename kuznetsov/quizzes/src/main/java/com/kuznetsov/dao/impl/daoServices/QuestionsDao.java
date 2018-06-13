@@ -1,10 +1,11 @@
 package com.kuznetsov.dao.impl.daoServices;
 
 import com.kuznetsov.entities.Questions;
-import com.kuznetsov.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -13,11 +14,15 @@ import java.util.Map;
 
 @Component
 public class QuestionsDao {
+    private final Session session;
+
+    public QuestionsDao(@Autowired SessionFactory sessionFactory) {
+        this.session = sessionFactory.openSession();
+    }
 
     public void saveQuestionsToBd(Integer themeId, Map<String, Byte> questionMap) {
 
         for (Map.Entry<String, Byte> entry : questionMap.entrySet()) {
-            Session session = HibernateUtil.getSessionFactory().openSession();
             Transaction transaction = session.beginTransaction();
             session.save(new Questions(themeId, entry.getKey(), entry.getValue()));
             transaction.commit();
@@ -26,7 +31,6 @@ public class QuestionsDao {
 
     public Map<String, Byte> getQuestionsFromDB(Integer themeId) {
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
         List<Questions> questionsEntities;
         Map<String, Byte> questions = new HashMap<>();
 
