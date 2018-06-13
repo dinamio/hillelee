@@ -7,8 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
-<%@include file="head.jsp"%>
+<%@include file="/head.jsp"%>
 <body>
 
 <div id="main">
@@ -29,18 +30,18 @@
         <div id="content">
 
             <h2>Registration</h2>
-            <form method="post" action="RegisterController">
+            <form:form method="post" action="/register" modelAttribute="regModel">
                 <h3>login</h3>
-                <input required class="form-control" type="text" name="login_field"/>
+                <input required class="form-control" type="text" name="login"/>
                 <h3>password</h3>
-                <input required class="form-control" type="password" name="password_field"/>
+                <input required class="form-control" type="password" name="password"/>
                 <h3>name</h3>
-                <input required class="form-control" type="text" name="name_field"/>
+                <input required class="form-control" type="text" name="name"/>
                 <br/>
                 <button type="button" class="btn"><a href="index.jsp">Cancel</a></button>
                 <input type="submit" class="btn btn-primary active" value="Register"/>
 
-            </form>
+            </form:form>
         </div>
     </div>
 

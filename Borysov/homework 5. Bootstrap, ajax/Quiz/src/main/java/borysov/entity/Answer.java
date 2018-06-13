@@ -1,11 +1,20 @@
 package borysov.entity;
 
-public class Answer {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "answers")
+public class Answer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "answer_id")
     private int id;
-    private int idOfQuation;
+    @Column(name = "id_of_question")
+    private int idOfQuestion;
+    @Column(name = "answer_text")
     private String text;
-    private boolean isRightAnser;
+    @Column(name = "is_right_answer")
+    private boolean isRightAnswer;
 
     public int getId() {
         return id;
@@ -15,12 +24,12 @@ public class Answer {
         this.id = id;
     }
 
-    public int getIdOfQuation() {
-        return idOfQuation;
+    public int getIdOfQuestion() {
+        return idOfQuestion;
     }
 
-    public void setIdOfQuation(int idOfQuation) {
-        this.idOfQuation = idOfQuation;
+    public void setIdOfQuestion(int idOfQuestion) {
+        this.idOfQuestion = idOfQuestion;
     }
 
     public String getText() {
@@ -31,31 +40,31 @@ public class Answer {
         this.text = text;
     }
 
-    public boolean isRightAnser() {
-        return isRightAnser;
+    public boolean isRightAnswer() {
+        return isRightAnswer;
     }
 
-    public void setRightAnser(boolean rightAnser) {
-        isRightAnser = rightAnser;
+    public void setRightAnswer(boolean rightAnswer) {
+        isRightAnswer = rightAnswer;
     }
 
     public Answer() {
     }
 
-    public Answer(int id, int idOfQuation, String text, boolean isRightAnser) {
+    public Answer(int id, int idOfQuestion, String text, boolean isRightAnser) {
         this.id = id;
-        this.idOfQuation = idOfQuation;
+        this.idOfQuestion = idOfQuestion;
         this.text = text;
-        this.isRightAnser = isRightAnser;
+        this.isRightAnswer = isRightAnser;
     }
 
     @Override
     public String toString() {
         return "Answer{" +
                 "id=" + id +
-                ", idOfQuation=" + idOfQuation +
+                ", idOfQuestion=" + idOfQuestion +
                 ", text='" + text + '\'' +
-                ", isRightAnser=" + isRightAnser +
+                ", isRightAnswer=" + isRightAnswer +
                 '}';
     }
 }

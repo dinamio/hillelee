@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-<%@include file="head.jsp"%>
+<%@include file="/head.jsp"%>
   <body>
   <div id="main">
     <div id="header">
@@ -21,13 +21,13 @@
 
     <div id="site_content">
       <div class="sidebar">
-        <h3><a href="LogOut">Log out</a></h3>
+        <h3><a href="/logout">Log out</a></h3>
       </div>
       <div id="content">
 
         <ul class="menu">
           <li><h1><a href="createQuiz.jsp">Create quiz</a></h1></li>
-          <li><h1><a href="/ShowQuizzes">Show quizzes</a></h1></li>
+          <li><h1><a href="/showQuizzes">Show quizzes</a></h1></li>
         </ul>
 
       </div>

@@ -2,12 +2,12 @@ package borysov.extractor.impl;
 
 import borysov.entity.Answer;
 import borysov.extractor.ExtractorQuationForm;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class ExtractorQuationFormImpl implements ExtractorQuationForm {
     public List<Answer> extract(HttpServletRequest request) {
         List<Answer> answers = new ArrayList<Answer>();
@@ -18,7 +18,7 @@ public class ExtractorQuationFormImpl implements ExtractorQuationForm {
 
             Answer answer = new Answer();
             answer.setText(answerText);
-            answer.setRightAnser(isRight);
+            answer.setRightAnswer(isRight);
             answers.add(answer);
         }
 

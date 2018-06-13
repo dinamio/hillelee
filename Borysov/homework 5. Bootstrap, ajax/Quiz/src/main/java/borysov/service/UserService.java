@@ -1,11 +1,11 @@
 package borysov.service;
 
-import borysov.dao.UserDao;
-import borysov.dao.impl.UserDaoImpl;
+import borysov.dao.*;
 import borysov.entity.*;
 import borysov.exception.DAOException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ public class UserService {
     private static final Logger LOGGER = Logger.getLogger(UserService.class);
 
     @Autowired
+    @Qualifier("hibernate")
     private UserDao userDao;
 
     public String MD5Hashing(String md5) {

@@ -1,3 +1,4 @@
+/*
 package borysov.dao.impl;
 
 import borysov.dao.ConnectionPool;
@@ -5,13 +6,17 @@ import borysov.dao.UserDao;
 import borysov.entity.User;
 import borysov.exception.DAOException;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 @Component
+@Repository
+@Qualifier("jdbc")
 public class UserDaoImpl implements UserDao {
 
     private static Connection connection = ConnectionPool.getConnection();
@@ -58,3 +63,4 @@ public class UserDaoImpl implements UserDao {
         }
     }
 }
+*/
