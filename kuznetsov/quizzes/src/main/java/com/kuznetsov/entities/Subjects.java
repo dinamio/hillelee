@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "subjects", schema = "quiz")
 public class Subjects {
 
     @Id

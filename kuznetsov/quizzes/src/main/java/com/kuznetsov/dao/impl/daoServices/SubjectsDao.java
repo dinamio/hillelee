@@ -3,9 +3,9 @@ package com.kuznetsov.dao.impl.daoServices;
 import com.kuznetsov.entities.Subjects;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class SubjectsDao {
     private final Session session;
 

@@ -41,7 +41,7 @@ public class QuizConfiguration {
     public LocalSessionFactoryBean sessionFactory (){
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("entity");
+        sessionFactory.setPackagesToScan("com.kuznetsov.entities");
         return sessionFactory;
     }
 
