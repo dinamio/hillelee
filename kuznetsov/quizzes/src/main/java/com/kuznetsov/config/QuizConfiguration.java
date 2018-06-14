@@ -9,19 +9,28 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @ComponentScan({"com.kuznetsov.controllers", "com.kuznetsov.dao", "com.kuznetsov.entities", "com.kuznetsov.filters", "com.kuznetsov.services"})
 public class QuizConfiguration {
 
-   /* @Bean
+    @Bean
+    public InternalResourceViewResolver internalResourceViewResolver(){
+        InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
+        internalResourceViewResolver.setPrefix("/resources/view/");
+        internalResourceViewResolver.setSuffix(".jsp");
+        return internalResourceViewResolver;
+    }
+
+    @Bean
     public SpringLiquibase springLiquibase(){
         SpringLiquibase springLiquibase = new SpringLiquibase();
         springLiquibase.setDataSource(dataSource());
         springLiquibase.setChangeLog("classpath:changest-db.xml");
         springLiquibase.setContexts("test, production");
         return springLiquibase;
-    }*/
+    }
 
     @Bean
     public BasicDataSource dataSource(){

@@ -45,7 +45,7 @@
             <column name="answer" type="tinyint(5)"/>
         </createTable>
 
-        <loadData encoding="UTF-8" file="src/main/resources/subjects.csv" tableName="subjects" separator=";">
+        <loadData encoding="UTF-8" file="subjects.csv" tableName="subjects" separator=";">
             <column name="subject" type="STRING"/>
 
         </loadData>
