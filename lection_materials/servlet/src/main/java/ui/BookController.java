@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import service.BookService;
 
+import java.security.Principal;
+
 /**
  * Created by eugen on 5/25/18.
  */
@@ -20,7 +22,7 @@ public class BookController {
     BookService bookService;
 
     @RequestMapping(method = RequestMethod.GET, value = "")
-    public ModelAndView getBooks(Model model) {
+    public ModelAndView getBooks(Model model, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("books");
         modelAndView.addObject("books", bookService.getBooks());
         return modelAndView;

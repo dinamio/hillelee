@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Books</title>
@@ -34,11 +35,15 @@
     </c:forEach>
     </tbody>
 </table>
+Hello, <sec:authentication property="principal.username"/>
+<sec:authorize access="hasAuthority('ADMIn')">
 <form:form action="/book" method="post" modelAttribute="bookToAdd">
     <input name="name">
     <input name="author">
     <input type="submit" value="Создать">
 </form:form>
+</sec:authorize>
+<input type="button" class='logout' value="Logout">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -48,6 +53,17 @@
             $.ajax({
                 type: "DELETE",
                 url: "/book/"+bookId,
+                success: function () {
+                    location.reload();
+               }
+
+            })
+        });
+        $(".logout").click(function () {
+            var csrf='${_csrf.token}';
+            $.ajax({
+                type: "POST",
+                url: "/logout?_csrf="+csrf,
                 success: function () {
                     location.reload();
                 }

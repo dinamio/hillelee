@@ -16,18 +16,21 @@ public class Book {
     @Column(name = "title")
     String name;
 
-    String author;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    Author author;
 
     public Book() {
     }
 
-    public Book(Integer id, String name, String author) {
+    public Book(Integer id, String name, Author author) {
         this.id = id;
         this.name = name;
         this.author = author;
     }
 
-    public Book(String name, String author) {
+    public Book(String name, Author author) {
         this.name = name;
         this.author = author;
     }
@@ -48,11 +51,11 @@ public class Book {
         this.name = name;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -61,7 +64,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
+                ", author='" + author.getSurname() + '\'' +
                 '}';
     }
 }
