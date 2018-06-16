@@ -4,12 +4,14 @@ import com.kuznetsov.entities.Themes;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ThemesDao {
     private final Session session;
 
+@Autowired
     public ThemesDao(SessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }

@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan({"com.kuznetsov.controllers", "com.kuznetsov.dao", "com.kuznetsov.entities", "com.kuznetsov.filters", "com.kuznetsov.services"})
+@ComponentScan({"com.kuznetsov.controllers", "com.kuznetsov.dao", "com.kuznetsov.entities", "com.kuznetsov.services"})
 public class QuizConfiguration {
 
     @Bean
@@ -55,7 +55,8 @@ public class QuizConfiguration {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(@Autowired SessionFactory sessionFactory){
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setDataSource(dataSource());
         transactionManager.setSessionFactory(sessionFactory);
