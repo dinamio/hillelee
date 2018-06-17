@@ -9,7 +9,7 @@ import java.util.Set;
 @Service
 public class QuestionService {
 
-    public static Quiz currentQuiz;
+    public Quiz currentQuiz;
 
     public boolean removeQuestion(Set<Question> quSet, int id){
         Question question = null;
