@@ -10,8 +10,8 @@ import java.util.*;
 public class UserService {
     @Autowired
     private hibernate.service.ServiceUser userServ;
-    private static User currentUser;
-    private static NavigableSet<User> allUsers= new TreeSet<>();
+    private User currentUser;
+    private NavigableSet<User> allUsers= new TreeSet<>();
 
 
     public boolean addAccount(User user) {
@@ -31,11 +31,11 @@ public class UserService {
         return false;
     }
 
-    public static User getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 
-    public static void setCurrentUser(User currentUser) {
+    public void setCurrentUser(User currentUser) {
         UserService.currentUser = currentUser;
     }
 }
