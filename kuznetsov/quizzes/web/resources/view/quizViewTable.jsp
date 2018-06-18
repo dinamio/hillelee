@@ -56,9 +56,11 @@
                 <script>
                     $(document).ready(function () {
                         $(".del${t.id}").click(function () {
+                            var csrf='${_csrf.token}';
                             $.ajax({
-                                type: "delete",
-                                url: "/quiz/"+${t.id},
+                                type: "POST",
+                                url: "/quiz/" + ${t.id},
+                                data:{_csrf: csrf},
                                 success:  $(this).parent().parent().remove()
                             })
                         })

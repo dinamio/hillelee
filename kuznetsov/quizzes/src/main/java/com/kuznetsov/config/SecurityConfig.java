@@ -17,15 +17,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("qwerty").roles("USER");
-        /*auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select login,pwd,true from user where login=?")
-                .authoritiesByUsernameQuery("select login,role from user where login =?");*/
+        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select login,pwd,true from users where login=?")
+                .authoritiesByUsernameQuery("select login, role from users where login=?");
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
-                .and().formLogin()
-                .and().httpBasic();
+        http.authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
+                .httpBasic();
     }
 }

@@ -20,7 +20,6 @@
             <column name="login" type="varchar(45)"/>
             <column name="pwd" type="varchar(300)"/>
             <column name="role" type="varchar(10)"/>
-            <column name="salt" type="varchar(300)"/>
         </createTable>
 
          <createTable tableName="subjects">

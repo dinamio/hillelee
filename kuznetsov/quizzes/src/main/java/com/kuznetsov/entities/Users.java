@@ -18,8 +18,6 @@ public class Users {
 
     private String pwd;
 
-    private String salt;
-
     public Users() {
     }
 
@@ -27,13 +25,11 @@ public class Users {
         this.id = id;
         this.login = login;
         this.pwd = pwd;
-        this.salt = salt;
     }
 
     public Users(String login, String pwd, String salt) {
         this.login = login;
         this.pwd = pwd;
-        this.salt = salt;
     }
 
     public Integer getId() {
@@ -61,14 +57,6 @@ public class Users {
         this.pwd = pwd;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,14 +64,14 @@ public class Users {
         Users that = (Users) o;
         return id == that.id &&
                 Objects.equals(login, that.login) &&
-                Objects.equals(pwd, that.pwd) &&
-                Objects.equals(salt, that.salt);
+                Objects.equals(pwd, that.pwd);
+
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, login, pwd, salt);
+        return Objects.hash(id, login, pwd);
     }
 
     @Override
@@ -91,8 +79,6 @@ public class Users {
         return "UsersEntity{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", salt='" + salt + '\'' +
-                '}';
+                ", pwd='" + pwd + '\'';
     }
 }

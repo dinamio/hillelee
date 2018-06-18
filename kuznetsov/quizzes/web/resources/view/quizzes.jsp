@@ -22,6 +22,7 @@
 </head>
 <body>
 <%@ include file="/resources/view/logOutButton.jsp" %>
+<sec:authorize access="hasAuthority('ADMIN')">
 <form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
         <thead>
@@ -84,6 +85,7 @@
 
     </table>
 </form:form>
+</sec:authorize>
 <%@ include file="/resources/view/quizViewTable.jsp" %>
 <script src="resources/js/addQuestion.js"></script>
 </body>
