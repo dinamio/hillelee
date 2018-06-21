@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link type="text/css"
       rel="stylesheet"
       href="${pageContext.request.contextPath}/resources/css/header.css">
@@ -12,9 +12,9 @@
 
             <ul class="navbar-nav mr-auto">
                 <li class="account-name">
-                    Account: ${login}
+                    Account: <sec:authentication property="principal.username"/>
                 </li>
-                <li class="account-name">
+                <li class="account-name logout-href" >
                     <a href="/logout">Log out</a>
                 </li>
             </ul>

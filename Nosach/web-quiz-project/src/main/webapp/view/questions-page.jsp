@@ -64,13 +64,13 @@
                                             <input type="text" name='answer0'  placeholder='Answer' class="form-control" required="required"/>
                                         </td>
                                         <td>
-                                            <div class="col-md-4">
-                                                    <div class="checkbox checkbox-primary">
-                                                        <input name="check0" id="checkbox0" type="checkbox" >
-                                                        <label for="checkbox0">
-                                                            check if true
-                                                        </label>
-                                                    </div>
+                                            <div class="custom-controls-stacked d-block my-3">
+                                                <label class="custom-control material-switch">
+                                                    <span class="material-switch-control-description">False</span>
+                                                    <input type="checkbox" name="check0" id="checkbox0" class="material-switch-control-input"/>
+                                                    <span class="material-switch-control-indicator"></span>
+                                                    <span class="material-switch-control-description">True</span>
+                                                </label>
                                             </div>
                                         </td>
                                     </tr>

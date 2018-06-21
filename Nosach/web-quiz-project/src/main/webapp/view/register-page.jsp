@@ -49,7 +49,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <form:input type="text" class="form-control" path="login" id="username"  placeholder="Enter your Username"/>
+                            <form:input type="text" class="form-control" path="login" id="username"  placeholder="Enter your Username" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <form:password class="form-control" path="password" id="password"  placeholder="Enter your Password" required="required"/>
+                            <form:password class="form-control" path="password" id="password" placeholder="Enter your Password" required="required"/>
                         </div>
                     </div>
                 </div>

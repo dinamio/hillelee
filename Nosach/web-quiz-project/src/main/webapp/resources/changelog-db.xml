@@ -99,6 +99,17 @@
     </changeSet>
 
     <changeSet id="5" author="nosach">
+        <createTable tableName="roles">
+            <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="role" type="varchar(45)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="nosach">
         <createTable tableName="users">
             <column name="id" type="int" autoIncrement="true" encoding="UTF-8">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
@@ -115,7 +126,20 @@
             <column name="email" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="role_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
         </createTable>
+        <createIndex
+                indexName="fk_users_roles_id"
+                tableName="users">
+            <column name="role_id" type="int"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="users"
+                                 constraintName="fk_users_roles"
+                                 referencedColumnNames="id"
+                                 referencedTableName="roles"/>
     </changeSet>
 
 </databaseChangeLog>

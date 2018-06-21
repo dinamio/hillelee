@@ -1,6 +1,7 @@
 package controllers;
 
 import entity.Answer;
+import entity.Question;
 import entity.Quiz;
 import entity.Subject;
 import org.apache.log4j.Logger;
@@ -9,16 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import service.QuizService;
 import service.SubjectService;
 import service.builder.QuizBuilder;
+import service.builder.StatisticBuilder;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -34,9 +37,37 @@ public class QuizController {
     @Autowired
     QuizBuilder quizBuilder;
 
+    List<Question> questions;
+    StatisticBuilder statisticBuilder;
+
+    @RequestMapping(method = POST, value = "available")
+    public String showAvailable(){
+        return "redirect:available";
+    }
+
+    @RequestMapping(method = GET, value = "available")
+    public String showAvailableSubjects(Model model){
+        List<Subject> list = subjectService.getAllSubjects();
+        model.addAttribute("subjects", list);
+        Integer totalQuizzies = 0;
+        for (Subject subject: list) {
+            totalQuizzies += subject.getQuizList().size();
+        }
+        model.addAttribute("totalQuizzies", totalQuizzies);
+        return "available-subjects";
+    }
+
     @RequestMapping(method = GET, value = "list")
-    public String showQuizListForm(Model model){
-        List<Quiz> list =  quizService.getAllQuizzies();
+    public String showQuizListForm(Model model, @RequestParam("subj")String subj){
+        List<Quiz> list;
+        if (subj.equals("all")){
+            list =  quizService.getAllQuizzies();
+        }
+        else{
+            int id = Integer.parseInt(subj);
+            Subject subject = subjectService.getSubject(id);
+            list = subject.getQuizList();
+        }
         model.addAttribute("quizzies", list);
         return "list-of-quizzes";
     }
@@ -49,7 +80,7 @@ public class QuizController {
     }
 
     @RequestMapping(method = POST, value = "add")
-    public String addQuizBasicInfo(HttpSession session, WebRequest req){
+    public String addQuizBasicInfo(HttpSession session, WebRequest req, Principal principal){
         if(session.getAttribute("builder") == null){
             quizBuilder.clean();
             session.setAttribute("builder", quizBuilder);
@@ -64,9 +95,9 @@ public class QuizController {
         }
         quizBuilder.addSubject(subject);
         quizBuilder.addTheme(req.getParameter("theme"));
-        quizBuilder.addAuthor(session.getAttribute("login").toString());
+        quizBuilder.addAuthor(principal.getName());
 
-        return "redirect:question";
+        return "redirect:/question";
     }
 
     @RequestMapping(method = GET, value = "question")
@@ -94,7 +125,7 @@ public class QuizController {
             logger.info("Saving Quiz to database!!");
             quizBuilder.saveToDB();
             session.setAttribute("builder", null);
-            return "redirect:list";
+            return "redirect:/available";
         }
 
         String count = req.getParameter("questionsCount").toString();
@@ -108,7 +139,40 @@ public class QuizController {
     public String deleteQuiz(@PathVariable("id") int id){
         logger.info("deleting quiz");
         quizService.deleteQuiz(id);
-        return "redirect:/list";
+        return "redirect:/list?subj=all";
+    }
+
+    @RequestMapping(value = "/pass/{id}", method = GET)
+    public String showQuizPassingPage(Model model, @PathVariable("id") int id){
+        Quiz quiz = quizService.getQuiz(id);
+        questions = quiz.getQuestionsList();
+        int currentQuestion = 0;
+        statisticBuilder = new StatisticBuilder();
+        statisticBuilder.setQuiz(quiz);
+        model.addAttribute("question",questions.get(currentQuestion));
+        model.addAttribute("currentQuestion", currentQuestion);
+        return "pass-the-quiz";
+    }
+
+    @RequestMapping(value = "/pass", method = POST)
+    public String passQuiz(Model model, WebRequest request){
+        int currentQuestion = Integer.parseInt(request.getParameter("currentQuestion"));
+
+        int i=1;
+        while(request.getParameter("checkbox"+i) != null){
+            boolean checked = !(request.getParameter("check"+i) == null);
+            statisticBuilder.addAnswer(checked);
+            i++;
+        }
+        if(currentQuestion >= questions.size()){
+            model.addAttribute("quiz", statisticBuilder.getQuiz());
+            model.addAttribute("answers", statisticBuilder.getUserAnswers());
+            return "result";
+        }
+
+        model.addAttribute("question",questions.get(currentQuestion));
+        model.addAttribute("currentQuestion", currentQuestion);
+        return "pass-the-quiz";
     }
 
 }

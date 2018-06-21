@@ -23,6 +23,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     public User() { }
 
     public User(String login, String password, String name, String email) {
@@ -63,6 +67,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
