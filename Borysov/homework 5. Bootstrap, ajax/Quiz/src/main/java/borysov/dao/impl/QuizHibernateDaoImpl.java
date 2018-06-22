@@ -6,11 +6,12 @@ import borysov.entity.Question;
 import borysov.entity.Quiz;
 import borysov.entity.User;
 import borysov.service.UserService;
-import borysov.utility.HibernateUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -26,9 +27,15 @@ import java.util.List;
 public class QuizHibernateDaoImpl implements QuizDao {
     private static final Logger LOGGER = Logger.getLogger(QuizHibernateDaoImpl.class);
 
+    private final Session session;
+
+    @Autowired
+    public QuizHibernateDaoImpl(SessionFactory sessionFactory) {
+        this.session = sessionFactory.openSession();
+    }
+
     public List<Quiz> getQuizzesAsAList() {
 
-        Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Quiz");
         List<Quiz> listOfQuizzes = query.list();
@@ -39,7 +46,7 @@ public class QuizHibernateDaoImpl implements QuizDao {
     }
 
     public void addQuizToDB(Quiz quiz) throws SQLException {
-        Session session = HibernateUtils.getSessionFactory().openSession();
+
         Transaction transaction = session.beginTransaction();
         session.save(quiz);
         session.flush();
@@ -47,7 +54,6 @@ public class QuizHibernateDaoImpl implements QuizDao {
     }
 
     public void deleteQuizFromDBById(int id) {
-        Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("delete from Quiz where id=:quizId");
         query.setParameter("quizId", id);
@@ -62,7 +68,6 @@ public class QuizHibernateDaoImpl implements QuizDao {
         question.setIdOfQuiz(quizId);
         question.setTextOfQuestion(questionText);
 
-        Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(question);
         session.flush();
@@ -71,10 +76,9 @@ public class QuizHibernateDaoImpl implements QuizDao {
 
     public Integer getQuestionIdFromDB(Integer quizId, String questionText) {
         System.out.println(quizId+ " " + questionText);
-        Session session = HibernateUtils.getSessionFactory().openSession();
-        Query query = (Query) session.createQuery("select id from Question where idOfQuiz=:qId and textOfQuestion=:text");
-        query.setParameter("qId", quizId);
-        query.setParameter("text", questionText).uniqueResult();
+        Query query = (Query) session.createQuery("select id from Question where id = (select max(id) from Question)");
+/*        query.setParameter("qId", quizId);
+        query.setParameter("text", questionText).getSingleResult();*/
 
 
         Integer questionId = null;
@@ -87,7 +91,6 @@ public class QuizHibernateDaoImpl implements QuizDao {
     }
 
     public void addAnswersToDB(Integer questionId, List<Answer> answersList) {
-        Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         int i = 0;
         while (i < answersList.size()) {

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <%@include file="/head.jsp"%>
   <body>
@@ -22,6 +23,7 @@
     <div id="site_content">
       <div class="sidebar">
         <h3><a href="/logout">Log out</a></h3>
+        <input type="button" class='logout' value="Logout">
       </div>
       <div id="content">
 
@@ -29,7 +31,10 @@
           <li><h1><a href="createQuiz.jsp">Create quiz</a></h1></li>
           <li><h1><a href="/showQuizzes">Show quizzes</a></h1></li>
         </ul>
-
+          <sec:authorize access="hasAuthority('admin')">
+              <li><h1><a href="/showQuizzes">Show quizzes</a></h1></li>
+          </sec:authorize>
+          Hello, <sec:authentication property="principal.username"/>
       </div>
     </div>
 
@@ -39,4 +44,18 @@
 
   </div>
   </body>
+<script>
+    $(document).ready(function () {
+    $(".logout").click(function () {
+        var csrf='${_csrf.token}';
+        $.ajax({
+            type: "POST",
+            url: "/logout?_csrf="+csrf,
+            success: function () {
+                location.reload();
+            }
+        })
+    });
+    });
+</script>
 </html>

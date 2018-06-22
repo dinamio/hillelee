@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,14 +44,14 @@ public class QuizController {
     }
 
     @RequestMapping(method = POST, value = "addQuiz")
-    public String addQuiz(WebRequest req, HttpSession session) {
+    public String addQuiz(WebRequest req, HttpSession session, Principal principal) {
         LOGGER.info("AddQuiz");
 
         String subject = req.getParameter("subject_field");
         String theme = req.getParameter("theme_field");
         User author = (User) session.getAttribute("currentUser");
 
-        Quiz quiz = new Quiz(subject, theme, author.getLogin());
+        Quiz quiz = new Quiz(subject, theme, principal.getName());
         service.addQuiz(quiz);
 
         return "redirect:showQuizzes";
@@ -63,6 +64,12 @@ public class QuizController {
         session.setAttribute("quizId", quizId);
 
         return "addQuestion";
+    }
+
+    @RequestMapping(method = POST, value = "mainPage")
+    public String getMainPage() {
+        LOGGER.info("mainPage");
+        return "mainPage";
     }
 
     @RequestMapping(method = POST, value = "addQuestionAndAnswers")

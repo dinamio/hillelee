@@ -42,7 +42,7 @@ public class UserController {
         }
 
     }
-    @RequestMapping(method = GET, value = "login-get")
+    @RequestMapping(method = GET, value = "login")
     public String getLoginPage(Model model, HttpSession session){
         String loginError = (String) session.getAttribute("errorLogIn");
 
@@ -52,6 +52,7 @@ public class UserController {
         }
         return "index";
     }
+
 
     @RequestMapping(method = POST, value = "login")
     public String doLogin(WebRequest req, HttpSession session){
