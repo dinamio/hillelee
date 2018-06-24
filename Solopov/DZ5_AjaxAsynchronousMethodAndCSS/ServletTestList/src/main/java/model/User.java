@@ -1,4 +1,4 @@
-package hibernate.entity;
+package model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import java.util.List;
 @Entity
 public class User implements Comparable<User>{
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name="login")
     private String login;
@@ -19,7 +19,7 @@ public class User implements Comparable<User>{
 
     @Temporal(TemporalType.DATE)
     @Column(name = "regdate")
-    java.util.Date dateOfRegistration;
+    Date dateOfRegistration;
 
     @Column(name="surname")
     String surname;
@@ -33,7 +33,7 @@ public class User implements Comparable<User>{
     @Column(name="sex")
     boolean sex; //0-Male; 1-Female
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     List<Quiz> quizzes = new ArrayList<>();
 
 
@@ -66,7 +66,7 @@ public class User implements Comparable<User>{
     public void setEmail(String email) { this.email = email; }
     public void setSex(boolean sex) { this.sex = sex; }
 
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getPassword() {
         return password;
     }
@@ -78,6 +78,9 @@ public class User implements Comparable<User>{
     public String getName() { return name; }
     public String getEmail() { return email; }
     public boolean isSex() { return sex; }
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,30 +1,30 @@
-package hibernate.entity;
+package model;
 
 import javax.persistence.*;
 import java.util.List;
 @Entity
 public class Question implements Comparable<Question> {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name="multiple")
     private boolean multiple; //Multiple-choice question
     @Column(name="question")
     private String question;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answer;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_quiz")
     private Quiz quiz;
 
     public Question(){}
 
-    public Question(String question, List<Answer> answer){
+    public Question(String question, List<Answer> answerList) {
         this.question= question;
-        this.answer=answer;
+        this.answer=answerList;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
     public String getQuestion() {

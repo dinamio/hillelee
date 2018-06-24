@@ -15,7 +15,10 @@ To change this template use File | Settings | File Templates.
 <div class="container">
     <div class="mainblock">
 
-<h2>Hello <%=session.getAttribute("login")%>,now you are on the main page of the site!</h2>
+<h2>Привет <%=session.getAttribute("login")%>,Рад видеть тебя на веб-сайте.</h2>
+        <p>Выбери понравившуюся тебе ссылку
+           <p><a href="/auth">Авторизация</a>
+           <p><a href="/quizlist">Главная страница с опросами</a>
     </div>
 </div>
 </body>

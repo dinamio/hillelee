@@ -1,15 +1,12 @@
-package services;
+package service;
 
-import hibernate.entity.Question;
-import hibernate.entity.Quiz;
+import model.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
 public class QuestionService {
-
-    public Quiz currentQuiz;
 
     public boolean removeQuestion(Set<Question> quSet, int id){
         Question question = null;

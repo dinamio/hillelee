@@ -1,16 +1,16 @@
-package hibernate.entity;
+package model;
 
 import javax.persistence.*;
 @Entity
 public class Answer {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name="answer")
     private String answer;
     @Column(name="rightanswer")
     private Boolean right; //true or false answer
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_question")
     private Question question;
 
@@ -30,7 +30,7 @@ public class Answer {
         this.answer = answer;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,12 +38,12 @@ public class Answer {
         this.right = right;
     }
 
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getAnswer() { return answer; }
     public Boolean getRight() { return right; }
 
     @Override
     public String toString() {
-        return answer;
+        return answer+" "+right;
     }
 }

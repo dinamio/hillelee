@@ -3,8 +3,8 @@
 <html>
 <head>
     <title>New Test</title>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <link href="styles.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -68,7 +68,7 @@
             $.ajax({
 
                 type: 'POST',
-                url: '/newquestion',
+                url: '/questions/newquestion',
                 data: data,
 
                 success: function (data) {
