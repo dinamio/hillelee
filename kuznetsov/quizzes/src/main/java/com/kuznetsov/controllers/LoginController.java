@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired
     private Users users;
 
-    @RequestMapping(method = GET, value = "/")
+    @RequestMapping(method = POST, value = "login")
     public String getLoginView(HttpSession session) {
 
         if (session.getAttribute("wrongMessage") == null) {
@@ -36,18 +36,18 @@ public class LoginController {
     }
 
 
-    @RequestMapping(method = POST, value = "/")
+    @RequestMapping(method = GET, value = "/login")
     public String userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpSession session) throws IOException, ServletException {
 
         String buttonType = userDataFromForm.getSubmit();
 
-        if (buttonType.equals("Sign up")) {
+        if (buttonType != null && buttonType.equals("Sign up")) {
             return signUpButtonAction(userDataFromForm, session);
         }
-        if (buttonType.equals("Sign in")) {
+       /* if (buttonType.equals("Sign in")) {
             return signInButtonAction(userDataFromForm, session);
-        }
-        return null;
+        }*/
+        return "login";
     }
 
 
@@ -79,7 +79,7 @@ public class LoginController {
         users = userDao.getUserFromDB(userDataFromForm.getLogin());
 
         if (users != null) {
-            checkPwd = (users.getPwd().equals(BCrypt.hashpw(userDataFromForm.getPwd(), users.getSalt())));
+            checkPwd = (users.getPwd().equals(userDataFromForm.getPwd()));
         }
 
         if (checkPwd) {

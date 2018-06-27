@@ -9,11 +9,21 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
+@EnableWebMvc
 @ComponentScan({"com.kuznetsov.controllers", "com.kuznetsov.dao", "com.kuznetsov.entities", "com.kuznetsov.services"})
 public class QuizConfiguration {
+
+    @Bean
+    public ViewControllerRegistry viewControllerRegistry() {
+        ViewControllerRegistry viewControllerRegistry = new ViewControllerRegistry();
+        viewControllerRegistry.addViewController("/login").setViewName("login");
+        return viewControllerRegistry;
+    }
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver(){
@@ -62,6 +72,8 @@ public class QuizConfiguration {
         transactionManager.setSessionFactory(sessionFactory);
         return transactionManager;
     }
+
+
 
 
 }

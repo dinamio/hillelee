@@ -29,7 +29,7 @@ public class QuizController {
     private QuestionAggregator questionAggregator;
 
 
-    @RequestMapping(method = GET, value = "")
+    @RequestMapping(method = GET, value = "/")
     public String GetQuizJsp(HttpServletRequest req){
 
             req.setAttribute("list", services.getAllQuizzes());
