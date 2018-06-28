@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+         pageEncoding="ISO-8859-1" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html >
 <html>
@@ -12,30 +12,60 @@
     <title>Quizzes login</title>
 </head>
 <body>
+<form:form id="main-form"/>
+<table align="center">
+    <tbody>
+    <tr>
+        <td>
+            <p class="text-center">It's the login page. Input your credentials.</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p class="text-center">
+            <c:if test="${not empty sessionScope.message}">
+                <span style="color:red"><c:out value="${sessionScope.message}"/></span>
+                <c:remove var="message" scope="session"/>
+            </c:if>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-label-group">
+                <input type="text" name="userid" class="form-control" placeholder="Login" required autofocus form="main-form">
+            </div>
+        </td>
+    </tr>
 
-<form action='<spring:url value="/signin"/>' method="post">
+    <tr>
+        <td>
+            <div class="form-label-group">
+                <input type="password" name="passwd" class="form-control" placeholder="Password" required autofocus form="main-form">
+            </div>
+        </td>
+    </tr>
 
-        <div class="form-label-group">
-            <td><input type="text" name="userid" class="form-control" placeholder="Login" required autofocus></td>
-        </div>
-
-        <div class="form-label-group">
-            <td><input type="password" name="passwd"class="form-control" placeholder="Password" required autofocus></td>
-        </div>
-
-        <div class="text-center button-bar">
-            <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit" value="Sign in">Sign in</button>
-
-            <button class="btn btn-lg btn-outline-primary btn-block" name="submit" type="submit" value="Sign up">Sign up</button>
-
-        </div>
+     <tr>
+        <td>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" form="main-form">Sign in</button>
+        </td>
 
 
-</form>
+    </tr>
+    <tr>
+        <td>
+            <div class="text-center button-bar">
+                <a href="/signin">
+                    <button class="btn btn-lg btn-outline-primary btn-block" type=button value="Sign up">Sign up
+                    </button>
+                </a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
-<c:if test="${not empty sessionScope.message}">
-    <span style="color:green"><c:out value="${sessionScope.message}"/></span>
-    <c:remove var="message" scope="session" />
-</c:if>
+
 </body>
 </html>

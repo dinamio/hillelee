@@ -3,15 +3,13 @@ package com.kuznetsov.controllers;
 import com.kuznetsov.dao.impl.daoServices.UserDao;
 import com.kuznetsov.entities.UserDataFromForm;
 import com.kuznetsov.entities.Users;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -25,82 +23,39 @@ public class LoginController {
     @Autowired
     private Users users;
 
-    @RequestMapping(method = POST, value = "login")
-    public String getLoginView(HttpSession session) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @RequestMapping(method = GET, value = "/login")
+    public String getLoginView() {
+        return "login";
+    }
+
+    @RequestMapping(method = GET, value = "/signin")
+    public String getSignUpPage(HttpSession session) {
         if (session.getAttribute("wrongMessage") == null) {
             session.setAttribute("wrongMessage", "");
         }
-
-        return "login";
+        return "signin";
     }
 
-
-    @RequestMapping(method = GET, value = "/login")
-    public String userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpSession session) throws IOException, ServletException {
-
-        String buttonType = userDataFromForm.getSubmit();
-
-        if (buttonType != null && buttonType.equals("Sign up")) {
-            return signUpButtonAction(userDataFromForm, session);
-        }
-       /* if (buttonType.equals("Sign in")) {
-            return signInButtonAction(userDataFromForm, session);
-        }*/
-        return "login";
-    }
-
-
-    private String signUpButtonAction(UserDataFromForm userDataFromForm, HttpSession session) {
+    @RequestMapping(method = POST, value = "/signin")
+    private String signUpButtonAction(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpSession session){
 
         boolean userExist = userDao.getUserFromDB(userDataFromForm.getLogin()) != null;
 
         if (!userExist) {
-            String salt = BCrypt.gensalt();
-            String pwd = BCrypt.hashpw(userDataFromForm.getPwd(), salt);
-
-            users = new Users(userDataFromForm.getLogin(), pwd, salt);
-
+            String pwd = passwordEncoder.encode(userDataFromForm.getPwd());
+            users = new Users(userDataFromForm.getLogin(), pwd);
             userDao.saveCredentialsToDB(users);
-            setCredentialsToSession(users, session);
 
-            return "redirect:/quiz";
+            return "redirect:/login";
 
         } else {
             String wrongMessage = "<p>Username already exist</p>";
             session.setAttribute("wrongMessage", wrongMessage);
 
-            return "login";
+            return "redirect:/signin";
         }
-    }
-
-    private String signInButtonAction(UserDataFromForm userDataFromForm, HttpSession session) {
-        Boolean checkPwd = false;
-        users = userDao.getUserFromDB(userDataFromForm.getLogin());
-
-        if (users != null) {
-            checkPwd = (users.getPwd().equals(userDataFromForm.getPwd()));
-        }
-
-        if (checkPwd) {
-            setCredentialsToSession(users, session);
-
-            return "redirect:/quiz";
-        } else {
-            setWrongMessageToLoginJSP(session);
-            return "login";
-        }
-    }
-
-    private void setWrongMessageToLoginJSP(HttpSession session) {
-
-        String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
-        session.setAttribute("wrongMessage", wrongMessage);
-    }
-
-    private void setCredentialsToSession(Users users, HttpSession session) {
-
-        session.setAttribute("login", users.getLogin());
-        session.setAttribute("pwd", users.getPwd());
     }
 }

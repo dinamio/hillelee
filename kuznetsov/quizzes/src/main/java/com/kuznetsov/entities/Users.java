@@ -3,11 +3,10 @@ package com.kuznetsov.entities;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Component
-public class Users {
+public class Users{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,18 +17,21 @@ public class Users {
 
     private String pwd;
 
+    private String role;
+
     public Users() {
     }
 
-    public Users(Integer id, String login, String pwd, String salt) {
+    public Users(Integer id, String login, String pwd) {
         this.id = id;
         this.login = login;
         this.pwd = pwd;
     }
 
-    public Users(String login, String pwd, String salt) {
+    public Users(String login, String pwd) {
         this.login = login;
         this.pwd = pwd;
+        this.role = "USER";
     }
 
     public Integer getId() {
@@ -57,28 +59,11 @@ public class Users {
         this.pwd = pwd;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Users that = (Users) o;
-        return id == that.id &&
-                Objects.equals(login, that.login) &&
-                Objects.equals(pwd, that.pwd);
-
+    public String getRole() {
+        return role;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, login, pwd);
-    }
-
-    @Override
-    public String toString() {
-        return "UsersEntity{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", pwd='" + pwd + '\'';
+    public void setRole(String role) {
+        this.role = role;
     }
 }

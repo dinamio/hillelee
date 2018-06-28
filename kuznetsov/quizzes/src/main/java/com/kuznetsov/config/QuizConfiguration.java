@@ -9,24 +9,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan({"com.kuznetsov.controllers", "com.kuznetsov.dao", "com.kuznetsov.entities", "com.kuznetsov.services"})
 public class QuizConfiguration {
 
     @Bean
-    public ViewControllerRegistry viewControllerRegistry() {
-        ViewControllerRegistry viewControllerRegistry = new ViewControllerRegistry();
-        viewControllerRegistry.addViewController("/login").setViewName("login");
-        return viewControllerRegistry;
-    }
-
-    @Bean
-    public InternalResourceViewResolver internalResourceViewResolver(){
+    public InternalResourceViewResolver internalResourceViewResolver() {
         InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
         internalResourceViewResolver.setPrefix("/resources/view/");
         internalResourceViewResolver.setSuffix(".jsp");
@@ -34,7 +24,7 @@ public class QuizConfiguration {
     }
 
     @Bean
-    public SpringLiquibase springLiquibase(){
+    public SpringLiquibase springLiquibase() {
         SpringLiquibase springLiquibase = new SpringLiquibase();
         springLiquibase.setDataSource(dataSource());
         springLiquibase.setChangeLog("classpath:changest-db.xml");
@@ -43,7 +33,7 @@ public class QuizConfiguration {
     }
 
     @Bean
-    public BasicDataSource dataSource(){
+    public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/quiz?useUnicode=true" +
@@ -57,7 +47,7 @@ public class QuizConfiguration {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory (){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.kuznetsov.entities");
@@ -66,14 +56,12 @@ public class QuizConfiguration {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setDataSource(dataSource());
         transactionManager.setSessionFactory(sessionFactory);
         return transactionManager;
     }
-
-
 
 
 }
