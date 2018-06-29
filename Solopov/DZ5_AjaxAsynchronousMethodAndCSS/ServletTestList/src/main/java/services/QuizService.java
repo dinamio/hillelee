@@ -1,12 +1,15 @@
 package services;
 
-import entity.Question;
-import entity.Quiz;
+import hibernate.entity.Quiz;
+import org.springframework.stereotype.Service;
 
+import java.util.NavigableSet;
 import java.util.Set;
+import java.util.TreeSet;
 
+@Service
 public class QuizService {
-
+    
 
     public boolean removeQuestion(Set<Quiz> quizSet, int id) {
         Quiz quiz = null;
@@ -17,6 +20,4 @@ public class QuizService {
             }
         return quizSet.remove(quiz);
     }
-
-
 }

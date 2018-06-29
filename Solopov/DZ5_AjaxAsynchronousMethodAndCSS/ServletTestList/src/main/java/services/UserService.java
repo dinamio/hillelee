@@ -1,34 +1,34 @@
 package services;
 
-import entity.User;
+import hibernate.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
+@Service
 public class UserService {
-private static Map<String,String> account =new LinkedHashMap<>();//All registered users. key -login, value -password
+    @Autowired
+    private hibernate.service.ServiceUser userServ;
     private User currentUser;
+    private NavigableSet<User> allUsers= new TreeSet<>();
 
-    public boolean addAccount(String login, String password){
-        if (!account.containsKey(login)){
-            account.put(login,password);
-            User currentUser=new User(login,password);
-            return true;
+
+    public boolean addAccount(User user) {
+        allUsers = new TreeSet<>(userServ.findAll());
+        boolean result= allUsers.add(user);
+        if(result) {
+            userServ.persist(user);
+            currentUser = user;
         }
-        return false;
-
-    }
-    public boolean authorizate(String log,String pass){
-        String passValue= account.get(log);
-       if(pass.equals(passValue)) return true;
-        return false;
+            return result;
     }
 
-
-
-
-    public static Map<String, String> getAccount() {
-        return account;
+    public boolean authorizate(String login, String pass) {
+        allUsers = new TreeSet<>(userServ.findAll());
+        currentUser = userServ.findByLogin(login);
+        if (currentUser!= null && pass.equals(currentUser.getPassword())) return true;
+        return false;
     }
 
     public User getCurrentUser() {
@@ -36,6 +36,6 @@ private static Map<String,String> account =new LinkedHashMap<>();//All registere
     }
 
     public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
+        UserService.currentUser = currentUser;
     }
 }

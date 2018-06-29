@@ -1,10 +1,16 @@
 package services;
 
-import entity.Question;
+import hibernate.entity.Question;
+import hibernate.entity.Quiz;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class QuestionService {
+
+    public Quiz currentQuiz;
+
     public boolean removeQuestion(Set<Question> quSet, int id){
         Question question = null;
         for (Question qu:quSet)
@@ -14,5 +20,4 @@ public class QuestionService {
             }
         return quSet.remove(question);
     }
-
 }
