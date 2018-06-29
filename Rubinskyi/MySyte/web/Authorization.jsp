@@ -14,11 +14,7 @@
 
 <body class="text-center">
 <form:form method="post" action = "login" class="form-signin" modelAttribute="userToLogin">
-<<<<<<< HEAD
     <img class="mb-4" src="resources/img/Question.png" alt="" width="72" height="72">
-=======
-    <img class="mb-4" src="img/Question.png" alt="" width="72" height="72">
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="text" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>

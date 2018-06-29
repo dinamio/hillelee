@@ -17,11 +17,7 @@ public class QuizDaoImpl implements QuizDao {
 
     private static Connection connection;
     private String urlDB = "jdbc:mysql://localhost:3306/quiz" +
-<<<<<<< HEAD
             "?verifyServerCertificate=false"+
-=======
-            "?verifyServerCertificate=false" +
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
             "&useSSL=false" +
             "&requireSSL=false" +
             "&useLegacyDatetimeCode=false" +
@@ -33,11 +29,7 @@ public class QuizDaoImpl implements QuizDao {
 
     public QuizDaoImpl() {
         try {
-<<<<<<< HEAD
             Class.forName("com.mysql.cj.jdbc.Driver");
-=======
-            Class.forName("com.mysql.jdbc.Driver");
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
             connection = DriverManager.getConnection(urlDB, "root", "qwerty3011");
         } catch (ClassNotFoundException | SQLException e) {
             logger.error("Problem with connection", e);
@@ -80,11 +72,7 @@ public class QuizDaoImpl implements QuizDao {
 
     @Override
     public void insertQuiz(QuizTopic quizTopic, Registration currentUser) {
-<<<<<<< HEAD
         Integer id = null; // needed one declaration */
-=======
-        Integer id = null; /* needed one declaration */
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
         try (Statement statement = connection.createStatement()){
             ResultSet idRS = statement.executeQuery(String.format("SELECT id FROM quiz.users WHERE login='%s'", currentUser.getLogin()));
             while (idRS.next()){
@@ -100,22 +88,15 @@ public class QuizDaoImpl implements QuizDao {
 
     @Override
     public void deleteById(Integer id) {
-<<<<<<< HEAD
 
     }
 
  /*   @Override
     public void deleteById(Integer id) {
-=======
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
         try (Statement statement = connection.createStatement()) {
             statement.execute("DELETE FROM quiz.quizes WHERE id="+id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
     }*/
-=======
-    }
->>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
 }
