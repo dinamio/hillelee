@@ -10,7 +10,10 @@
     <title>Questionnaire</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/index.css"/>
+<<<<<<< HEAD
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+=======
+>>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
 </head>
 <body>
 <div class = "global_wrapper">
@@ -27,6 +30,7 @@
     </div>
 
     <div class="main_content">
+<<<<<<< HEAD
         <form:form class = "sending_form" method="post" action = "send">
             <p>Subject:<br>
                 <input type="text" name="Subject" size="40">
@@ -74,6 +78,63 @@
 
         </script>
 
+=======
+        <form:form class = "sending_form" method="post" action = "send" modelAttribute="quizToAdd">
+            <p>Subject:<br>
+                <input type="text" name="quizSubject" size="40">
+            </p>
+            <p>Theme:<br>
+                <input type="text" name="quizTopic" size="40">
+            </p>
+            <button class="btn btn-primary" type="submit">Create a quiz</button>
+        </form:form>
+
+         <%--form action="show_all" method="get">
+            <p>   <button class="btn btn-primary" type="submit">Show all quiz's</button> </p>
+        </form>--%>
+
+       <%-- <form action="delete" method="get">
+            <p>id:<br>
+                <input type="text" name="id" size="40">
+            </p>
+            <p> <button class="btn btn-primary" type="submit" value="Delete">Delete a quiz</button> </p>
+        </form>--%>
+
+        <table>
+            <tr>
+                <td>Id</td>
+                <td>Theme</td>
+                <td>Subject</td>
+                <td>Creator</td>
+                <td>Actions</td>
+            </tr>
+            <c:forEach items="${all_questions}" var="quizTopic">
+                <tr class="table">
+                    <td class="table"> ${quizTopic.id}</td>
+                    <td class="table"> ${quizTopic.quizSubject}</td>
+                    <td class="table"> ${quizTopic.quizTopic}</td>
+                    <td class="table"> ${quizTopic.idCreator}</td>
+                    <td><input type="button" class="delete-button btn-danger" delete-id = "${quizTopic.id}" value="Delete"></td>
+                </tr>
+            </c:forEach>
+        </table>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+               $(".delete-button").click(function () {
+                   var deleteId = $(this).attr("delete-id");
+                   $.ajax({
+                       type: "DELETE",
+                       url: "/delete/" + deleteId,
+                       success: function () {
+                           location.reload()
+                       }
+                   })
+               })
+            })
+        </script>
+>>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
     </div>
 
     <footer class="footer">

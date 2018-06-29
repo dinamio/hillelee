@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <!--suppress ALL -->
+=======
+>>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -11,9 +14,15 @@
     <bean class="controllers.LoginController"/>
 
     <bean class="dao.impl.UsersDaoImpl"/>-->
+<<<<<<< HEAD
     <!--<mvc:annotation-driven/>
 
     <mvc:resources mapping="/resources/**" location="resources"/>-->
+=======
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="resources"/>
+>>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
             <property name = "prefix" value=""/>
@@ -22,7 +31,10 @@
 
     <context:component-scan base-package="dao,Services,controllers"/>
 
+<<<<<<< HEAD
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+=======
+>>>>>>> 62d30520ac55d71e78c14671c727444e08c61139
 </beans>
