@@ -43,7 +43,7 @@ public class Answer {
         this.id = id;
     }
 
-    public boolean isCorrectness() {
+    public boolean isCorrect() {
         return correctness;
     }
 

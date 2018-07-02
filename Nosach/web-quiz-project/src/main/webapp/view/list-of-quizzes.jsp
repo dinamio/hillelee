@@ -47,7 +47,11 @@
                                 <td>${quiz.getTheme()}</td>
                                 <td>${quiz.getAuthor()}</td>
                                 <td>
-                                    <a  class="delete${id}" href="/delete/${quiz.getId()}">Delete</a>
+                                    <a  href="/pass/${quiz.getId()}">Pass</a>
+                                    <sec:authorize access="hasAuthority('admin')">
+                                        |
+                                        <a  class="delete${id}" href="/delete/${quiz.getId()}">Delete</a>
+                                    </sec:authorize>
                                 </td>
                                 <c:set var="id" scope="page" value="${id+1}"/>
                              </tr>
@@ -57,7 +61,7 @@
             </div>
 
             <div class = "add">
-                <input type="submit" name="add" value="Add" onclick="location.href='add'">
+                <input type="submit" class="btn btn-primary" name="add" value="Add" onclick="location.href='add'">
             </div>
         </main>
     </div>

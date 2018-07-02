@@ -1,5 +1,6 @@
 body {
     padding-top: 50px;
+    font-size: 16px;
 }
 
 
@@ -10,7 +11,11 @@ h2 {
     border-bottom: 1px solid #eee;
 }
 
+.btn{
+    font-size: inherit;
+}
 .form-control {
+    font-size: inherit;
     min-height: 41px;
     box-shadow: none;
     border-color: #e6e6e6;
@@ -22,7 +27,7 @@ h2 {
     border-radius: 3px;
 }
 .signup-form {
-    width: 65%;
+    width: 85%;
     margin: 0 auto;
     padding: 30px 0;
 }
@@ -36,34 +41,33 @@ h2 {
     background: #fff;
     border: 1px solid #f4f4f4;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    padding: 40px 50px;
+    padding: 50px 50px;
 }
-.signup-form .form-group {
-    margin-bottom: 20px;
-}
-.signup-form label {
-    font-weight: normal;
-    font-size: 13px;
-}
-.signup-form input[type="checkbox"] {
-    margin-top: 2px;
-}
+
 .signup-form .btn {
     width: 20%;
     font-size: 16px;
     font-weight: bold;
-    background: #497bc1;
+    background: #3950c1;
     border: none;
     min-width: 140px;
     outline: none !important;
+    color: #f2f2f2;
 }
-.signup-form .btn:hover, .signup-form .btn:focus {
-    background: #00b3b3;
+
+.answer-num{
+    width: 10%;
 }
-.signup-form a {
-    color: #00c1c0;
-    text-decoration: none;
+
+.answer-corr{
+    width: 25%;
 }
-.signup-form a:hover {
-    text-decoration: underline;
+
+.red-line{
+    background-color: #ff9f89; !important;
 }
+
+.green-line{
+    background-color: #8ec175;!important;
+}
+

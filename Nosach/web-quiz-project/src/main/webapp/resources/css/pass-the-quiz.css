@@ -76,18 +76,26 @@ h2 {
 .entry:not(:first-of-type) { margin-top: 10px; }
 .glyphicon { font-size: 12px; }
 
-.add-btn-div{
-    float: left;
+.next-btn-div{
+    float: inside;
     width: 10%;
 }
 
-.save-btn-div{
-    float: right;
-    width: 10%;
-}
 
 .under-form{
     margin-top: 7%;
+}
+
+.answer-chk{
+    width: 20%;
+}
+
+.answer-num{
+    width: 10%;
+}
+
+.quiz-pass{
+    font-size: 23px;
 }
 
 /*Checkbox*/
@@ -198,7 +206,7 @@ h2 {
     opacity: 0;
 }
 .custom-control.material-switch {
-    --color: #17c116;
+    --color: #2441c1;
     padding-left: 0;
 }
 .custom-control.material-switch .material-switch-control-input {
