@@ -1,15 +1,17 @@
 package com.kuznetsov.controllers;
 
 import com.kuznetsov.dao.impl.daoServices.UserDao;
-import com.kuznetsov.entities.UserDataFromForm;
-import com.kuznetsov.entities.Users;
+import com.kuznetsov.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -21,7 +23,7 @@ public class LoginController {
     private UserDao userDao;
 
     @Autowired
-    private Users users;
+    private User user;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,7 +34,8 @@ public class LoginController {
     }
 
     @RequestMapping(method = GET, value = "/signin")
-    public String getSignUpPage(HttpSession session) {
+    public String getSignUpPage(HttpSession session, Model model) {
+        model.addAttribute("user", new User());
         if (session.getAttribute("wrongMessage") == null) {
             session.setAttribute("wrongMessage", "");
         }
@@ -40,22 +43,18 @@ public class LoginController {
     }
 
     @RequestMapping(method = POST, value = "/signin")
-    private String signUpButtonAction(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpSession session){
+    private String signUpButtonAction( @ModelAttribute @Valid User user, BindingResult bindingResult) {
 
-        boolean userExist = userDao.getUserFromDB(userDataFromForm.getLogin()) != null;
-
-        if (!userExist) {
-            String pwd = passwordEncoder.encode(userDataFromForm.getPwd());
-            users = new Users(userDataFromForm.getLogin(), pwd);
-            userDao.saveCredentialsToDB(users);
+        if (bindingResult.hasErrors()) {
+            return "redirect:/signin";
+        } else {
+            String pwd = passwordEncoder.encode(user.getPwd());
+            user.setPwd(pwd);
+            user.setRole("USER");
+            userDao.saveCredentialsToDB(user);
 
             return "redirect:/login";
-
-        } else {
-            String wrongMessage = "<p>Username already exist</p>";
-            session.setAttribute("wrongMessage", wrongMessage);
-
-            return "redirect:/signin";
         }
+
     }
 }

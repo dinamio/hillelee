@@ -12,23 +12,23 @@
 </head>
 <body>
 
-<form:form action="/signin" method="post" modelAttribute="userDataFromLoginJSP" >
-    <p class="text-center">It's the register page. Input your credentials. After that you can login.</p>
-    <p></p>
-    <div class="text-center mb-4">
-        <%= request.getSession().getAttribute("wrongMessage") %>
-    </div>
-    <div class="form-label-group">
-        <input type="text" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
-        <label for="login">Login</label>
-    </div>
-    <div class="form-label-group">
-        <input type="text" id="pwd" name="pwd" class="form-control" placeholder="Password" required autofocus>
-        <label for="pwd">Password</label>
-    </div>
-    <div class="text-center button-bar">
-        <button class="btn btn-lg btn-outline-primary btn-block" name="submit" type="submit" value="Sign up">Sign up</button>
-    </div>
+
+<form:form method="post" action="/signin" modelAttribute="user">
+<table>
+    <tr>
+        <td><form:label path="login">Name</form:label></td>
+        <td><form:input path="login"/></td>
+        <td><form:errors path="login"/></td>
+    </tr>
+    <tr>
+        <td><form:label path="pwd">Password</form:label></td>
+        <td><form:input path="pwd"/></td>
+        <td><form:errors path="pwd"/></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Submit"/></td>
+    </tr>
+</table>
 </form:form>
 </body>
 </html>

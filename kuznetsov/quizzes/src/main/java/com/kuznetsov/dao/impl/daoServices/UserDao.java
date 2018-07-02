@@ -1,6 +1,6 @@
 package com.kuznetsov.dao.impl.daoServices;
 
-import com.kuznetsov.entities.Users;
+import com.kuznetsov.entities.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,30 +18,30 @@ public class UserDao {
         this.session = sessionFactory.openSession();
     }
 
-    public Users getUserFromDB(String sessionLogin) {
+    public User getUserFromDB(String sessionLogin) {
 
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Users.class);
-        Users users = (Users) criteria.add(Restrictions.eq("login", sessionLogin))
+        Criteria criteria = session.createCriteria(User.class);
+        User user = (User) criteria.add(Restrictions.eq("login", sessionLogin))
                 .uniqueResult();
         transaction.commit();
 
-        return users;
+        return user;
     }
 
-    public Users getUserFromDB(Integer id) {
+    public User getUserFromDB(Integer id) {
 
         Transaction transaction = session.beginTransaction();
-        Users users = session.get(Users.class, id);
+        User user = session.get(User.class, id);
         transaction.commit();
 
-        return users;
+        return user;
     }
 
-    public void saveCredentialsToDB(Users users) {
+    public void saveCredentialsToDB(User user) {
 
         Transaction transaction = session.beginTransaction();
-        session.save(users);
+        session.save(user);
         transaction.commit();
     }
 }

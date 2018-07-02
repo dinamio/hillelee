@@ -1,37 +1,31 @@
 package com.kuznetsov.entities;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Table
 @Entity
 @Component
-public class Users{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @NotEmpty
     private String login;
 
+    @Size(min = 4, max = 6, message = "my message")
+    @NotNull
     private String pwd;
 
     private String role;
 
-    public Users() {
-    }
-
-    public Users(Integer id, String login, String pwd) {
-        this.id = id;
-        this.login = login;
-        this.pwd = pwd;
-    }
-
-    public Users(String login, String pwd) {
-        this.login = login;
-        this.pwd = pwd;
-        this.role = "USER";
+    public User() {
     }
 
     public Integer getId() {
