@@ -26,6 +26,15 @@
         <td><form:errors path="pwd"/></td>
     </tr>
     <tr>
+        <td><form:select path="role">
+            <form:option value="USER"/>
+            <form:option value="ADMIN"/>
+        </form:select>
+        </td>
+
+    </tr>
+
+    <tr>
         <td><input type="submit" value="Submit"/></td>
     </tr>
 </table>

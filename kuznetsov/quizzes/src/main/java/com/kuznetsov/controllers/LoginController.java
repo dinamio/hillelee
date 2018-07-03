@@ -10,8 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -23,9 +24,6 @@ public class LoginController {
     private UserDao userDao;
 
     @Autowired
-    private User user;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(method = GET, value = "/login")
@@ -34,27 +32,34 @@ public class LoginController {
     }
 
     @RequestMapping(method = GET, value = "/signin")
-    public String getSignUpPage(HttpSession session, Model model) {
+    public String getSignUpPage(Model model) {
+
         model.addAttribute("user", new User());
-        if (session.getAttribute("wrongMessage") == null) {
-            session.setAttribute("wrongMessage", "");
-        }
         return "signin";
     }
 
     @RequestMapping(method = POST, value = "/signin")
     private String signUpButtonAction( @ModelAttribute @Valid User user, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            return "redirect:/signin";
-        } else {
-            String pwd = passwordEncoder.encode(user.getPwd());
-            user.setPwd(pwd);
-            user.setRole("USER");
-            userDao.saveCredentialsToDB(user);
-
-            return "redirect:/login";
+        if(userDao.getUserFromDB(user.getLogin()) != null){
+            bindingResult.rejectValue("login", "error.login", "login is busy");
+            return "signin";
         }
+        if (bindingResult.hasErrors()) {
+            return "signin";
+        }
+
+        String currentPwd = user.getPwd();
+        Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{4,20})");
+        Matcher matcher = pattern.matcher(currentPwd);
+
+        if (matcher.matches()){
+            String pwd = passwordEncoder.encode(currentPwd);
+            user.setPwd(pwd);
+            userDao.saveCredentialsToDB(user);
+            return "redirect:/login";
+        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
+        return "signin";
 
     }
 }

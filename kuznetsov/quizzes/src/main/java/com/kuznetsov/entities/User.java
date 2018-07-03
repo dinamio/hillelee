@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Table
@@ -19,8 +18,8 @@ public class User {
     @NotEmpty
     private String login;
 
-    @Size(min = 4, max = 6, message = "my message")
-    @NotNull
+    @Size(min = 4)
+    @NotEmpty
     private String pwd;
 
     private String role;
