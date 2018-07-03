@@ -26,11 +26,6 @@ public class LoginController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(method = GET, value = "/login")
-    public String getLoginView() {
-        return "login";
-    }
-
     @RequestMapping(method = GET, value = "/signin")
     public String getSignUpPage(Model model) {
 
@@ -60,6 +55,5 @@ public class LoginController {
             return "redirect:/login";
         } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
         return "signin";
-
     }
 }
