@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>groupId</groupId>
-    <artifactId>YourQuiz</artifactId>
+    <groupId>com.solopov.hillel</groupId>
+    <artifactId>SpringQuiz</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -22,6 +22,7 @@
     </build>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.13.RELEASE</spring.version>
     </properties>
 
@@ -62,7 +63,7 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.2</version>
         </dependency>
-       
+
         <!--Spring Boot and MVC-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -98,6 +99,16 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
 

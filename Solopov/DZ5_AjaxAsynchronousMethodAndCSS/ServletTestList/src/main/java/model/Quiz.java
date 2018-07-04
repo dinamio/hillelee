@@ -1,4 +1,4 @@
-package hibernate.entity;
+package model;
 
 import javax.persistence.*;
 import java.util.TreeSet;
@@ -7,10 +7,10 @@ import java.util.Set;
 @Entity
 public class Quiz implements Comparable<Quiz>{
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions =new TreeSet();
 
     @Column(name="name")
@@ -28,10 +28,11 @@ public class Quiz implements Comparable<Quiz>{
         this.name=name;
         this.objective=objective; }
     public Quiz(){}
-    public Quiz(int id){
+    public Quiz(Integer id){ this.id=id; }
+
+    public void setId(Integer id){
         this.id=id;
     }
-
     public void setCreator(User creator) { this.creator = creator; }
     public void setName(String name) {
         this.name = name;
@@ -42,7 +43,7 @@ public class Quiz implements Comparable<Quiz>{
     public void setQuestions(Set<Question> questions) { this.questions = questions; }
 
     public User getCreator() { return creator; }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
     public String getName() {
