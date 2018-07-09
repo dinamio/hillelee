@@ -40,10 +40,10 @@
                                             #
                                         </th>
                                         <th class="text-center">
-                                            Answer
+                                            <spring:message code="pass.answer"/>
                                         </th>
                                         <th class="text-center">
-                                            Check if true
+                                            <spring:message code="pass.check"/>
                                         </th>
                                     </tr>
                                     </thead>
@@ -77,7 +77,7 @@
                     <div class="container">
                         <div class="col-xs-6 text-left next-btn-div">
                             <button type="submit" name="save" value="Save Button" class="btn btn-default btn-lg">
-                                Next >>
+                                <spring:message code="pass.next"/> >>
                             </button>
                         </div>
                     </div>

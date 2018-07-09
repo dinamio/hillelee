@@ -30,14 +30,14 @@
 
             <div class="signup-form">
                 <form action="/question" method="post">
-                    <h2>Add new Quize</h2>
+                    <h2><spring:message code="quest.header"/></h2>
                     <hr>
-                    <h4>Enter question №${questionsCount+1}</h4>
+                    <h4><spring:message code="quest.enter_question"/> №${questionsCount+1}</h4>
                     <div class="container">
                         <input type="text" name='question'  placeholder='Example: What day is today?' class="form-control" required="required"/>
                     </div>
                     <hr>
-                    <h4>Enter answers</h4>
+                    <h4><spring:message code="quest.enter_answers"/></h4>
                     <div class="container">
                         <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -48,10 +48,10 @@
                                             #
                                         </th>
                                         <th class="text-center">
-                                            Answer
+                                            <spring:message code="quest.answer"/>
                                         </th>
                                         <th class="text-center">
-                                            True/False
+                                            <spring:message code="quest.true_false"/>
                                         </th>
                                     </tr>
                                     </thead>
@@ -66,10 +66,10 @@
                                         <td>
                                             <div class="custom-controls-stacked d-block my-3">
                                                 <label class="custom-control material-switch">
-                                                    <span class="material-switch-control-description">False</span>
+                                                    <span class="material-switch-control-description"><spring:message code="quest.false"/></span>
                                                     <input type="checkbox" name="check0" id="checkbox0" class="material-switch-control-input"/>
                                                     <span class="material-switch-control-indicator"></span>
-                                                    <span class="material-switch-control-description">True</span>
+                                                    <span class="material-switch-control-description"><spring:message code="quest.true"/></span>
                                                 </label>
                                             </div>
                                         </td>
@@ -79,7 +79,7 @@
                                 </table>
                             </div>
                         </div>
-                        <a id='delete_row' class="pull-left" href="#">Delete</a><a id="add_row" class="pull-right" href="#">Add</a>
+                        <a id='delete_row' class="pull-left" href="#"><spring:message code="quest.delete"/></a><a id="add_row" class="pull-right" href="#"><spring:message code="quest.add"/></a>
                     </div>
                     <hr class="under-form">
                     <div class="container">
@@ -88,13 +88,13 @@
 
                         <div class="col-xs-6 text-left save-btn-div">
                             <button type="submit" name="save" value="Save Button" class="btn btn-default btn-lg">
-                                Save Quiz
+                                <spring:message code="quest.save"/>
                             </button>
 
                         </div>
                         <div class="col-xs-6 text-right add-btn-div">
                             <button type="submit" name ="add" value ="Add Button" class="btn btn-default btn-lg">
-                                Add Question
+                                <spring:message code="quest.add_quest"/>
                             </button>
                         </div>
 

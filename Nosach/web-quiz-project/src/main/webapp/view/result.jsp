@@ -36,10 +36,10 @@
                                 #
                             </th>
                             <th class="text-center answer-opt">
-                                Options
+                                <spring:message code="result.options"/>
                             </th>
                             <th class="text-center answer-corr">
-                                Your answer was:
+                                <spring:message code="result.answer"/>
                             </th>
                         </tr>
                         </thead>
@@ -52,7 +52,14 @@
                                     <td class="answer-num">${id}</td>
                                     <td class="answer-opt">${answer.getAnswer()}</td>
                                     <td class="answer-corr ${answers.get(userAnswersId) eq answer.isCorrect() ? 'green-line':'red-line'}">
-                                        ${answers.get(userAnswersId) eq answer.isCorrect() ? 'right!':'wrong!'}
+                                        <c:choose>
+                                            <c:when test="${answers.get(userAnswersId) eq answer.isCorrect()}">
+                                                <spring:message code="result.right"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <spring:message code="result.wrong"/>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </td>
                                 </tr>
                                 <c:set var="userAnswersId" value="${userAnswersId+1}"/>

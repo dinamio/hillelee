@@ -19,6 +19,12 @@
     text-align:center
 }
 
+.language{
+    float:left;
+    margin-left:25px;
+    text-align:center
+}
+
 .form-control {
     font-size: 18px;
 }

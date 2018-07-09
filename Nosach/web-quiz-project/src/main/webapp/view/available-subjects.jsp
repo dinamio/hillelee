@@ -22,7 +22,7 @@
 
         <section id="team" class="pb-5">
             <div class="container">
-                <h5 class="section-title h1">Available subjects</h5>
+                <h5 class="section-title h1"><spring:message code="available.title"/></h5>
                 <div class="row">
 
                     <div class="col-xs-12 col-sm-6 col-md-4">
@@ -31,7 +31,7 @@
                                 <div class="frontside">
                                     <div class="card">
                                         <div class="card-body text-center">
-                                            <h4 class="card-title">All Subjects</h4>
+                                            <h4 class="card-title"><spring:message code="available.all"/></h4>
                                             <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
@@ -39,10 +39,10 @@
                                 <div class="backside">
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
-                                            <h4 class="card-title">All Subjects</h4>
-                                            <p class="card-text">Number of Quizzies in all Subjects: ${totalQuizzies}</p>
+                                            <h4 class="card-title"><spring:message code="available.all"/></h4>
+                                            <p class="card-text"><spring:message code="available.numberInAll"/>: ${totalQuizzies}</p>
                                             <a class="social-icon text-xs-center" href="/list?subj=all">
-                                                See quizzies for this subject
+                                                <spring:message code="available.see"/>
                                             </a>
                                         </div>
                                     </div>
@@ -68,9 +68,9 @@
                                     <div class="card">
                                         <div class="card-body text-center mt-4">
                                             <h4 class="card-title">${subject.getSubjectName()}</h4>
-                                            <p class="card-text">Number of Quizzies in this Subject: ${subject.getQuizList().size()}</p>
+                                            <p class="card-text"><spring:message code="available.numberInThis"/>: ${subject.getQuizList().size()}</p>
                                             <a class="social-icon text-xs-center" href="/list?subj=${subject.getId()}">
-                                                See quizzies for this subject
+                                                <spring:message code="available.see"/>
                                             </a>
                                         </div>
                                     </div>

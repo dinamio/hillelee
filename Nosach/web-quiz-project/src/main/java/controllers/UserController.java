@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -44,7 +46,10 @@ public class UserController {
     }
 
     @RequestMapping(method = POST, value = "register")
-    public String doRegistration(HttpServletRequest req, @ModelAttribute("user") User user, @RequestParam("password") String password) {
+    public String doRegistration(HttpServletRequest req, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam("password") String password) {
+        if(bindingResult.hasErrors()){
+         return "register-page";
+        }
         Role role = roleService.getRole("user");
         user.setRole(role);
         if(userService.addUser(user)){
