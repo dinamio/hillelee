@@ -19,4 +19,10 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="locale"></property>
+        </bean>
+    </mvc:interceptors>
+
 </beans>

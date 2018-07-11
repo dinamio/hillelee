@@ -12,17 +12,21 @@
     <title>Quizzes login</title>
 </head>
 <body>
+
 <form:form id="main-form"/>
 <table align="center">
     <tbody>
     <tr>
         <td>
-            <p class="text-center">It's the login page. Input your credentials.</p>
+            <p class="text-center">
+                <a href="?locale=en">en</a> | <a href="?locale=ru">ru</a> </p>
+            <p class="text-center"> <spring:message code="login.message"/> </p>
         </td>
     </tr>
     <tr>
         <td>
             <p class="text-center">
+
             <c:if test="${not empty sessionScope.message}">
                 <span style="color:red"><c:out value="${sessionScope.message}"/></span>
                 <c:remove var="message" scope="session"/>
@@ -48,7 +52,7 @@
 
      <tr>
         <td>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" form="main-form">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" form="main-form"><spring:message code="login.button"/> </button>
         </td>
 
 
@@ -57,8 +61,7 @@
         <td>
             <div class="text-center button-bar">
                 <a href="/signin">
-                    <button class="btn btn-lg btn-outline-primary btn-block" type=button value="Sign up">Sign up
-                    </button>
+                    <button class="btn btn-lg btn-outline-primary btn-block" type=button value="Sign up"><spring:message code="signup.button"/> </button>
                 </a>
             </div>
         </td>
