@@ -16,19 +16,18 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+
     <filter>
-        <filter-name>AuthorizationFilter</filter-name>
-        <filter-class>borysov.filter.AuthorizationFilter</filter-class>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>AuthorizationFilter</filter-name>
-        <servlet-name>AddQuiz</servlet-name>
-        <servlet-name>DeleteQuiz</servlet-name>
-        <servlet-name>LogOut</servlet-name>
-        <url-pattern>/createQuiz.jsp</url-pattern>
-        <url-pattern>/mainPage.jsp</url-pattern>
-        <url-pattern>/showQuizzes.jsp</url-pattern>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+
 
     <listener>
         <listener-class>borysov.listener.ContextListener</listener-class>
