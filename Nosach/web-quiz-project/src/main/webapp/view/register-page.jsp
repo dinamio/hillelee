@@ -30,6 +30,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                             <form:input type="text" class="form-control" path="name" id="name"  placeholder="Enter your Name"/>
+                            <form:errors path="name" cssClass="error"/>
                         </div>
                     </div>
                 </div>
@@ -40,6 +41,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                             <form:input type="text" class="form-control" path="email" id="email"  placeholder="Enter your Email"/>
+                            <form:errors path="email" cssClass="error"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,8 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <form:input type="text" class="form-control" path="login" id="username"  placeholder="Enter your Username" required="required"/>
+                            <form:input type="text" class="form-control" path="login" id="username"  placeholder="Enter your Username"/>
+                            <form:errors path="login" cssClass="error"/>
                         </div>
                     </div>
                 </div>
@@ -60,6 +63,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                             <form:password class="form-control" path="password" id="password" placeholder="Enter your Password" required="required"/>
+                            <form:errors path="password" cssClass="error"/>
                         </div>
                     </div>
                 </div>

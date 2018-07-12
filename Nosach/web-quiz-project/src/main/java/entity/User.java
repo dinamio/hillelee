@@ -1,6 +1,8 @@
 package entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Entity
@@ -12,15 +14,19 @@ public class User {
     private Integer id;
 
     @Column(name = "login")
+    @NotNull(message = "login required")
     private String login;
 
     @Column(name = "password")
+    @NotNull(message = "password required")
     private String password;
 
     @Column(name = "name")
+    @NotNull(message="name required")
     private String name;
 
     @Column(name = "email")
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$", message = "email is not correct")
     private String email;
 
     @ManyToOne

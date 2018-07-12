@@ -24,17 +24,17 @@
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 
-            <h2>Quiz List</h2>
+            <h2><spring:message code="list.title"/></h2>
 
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Subject</th>
-                        <th>Theme</th>
-                        <th>Author</th>
-                        <th>Action</th>
+                        <th><spring:message code="list.table.subject"/></th>
+                        <th><spring:message code="list.table.theme"/></th>
+                        <th><spring:message code="list.table.author"/></th>
+                        <th><spring:message code="list.table.action"/></th>
 
                     </tr>
                     </thead>
@@ -47,10 +47,10 @@
                                 <td>${quiz.getTheme()}</td>
                                 <td>${quiz.getAuthor()}</td>
                                 <td>
-                                    <a  href="/pass/${quiz.getId()}">Pass</a>
+                                    <a  href="/pass/${quiz.getId()}"><spring:message code="list.table.pass"/></a>
                                     <sec:authorize access="hasAuthority('admin')">
                                         |
-                                        <a  class="delete${id}" href="/delete/${quiz.getId()}">Delete</a>
+                                        <a  class="delete${id}" href="/delete/${quiz.getId()}"><spring:message code="list.table.delete"/></a>
                                     </sec:authorize>
                                 </td>
                                 <c:set var="id" scope="page" value="${id+1}"/>
@@ -61,7 +61,7 @@
             </div>
 
             <div class = "add">
-                <input type="submit" class="btn btn-primary" name="add" value="Add" onclick="location.href='add'">
+                <input type="submit" class="btn btn-primary" name="add" value=<spring:message code="list.button.add"/> onclick="location.href='add'">
             </div>
         </main>
     </div>
