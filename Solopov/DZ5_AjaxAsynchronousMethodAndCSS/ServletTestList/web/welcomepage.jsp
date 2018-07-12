@@ -5,7 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8"  language="java" %>
 <html>
 <head>
-    <title>Main Page!</title>
+    <title>Поздравляем!</title>
     <%@include file="parts/stylesandscripts.jsp" %>
     <style>
         h3 {
@@ -16,9 +16,11 @@
 <body>
 <div class="container">
     <%@include file="parts/header.jsp" %>
+
     <div class="mainblock">
-        <h3><%=session.getAttribute("login")%> <spring:message code="mainpage.notification"/></h3>
-        <p> <spring:message code="mainpage.language"/>:  <a href="?locale=en">English language</a> <a href="?locale=ru">Русский язык</a>
+        <h3><%=session.getAttribute("login")%> <spring:message code="welcomepage.congratulation"/>
+
+        </h3>
     </div>
 </div>
 </body>

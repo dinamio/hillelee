@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>New Test</title>
-    <link href="/styles.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <%@include file="parts/stylesandscripts.jsp" %>
 </head>
 <body>
 <div class="container">
+    <%@include file="parts/header.jsp"%>
 
     <div class="mainblock">
 
@@ -29,6 +29,9 @@
 
 <button class="addQuestion">Добавить вопрос</button>
 
+        <form action="../">
+            <input type="submit" value="Вернутся к вопросам">
+        </form>
     </div>
 </div>
 
@@ -68,12 +71,12 @@
             $.ajax({
 
                 type: 'POST',
-                url: '/questions/newquestion',
+                url: '../newquestion',
                 data: data,
 
                 success: function (data) {
                     alert('Поздравляем, вопрос успешно добавлен!');
-                    window.location.href = "/questions"
+                    window.location.href = "../"
                 }
             });
         })

@@ -1,6 +1,9 @@
 package model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.TreeSet;
 import java.util.Set;
 
@@ -12,10 +15,12 @@ public class Quiz implements Comparable<Quiz>{
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions =new TreeSet();
-
+    @NotEmpty(message = "Заполните поле")
+    @Size(min=5, max=90, message = "должно иметь 5-90 символов")
     @Column(name="name")
     private String name;
-
+    @NotEmpty(message = "Заполните поле")
+    @Size(min=5, max=25, message = "должна иметь 5-25 символов")
     @Column(name="objective")
     private String objective;
 

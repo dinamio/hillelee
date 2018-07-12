@@ -4,16 +4,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
  abstract class EntityDAO<T, Id extends Serializable> {//Wnen: T- is type of Entity, iD- Type of ID// and DAOEntity- inheritor type of DAOEntity
      SessionFactory sessionFactory;
-    final Session session;
+     Session session;
 
      @Autowired
      public EntityDAO(SessionFactory sessionFactory) {
@@ -21,6 +19,7 @@ import java.util.List;
          this.session = sessionFactory.openSession();
 
      }
+     EntityDAO(){}
 
      public void persist(T entity) {
         Transaction transaction = session.beginTransaction();
@@ -46,7 +45,7 @@ import java.util.List;
 
     public void delete(Id id) {
         Transaction transaction = session.beginTransaction();
-        T entity = (T) findById(id);
+        T entity = (T) session.get(getGenericType(),id);
         session.delete(entity);
         session.flush();
         transaction.commit();
@@ -54,7 +53,8 @@ import java.util.List;
 
     public List<T> findAll() {
         Transaction transaction = session.beginTransaction();
-        List<T> collection = session.createQuery("from "+getGenericType().getSimpleName()).list();
+        String tableName= getGenericType().getSimpleName();
+        List<T> collection = session.createQuery("from "+tableName).list();
         session.flush();
         transaction.commit();
         return collection;
