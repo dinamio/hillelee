@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="book : ${books}">
+        <tr>
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.name}">Default</td>
+            <td th:text="${book.author}"></td>
+            <td><input type="button" class="my-button btn-danger" book-id="${book.id}" value="Удалить">
+                <a href="/book/${book.id}/edit" class="my-button btn-danger" >Редактировать</a></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<input type="button" class='logout' value="Logout">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".my-button").click(function () {
+            var bookId = $(this).attr("book-id");
+            $.ajax({
+                type: "DELETE",
+                url: "/book/"+bookId,
+                success: function () {
+                    location.reload();
+               }
+
+            })
+        });
+        $(".logout").click(function () {
+            var csrf='${_csrf.token}';
+            $.ajax({
+                type: "POST",
+                url: "/logout?_csrf="+csrf,
+                success: function () {
+                    location.reload();
+                }
+
+            })
+        });
+    });
+</script>
+</body>
+</html>
