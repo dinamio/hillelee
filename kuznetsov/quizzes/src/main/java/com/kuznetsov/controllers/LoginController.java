@@ -1,17 +1,18 @@
 package com.kuznetsov.controllers;
 
 import com.kuznetsov.dao.impl.daoServices.UserDao;
-import com.kuznetsov.entities.UserDataFromForm;
-import com.kuznetsov.entities.Users;
-import org.mindrot.jbcrypt.BCrypt;
+import com.kuznetsov.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
+import javax.validation.Valid;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -23,84 +24,36 @@ public class LoginController {
     private UserDao userDao;
 
     @Autowired
-    private Users users;
+    private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(method = GET, value = "/")
-    public String getLoginView(HttpSession session) {
+    @RequestMapping(method = GET, value = "/signin")
+    public String getSignUpPage(Model model) {
 
-        if (session.getAttribute("wrongMessage") == null) {
-            session.setAttribute("wrongMessage", "");
-        }
-
-        return "login";
+        model.addAttribute("user", new User());
+        return "signin";
     }
 
+    @RequestMapping(method = POST, value = "/signin")
+    private String signUpButtonAction( @ModelAttribute @Valid User user, BindingResult bindingResult) {
 
-    @RequestMapping(method = POST, value = "/")
-    public String userDataProcessing(@ModelAttribute("userDataFromLoginJSP") UserDataFromForm userDataFromForm, HttpSession session) throws IOException, ServletException {
-
-        String buttonType = userDataFromForm.getSubmit();
-
-        if (buttonType.equals("Sign up")) {
-            return signUpButtonAction(userDataFromForm, session);
+        if(userDao.getUserFromDB(user.getLogin()) != null){
+            bindingResult.rejectValue("login", "error.login", "login is busy");
+            return "signin";
         }
-        if (buttonType.equals("Sign in")) {
-            return signInButtonAction(userDataFromForm, session);
-        }
-        return null;
-    }
-
-
-    private String signUpButtonAction(UserDataFromForm userDataFromForm, HttpSession session) {
-
-        boolean userExist = userDao.getUserFromDB(userDataFromForm.getLogin()) != null;
-
-        if (!userExist) {
-            String salt = BCrypt.gensalt();
-            String pwd = BCrypt.hashpw(userDataFromForm.getPwd(), salt);
-
-            users = new Users(userDataFromForm.getLogin(), pwd, salt);
-
-            userDao.saveCredentialsToDB(users);
-            setCredentialsToSession(users, session);
-
-            return "redirect:/quiz";
-
-        } else {
-            String wrongMessage = "<p>Username already exist</p>";
-            session.setAttribute("wrongMessage", wrongMessage);
-
-            return "login";
-        }
-    }
-
-    private String signInButtonAction(UserDataFromForm userDataFromForm, HttpSession session) {
-        Boolean checkPwd = false;
-        users = userDao.getUserFromDB(userDataFromForm.getLogin());
-
-        if (users != null) {
-            checkPwd = (users.getPwd().equals(BCrypt.hashpw(userDataFromForm.getPwd(), users.getSalt())));
+        if (bindingResult.hasErrors()) {
+            return "signin";
         }
 
-        if (checkPwd) {
-            setCredentialsToSession(users, session);
+        String currentPwd = user.getPwd();
+        Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{4,20})");
+        Matcher matcher = pattern.matcher(currentPwd);
 
-            return "redirect:/quiz";
-        } else {
-            setWrongMessageToLoginJSP(session);
-            return "login";
-        }
-    }
-
-    private void setWrongMessageToLoginJSP(HttpSession session) {
-
-        String wrongMessage = "<p>Your login or password are wrong. Try again.</p> <p>New user - press Sign up</p>";
-        session.setAttribute("wrongMessage", wrongMessage);
-    }
-
-    private void setCredentialsToSession(Users users, HttpSession session) {
-
-        session.setAttribute("login", users.getLogin());
-        session.setAttribute("pwd", users.getPwd());
+        if (matcher.matches()){
+            String pwd = passwordEncoder.encode(currentPwd);
+            user.setPwd(pwd);
+            userDao.saveCredentialsToDB(user);
+            return "redirect:/login";
+        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
+        return "signin";
     }
 }

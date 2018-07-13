@@ -13,13 +13,13 @@
             <column name="theme" type="int(5)"/>
         </createTable>
 
-        <createTable tableName="users">
+        <createTable tableName="user">
             <column name="id" type="int(5)" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(45)"/>
             <column name="pwd" type="varchar(300)"/>
-            <column name="salt" type="varchar(300)"/>
+            <column name="role" type="varchar(10)"/>
         </createTable>
 
          <createTable tableName="subjects">

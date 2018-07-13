@@ -28,7 +28,8 @@ public class SubjectHibernateDAOImpl implements SubjectDAO {
     final Session session;
     Logger logger = Logger.getLogger(SubjectHibernateDAOImpl.class);
 
-    public SubjectHibernateDAOImpl(@Autowired SessionFactory sessionFactory) {
+    @Autowired
+    public SubjectHibernateDAOImpl(SessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 
@@ -49,6 +50,7 @@ public class SubjectHibernateDAOImpl implements SubjectDAO {
 
     @Override
     public List<Subject> getAllSubjects() {
+        session.clear();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Subject");
         List list = query.list();

@@ -18,7 +18,8 @@ public class QuizHibernateDAOImpl implements QuizDAO{
     final Session session;
     Logger logger = Logger.getLogger(QuizHibernateDAOImpl.class);
 
-    public QuizHibernateDAOImpl(@Autowired SessionFactory sessionFactory) {
+    @Autowired
+    public QuizHibernateDAOImpl(SessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 

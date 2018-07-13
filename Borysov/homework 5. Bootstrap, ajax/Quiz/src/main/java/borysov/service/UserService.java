@@ -24,7 +24,7 @@ public class UserService {
     @Qualifier("hibernate")
     private UserDao userDao;
 
-    public String MD5Hashing(String md5) {
+    public static String MD5Hashing(String md5) {
         System.out.println(md5);
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

@@ -16,7 +16,8 @@ import java.util.Map;
 public class QuestionsDao {
     private final Session session;
 
-    public QuestionsDao(@Autowired SessionFactory sessionFactory) {
+    @Autowired
+    public QuestionsDao( SessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 

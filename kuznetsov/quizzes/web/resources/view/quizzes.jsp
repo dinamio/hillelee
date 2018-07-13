@@ -4,7 +4,7 @@
 <html>
 <head>
 
-    <link type="text/css" rel="stylesheet" href="resources/css/quizViewTable.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quizViewTable.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin=“anonymous">
@@ -15,13 +15,14 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <title>Forms</title>
 </head>
 <body>
 <%@ include file="/resources/view/logOutButton.jsp" %>
+<sec:authorize access="hasAuthority('ADMIN')">
 <form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
         <thead>
@@ -84,7 +85,8 @@
 
     </table>
 </form:form>
+</sec:authorize>
 <%@ include file="/resources/view/quizViewTable.jsp" %>
-<script src="resources/js/addQuestion.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/addQuestion.js"></script>
 </body>
 </html>

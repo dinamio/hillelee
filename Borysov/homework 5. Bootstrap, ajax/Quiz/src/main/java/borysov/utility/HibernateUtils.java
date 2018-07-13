@@ -1,3 +1,4 @@
+/*
 package borysov.utility;
 
 import org.hibernate.Session;
@@ -26,3 +27,4 @@ public class HibernateUtils {
     }
 
 }
+*/

@@ -21,7 +21,7 @@
         <tr>
             <td> ${question.getId()}.</td>
             <td><b> ${question.getQuestion()} </b></td>
-            <td><a href="delete?id=${question.getId()}" content=" ">Delete</a></td>
+            <td><a href="removequestion/${question.getId()}" content=" ">Delete</a></td>
         </tr>
 
         <td><c:forEach items="${question.answer}" var="answer">

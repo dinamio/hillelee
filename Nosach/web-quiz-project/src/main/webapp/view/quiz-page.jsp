@@ -25,11 +25,11 @@
 
             <div class="signup-form">
                 <form action="/add" method="post">
-                    <h2>Add new Quize</h2>
+                    <h2><spring:message code="addquiz.title"/></h2>
                     <hr>
-                    <h4>Input subject</h4>
+                    <h4><spring:message code="addquiz.subject"/></h4>
                     <div class="container">
-                        <h6>choose existing subject</h6>
+                        <h6><spring:message code="addquiz.existing_subject"/></h6>
                         <div class="form-group">
                             <select class="form-control" id="sel1" name = "subjectList">
                                 <option></option>>
@@ -40,19 +40,19 @@
                         </div>
                     </div>
                     <div class="container">
-                        <h6>Or enter new subject</h6>
+                        <h6><spring:message code="addquiz.new_subject"/></h6>
                         <div class="form-group">
                             <input type="text" class="form-control" name="subjectInput" placeholder="Subject" >
                         </div>
                     </div>
                     <hr>
-                    <h4>Input quiz theme</h4>
+                    <h4><spring:message code="addquiz.theme"/></h4>
                     <div class="form-group">
                         <input type="text" class="form-control" name="theme" placeholder="Theme" required="required">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">Add</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg"><spring:message code="addquiz.add"/></button>
                     </div>
                 </form>
             </div>

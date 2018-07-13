@@ -15,7 +15,8 @@ import java.util.List;
 public class QuizDaoHibernate implements QuizDao {
     private final Session session;
 
-    public QuizDaoHibernate(@Autowired SessionFactory sessionFactory) {
+    @Autowired
+    public QuizDaoHibernate(SessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 
