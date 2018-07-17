@@ -31,28 +31,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
 
-    @Autowired
+    /*@Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider());
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
+    /*@Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
-    }
+    }*/
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth){
-        auth.authenticationProvider(authenticationProvider());
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
+                .usersByUsernameQuery("select login,password,true from users where login=?")
+                .authoritiesByUsernameQuery("select login, role from users where login=?");
     }
 
     @Override
@@ -87,9 +88,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().anyRequest().authenticated();
     }
 
-    @Override
+   /* @Override
     public void configure(WebSecurity web){
         web.ignoring().antMatchers("/resources/**", "/signin");
     }
-
+*/
 }

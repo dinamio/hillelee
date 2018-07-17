@@ -32,7 +32,7 @@ public class LoginController {
     public String getSignUpPage(Model model) {
 
         model.addAttribute("user", new User());
-        return "signin";
+        return "/WEB-INF/jsp/signin.jsp";
     }
 
     @RequestMapping(method = POST, value = "/signin")

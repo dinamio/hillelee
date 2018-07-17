@@ -21,7 +21,7 @@
     <title>Forms</title>
 </head>
 <body>
-<%@ include file="/resources/view/logOutButton.jsp" %>
+<%@ include file="/WEB-INF/jsp/logOutButton.jsp" %>
 <sec:authorize access="hasAuthority('ADMIN')">
 <form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
@@ -86,7 +86,7 @@
     </table>
 </form:form>
 </sec:authorize>
-<%@ include file="/resources/view/quizViewTable.jsp" %>
+<%@ include file="/WEB-INF/jsp/quizViewTable.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/addQuestion.js"></script>
 </body>
 </html>
