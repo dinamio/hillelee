@@ -1,27 +1,14 @@
 package com.kuznetsov.dao.impl.daoServices;
 
 import com.kuznetsov.entities.Questions;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Repository
-public class QuestionsDao {
-    private final Session session;
+public interface QuestionsDao extends CrudRepository<Questions, Integer> {
 
-    @Autowired
-    public QuestionsDao( SessionFactory sessionFactory) {
-        this.session = sessionFactory.openSession();
-    }
 
-    public void saveQuestionsToBd(Integer themeId, Map<String, Byte> questionMap) {
+    /*public void saveQuestionsToBd(Integer themeId, Map<String, Byte> questionMap) {
 
         for (Map.Entry<String, Byte> entry : questionMap.entrySet()) {
             Transaction transaction = session.beginTransaction();
@@ -45,5 +32,5 @@ public class QuestionsDao {
             questions.put(entry.getQuestion(), entry.getAnswer());
         }
         return questions;
-    }
+    }*/
 }

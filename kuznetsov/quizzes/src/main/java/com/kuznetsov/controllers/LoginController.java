@@ -26,6 +26,8 @@ public class LoginController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
     @RequestMapping(method = GET, value = "/signin")
     public String getSignUpPage(Model model) {
 
@@ -36,7 +38,7 @@ public class LoginController {
     @RequestMapping(method = POST, value = "/signin")
     private String signUpButtonAction( @ModelAttribute @Valid User user, BindingResult bindingResult) {
 
-        if(userDao.getUserFromDB(user.getLogin()) != null){
+        if(userDao.getUserByLogin(user.getLogin()) != null){
             bindingResult.rejectValue("login", "error.login", "login is busy");
             return "signin";
         }
@@ -51,7 +53,7 @@ public class LoginController {
         if (matcher.matches()){
             String pwd = passwordEncoder.encode(currentPwd);
             user.setPwd(pwd);
-            userDao.saveCredentialsToDB(user);
+            /*userDao.saveUser(user);*/
             return "redirect:/login";
         } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
         return "signin";
