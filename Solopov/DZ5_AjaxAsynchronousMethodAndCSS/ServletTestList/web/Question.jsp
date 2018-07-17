@@ -30,7 +30,7 @@
 <button class="addQuestion">Добавить вопрос</button>
 
         <form action="../">
-            <input type="submit" value="Вернутся к вопросам">
+            <input type="submit" value="Вернуться к вопросам">
         </form>
     </div>
 </div>
