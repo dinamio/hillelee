@@ -4,7 +4,7 @@
 <html>
 <head>
 
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quizViewTable.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}static/css/quizViewTable.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin=“anonymous">
@@ -21,7 +21,7 @@
     <title>Forms</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/jsp/logOutButton.jsp" %>
+<%@ include file="logOutButton.jsp" %>
 <sec:authorize access="hasAuthority('ADMIN')">
 <form:form method="POST" action="/quiz" modelattribute="dataFromForm">
     <table border="0">
@@ -86,7 +86,7 @@
     </table>
 </form:form>
 </sec:authorize>
-<%@ include file="/WEB-INF/jsp/quizViewTable.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/js/addQuestion.js"></script>
+<%@ include file="quizViewTable.jsp" %>
+<script src="${pageContext.request.contextPath}static/js/addQuestion.js"></script>
 </body>
 </html>

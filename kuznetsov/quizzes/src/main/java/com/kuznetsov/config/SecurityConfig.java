@@ -3,9 +3,11 @@ package com.kuznetsov.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,7 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 import java.util.logging.Logger;
 
+@Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
@@ -52,40 +56,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select login,password,true from users where login=?")
-                .authoritiesByUsernameQuery("select login, role from users where login=?");
+                .usersByUsernameQuery("select login,pwd,true from user where login=?")
+                .authoritiesByUsernameQuery("select login, role from user where login=?");
     }
 
+    /*https://www.concretepage.com/spring-boot/spring-boot-mvc-security-custom-login-and-logout-thymeleaf-csrf-mysql-database-jpa-hibernate-example*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-                http
-                .csrf().disable()
-                .formLogin().loginPage("/login")
-                .usernameParameter("userid")
-                .passwordParameter("passwd")
-
-                .successHandler((req,res,auth)->{
-                    for (GrantedAuthority authority : auth.getAuthorities()) {
-                        logger.info(authority.getAuthority());
-                    }
-                    logger.info(auth.getName());
-                    res.sendRedirect("/quiz");
-                })
-
-                .failureHandler((req,res,exp)->{
-                    String errMsg;
-                    if(exp.getClass().isAssignableFrom(BadCredentialsException.class)){
-                        errMsg="Invalid username or password.";
-                    }else{
-                        errMsg = exp.getMessage();
-                    }
-                    req.getSession().setAttribute("message", errMsg);
-                    res.sendRedirect("/login");
-                })
-                .and()
-                .authorizeRequests().antMatchers("/login").permitAll()
-                .and()
-                .authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/app/secure/**").hasAnyRole("ADMIN","USER")
+                .and().formLogin()  //login configuration
+                .loginPage("/app/login")
+                .loginProcessingUrl("/app-login")
+                .usernameParameter("app_username")
+                .passwordParameter("app_password")
+                .defaultSuccessUrl("/app/secure/article-details")
+                .and().logout()    //logout configuration
+                .logoutUrl("/app-logout")
+                .logoutSuccessUrl("/app/login")
+                .and().exceptionHandling() //exception handling configuration
+                .accessDeniedPage("/app/error");
     }
 
    /* @Override

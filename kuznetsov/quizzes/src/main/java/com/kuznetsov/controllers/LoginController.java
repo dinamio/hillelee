@@ -7,8 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.regex.Matcher;
@@ -27,12 +29,20 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
 
+    @GetMapping("login")
+    public ModelAndView login() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("custom-login");
+        return mav;
+    }
+
+
 
     @RequestMapping(method = GET, value = "/signin")
     public String getSignUpPage(Model model) {
 
         model.addAttribute("user", new User());
-        return "/WEB-INF/jsp/signin.jsp";
+        return "signin";
     }
 
     @RequestMapping(method = POST, value = "/signin")
