@@ -1,18 +1,15 @@
 package com.kuznetsov.dao.impl.daoServices;
 
-import com.kuznetsov.entities.User;
-import org.springframework.data.jpa.repository.Modifying;
+import com.kuznetsov.entities.Users;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
-
 @Repository
-public interface UserDao extends CrudRepository<User, Integer> {
+public interface UserDao extends CrudRepository<Users, Integer> {
 
-    public User getUserByLogin(String sessionLogin) ;
+    public Users getUsersByLogin(String sessionLogin) ;
 
-    public User getUserById(Integer id);
+    public Users getUsersById(Integer id);
 
     /*@Transactional
     @Modifying

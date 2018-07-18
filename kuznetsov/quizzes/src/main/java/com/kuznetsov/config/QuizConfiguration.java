@@ -12,8 +12,8 @@ import java.util.Locale;
 @Configuration
 public class QuizConfiguration{
 
-    @Autowired
-    DataSource dataSource;
+   /* @Autowired
+    DataSource dataSource;*/
 
     @Bean
     public ReloadableResourceBundleMessageSource messageSource(){
@@ -31,6 +31,8 @@ public class QuizConfiguration{
         localeResolver.setCookieMaxAge(3600);
         return localeResolver;
     }
+
+
 
    /* @Bean
     public SpringLiquibase springLiquibase() {

@@ -60,7 +60,7 @@
     <tr>
         <td>
             <div class="text-center button-bar">
-                <a href="/signin">
+                <a href="signin">
                     <button class="btn btn-lg btn-outline-primary btn-block" type=button value="Sign up"><spring:message code="signup.button"/> </button>
                 </a>
             </div>

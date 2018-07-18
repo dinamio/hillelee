@@ -22,13 +22,12 @@ import java.util.logging.Logger;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
-
     @Autowired
     DataSource dataSource;
 
-    @Autowired
+   /* @Autowired
     @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;*/
 
 
     /*@Autowired
@@ -49,12 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationProvider;
     }*/
 
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select login,password,true from users where login=?")
+                .usersByUsernameQuery("select login,pwd,true from users where login=?")
                 .authoritiesByUsernameQuery("select login, role from users where login=?");
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -87,7 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().anyRequest().authenticated();
     }
-
    /* @Override
     public void configure(WebSecurity web){
         web.ignoring().antMatchers("/resources/**", "/signin");

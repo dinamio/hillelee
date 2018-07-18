@@ -37,7 +37,7 @@ public class QuizServices {
         quizzesEntities.forEach(quizzes -> {
             QuizDataFromForm quizDataFromForm = new QuizDataFromForm(
                     String.valueOf(quizzes.getId()),
-                    userDao.getUserById(quizzes.getLogin()).getLogin(),
+                    userDao.getUsersById(quizzes.getLogin()).getLogin(),
                     subjectsDao.getSubjectsById(quizzes.getSubject()).getSubject(),
                     themesDao.getThemesById(quizzes.getTheme()).getTheme(),
                     new HashMap<String, Byte>());
@@ -53,7 +53,7 @@ public class QuizServices {
     public void addNewQuiz(String subject, String theme, String login, Map<String, Byte> questionMap) {
         Integer subjectId = subjectsDao.getSubjectsBySubject(subject).getId();
         Integer themeId = themesDao.save(new Themes(theme)).getId();
-        Integer loginId = userDao.getUserByLogin(login).getId();
+        Integer loginId = userDao.getUsersByLogin(login).getId();
        /* questionsDao.saveQuestionsToBd(themeId, questionMap);*/
 
         quizDao.save(new Quizzes(loginId, subjectId, themeId));

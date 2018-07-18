@@ -33,7 +33,7 @@ public class QuizController {
     public String GetQuizJsp(HttpServletRequest req){
 
             req.setAttribute("list", services.getAllQuizzes());
-            return "/WEB-INF/jsp/quizzes.jsp";
+            return "quizzes";
     }
 
     @RequestMapping(method = POST, value = "/quiz")
@@ -48,7 +48,7 @@ public class QuizController {
             services.addNewQuiz(subject, theme, sessionLogin, questionMap);
             req.setAttribute("list", services.getAllQuizzes());
         }
-        return "/WEB-INF/jsp/quizzes.jsp";
+        return "quizzes";
     }
 
     @RequestMapping(method = POST, value = "/quiz/{id}")
@@ -57,6 +57,6 @@ public class QuizController {
         logger.info("Delete from quiz table id #" + id);
         services.removeQuizById(id);
         req.setAttribute("list", services.getAllQuizzes());
-        return "/WEB-INF/jsp/quizzes.jsp";
+        return "quizzes";
     }
 }
