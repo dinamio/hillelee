@@ -43,10 +43,6 @@ public class AppConfiguration {
         return sessionFactory;
     }
 
-    @Bean
-    JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(datasource());
-    }
 
     @Bean
     public DataSource datasource() {
