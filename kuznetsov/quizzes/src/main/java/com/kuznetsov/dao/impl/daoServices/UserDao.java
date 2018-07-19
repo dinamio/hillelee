@@ -10,8 +10,4 @@ public interface UserDao extends CrudRepository<Users, Integer> {
     public Users getUsersByLogin(String sessionLogin) ;
 
     public Users getUsersById(Integer id);
-
-    /*@Transactional
-    @Modifying
-    public void saveUser(User user);*/
 }

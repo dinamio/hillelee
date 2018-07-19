@@ -86,9 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().anyRequest().authenticated();
     }
-   /* @Override
+    @Override
     public void configure(WebSecurity web){
         web.ignoring().antMatchers("/resources/**", "/signin");
     }
-*/
 }

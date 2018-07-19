@@ -36,7 +36,7 @@ public class LoginController {
     @RequestMapping(method = GET, value = "/signin")
     public String getSignUpPage(Model model) {
 
-        model.addAttribute("user", new Users());
+        model.addAttribute("users", new Users());
         return "signin";
     }
 
@@ -58,7 +58,7 @@ public class LoginController {
         if (matcher.matches()){
             String pwd = passwordEncoder.encode(currentPwd);
             users.setPwd(pwd);
-            /*userDao.saveUser(user);*/
+            userDao.save(users);
             return "redirect:/login";
         } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
         return "signin";

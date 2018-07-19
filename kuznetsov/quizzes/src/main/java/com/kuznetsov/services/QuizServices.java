@@ -22,7 +22,7 @@ public class QuizServices {
     @Autowired
     private QuizDao quizDao;
     @Autowired
-    QuestionsDao questionsDao;
+    QuestionHandler questionHandler;
     @Autowired
     SubjectsDao subjectsDao;
     @Autowired
@@ -40,21 +40,19 @@ public class QuizServices {
                     userDao.getUsersById(quizzes.getLogin()).getLogin(),
                     subjectsDao.getSubjectsById(quizzes.getSubject()).getSubject(),
                     themesDao.getThemesById(quizzes.getTheme()).getTheme(),
-                    new HashMap<String, Byte>());
-
+                    questionHandler.getQuestions(quizzes.getTheme()));
 
             quizDataFromForms.add(quizDataFromForm);
 
         });
         return quizDataFromForms;
-    }/*,
-                    questionsDao.getQuestionsFromDB(quizzes.getTheme()))*/;
+    }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, Byte> questionMap) {
         Integer subjectId = subjectsDao.getSubjectsBySubject(subject).getId();
         Integer themeId = themesDao.save(new Themes(theme)).getId();
         Integer loginId = userDao.getUsersByLogin(login).getId();
-       /* questionsDao.saveQuestionsToBd(themeId, questionMap);*/
+        questionHandler.saveQuestions(themeId, questionMap);
 
         quizDao.save(new Quizzes(loginId, subjectId, themeId));
     }
