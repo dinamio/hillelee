@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionsDao extends CrudRepository<Questions, Integer>  {
 
-    public List getAllByTheme(Integer id);
+   List getAllByTheme(Integer id);
 }

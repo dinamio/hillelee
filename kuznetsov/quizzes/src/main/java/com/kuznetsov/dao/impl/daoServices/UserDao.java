@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends CrudRepository<Users, Integer> {
 
-    public Users getUsersByLogin(String sessionLogin) ;
+    Users getUsersByLogin(String sessionLogin);
 
-    public Users getUsersById(Integer id);
+    Users getUsersById(Integer id);
 }

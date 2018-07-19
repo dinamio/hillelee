@@ -1,19 +1,14 @@
 package com.kuznetsov.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
-import javax.sql.DataSource;
 import java.util.Locale;
 
 @Configuration
 public class QuizConfiguration{
-
-   /* @Autowired
-    DataSource dataSource;*/
 
     @Bean
     public ReloadableResourceBundleMessageSource messageSource(){
@@ -31,18 +26,6 @@ public class QuizConfiguration{
         localeResolver.setCookieMaxAge(3600);
         return localeResolver;
     }
-
-
-
-   /* @Bean
-    public SpringLiquibase springLiquibase() {
-        SpringLiquibase springLiquibase = new SpringLiquibase();
-        springLiquibase.setDataSource(dataSource());
-        springLiquibase.setChangeLog("classpath:changest-db.xml");
-        springLiquibase.setContexts("test, production");
-        return springLiquibase;
-    }*/
-
 }
 
 

@@ -4,7 +4,7 @@
 <html>
 <head>
 
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/quizViewTable.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}main/resources/css/quizViewTable.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin=“anonymous">
@@ -87,6 +87,6 @@
 </form:form>
 </sec:authorize>
 <%@ include file="quizViewTable.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/js/addQuestion.js"></script>
+<script src="${pageContext.request.contextPath}main/resources/js/addQuestion.js"></script>
 </body>
 </html>
