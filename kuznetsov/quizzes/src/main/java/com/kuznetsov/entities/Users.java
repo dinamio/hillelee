@@ -15,11 +15,9 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     private String login;
 
     @Size(min = 4)
-    @NotEmpty
     private String pwd;
 
     private String role;

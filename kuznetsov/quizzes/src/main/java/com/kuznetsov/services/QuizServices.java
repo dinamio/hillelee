@@ -58,7 +58,7 @@ public class QuizServices {
     }
 
     public void removeQuizById(int id) {
-        /*quizDao.removeQuizzes(id);*/
+        quizDao.removeQuizzesById(id);
     }
 }
 
