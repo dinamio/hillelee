@@ -1,22 +1,25 @@
 package Services;
 
-import Entities.RegistrationBean;
+import Entities.Registration;
+import dao.UsersDao;
+import dao.impl.UsersDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class RegistrationService {
-    private static List<RegistrationBean> listRegistration = new ArrayList<>();
+    @Autowired
+    private UsersDao usersDao;
 
-    public static List<RegistrationBean> getListRegistration() {
-        return listRegistration;
-    }
-
-    public static boolean checkLoginIsUntaken(String login) {
+    public  boolean checkLoginIsUntaken(String login) {
+        List<Registration> listRegistration = usersDao.getAllUsers();
         boolean bool = true;
-        RegistrationBean current = new RegistrationBean(login, "somePasswordHere");
-        for (RegistrationBean inHolder : listRegistration) {
+        Registration current = new Registration(login, "somePasswordHere");
+        for (Registration inHolder : listRegistration) {
             if (Objects.equals(current.getLogin(), inHolder.getLogin())) {
                 bool = false;
             }
@@ -24,13 +27,18 @@ public class RegistrationService {
         return bool;
     }
 
-    public static boolean checkLoginAndPassword(String login, String password) {
-        RegistrationBean curB = new RegistrationBean(login, password);
-        for (RegistrationBean regB : listRegistration) {
+    public boolean checkLoginAndPassword(String login, String password) {
+        List<Registration> listRegistration = usersDao.getAllUsers();
+        Registration curB = new Registration(login, password);
+        for (Registration regB : listRegistration) {
             if (regB.equals(curB)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public  void addUser(Registration user){
+        usersDao.insertUser(user);
     }
 }
