@@ -5,7 +5,7 @@
 
 </head>
 <body>
-
+<link type="text/css" rel="stylesheet" href="static/css/quizViewTable.css">
 <table class="table table-striped table-lg">
     <thead>
     <tr>
