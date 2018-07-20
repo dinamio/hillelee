@@ -22,38 +22,14 @@ import java.util.logging.Logger;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Autowired
     DataSource dataSource;
-
-   /* @Autowired
-    @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;*/
-
-
-    /*@Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-        auth.authenticationProvider(authenticationProvider());
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    /*@Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-    }*/
-
-    /*@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select login,pwd,true from users where login=?")
-                .authoritiesByUsernameQuery("select login, role from users where login=?");
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

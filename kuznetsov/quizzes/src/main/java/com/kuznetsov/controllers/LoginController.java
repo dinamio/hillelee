@@ -60,7 +60,7 @@ public class LoginController {
             users.setPwd(pwd);
             userDao.save(users);
             return "redirect:/login";
-        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
+        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase, a one lowercase letters and symbols @#$%");
         return "signin";
     }
 }
