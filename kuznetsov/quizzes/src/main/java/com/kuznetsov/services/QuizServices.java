@@ -1,6 +1,6 @@
 package com.kuznetsov.services;
 
-import com.kuznetsov.dao.impl.QuizDaoHibernate;
+import com.kuznetsov.dao.impl.daoServices.QuizDao;
 import com.kuznetsov.dao.impl.daoServices.QuestionsDao;
 import com.kuznetsov.dao.impl.daoServices.SubjectsDao;
 import com.kuznetsov.dao.impl.daoServices.ThemesDao;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +20,9 @@ import java.util.Map;
 public class QuizServices {
 
     @Autowired
-    private QuizDaoHibernate quizDao;
+    private QuizDao quizDao;
     @Autowired
-    QuestionsDao questionsDao;
+    QuestionHandler questionHandler;
     @Autowired
     SubjectsDao subjectsDao;
     @Autowired
@@ -30,16 +31,16 @@ public class QuizServices {
     UserDao userDao;
 
     public List<QuizDataFromForm> getAllQuizzes() {
-        List<Quizzes> quizzesEntities = quizDao.getAllQuizzesFromDB();
+        List<Quizzes> quizzesEntities = (List<Quizzes>) quizDao.findAll();
         List<QuizDataFromForm> quizDataFromForms = new ArrayList<>();
 
         quizzesEntities.forEach(quizzes -> {
             QuizDataFromForm quizDataFromForm = new QuizDataFromForm(
                     String.valueOf(quizzes.getId()),
-                    userDao.getUserFromDB(quizzes.getLogin()).getLogin(),
-                    subjectsDao.getSubjectsFromDb(quizzes.getSubject()).getSubject(),
-                    themesDao.getThemeFromDb(quizzes.getTheme()).getTheme(),
-                    questionsDao.getQuestionsFromDB(quizzes.getTheme()));
+                    userDao.getUsersById(quizzes.getLogin()).getLogin(),
+                    subjectsDao.getSubjectsById(quizzes.getSubject()).getSubject(),
+                    themesDao.getThemesById(quizzes.getTheme()).getTheme(),
+                    questionHandler.getQuestions(quizzes.getTheme()));
 
             quizDataFromForms.add(quizDataFromForm);
 
@@ -48,16 +49,16 @@ public class QuizServices {
     }
 
     public void addNewQuiz(String subject, String theme, String login, Map<String, Byte> questionMap) {
-        Integer subjectId = subjectsDao.getSubjectsFromDb(subject).getId();
-        Integer themeId = themesDao.saveThemeToBd(new Themes(theme));
-        Integer loginId = userDao.getUserFromDB(login).getId();
-        questionsDao.saveQuestionsToBd(themeId, questionMap);
+        Integer subjectId = subjectsDao.getSubjectsBySubject(subject).getId();
+        Integer themeId = themesDao.save(new Themes(theme)).getId();
+        Integer loginId = userDao.getUsersByLogin(login).getId();
+        questionHandler.saveQuestions(themeId, questionMap);
 
-        quizDao.addNewQuizToDB(new Quizzes(loginId, subjectId, themeId));
+        quizDao.save(new Quizzes(loginId, subjectId, themeId));
     }
 
     public void removeQuizById(int id) {
-        quizDao.removeQuizFromDB(id);
+        quizDao.removeQuizzesById(id);
     }
 }
 

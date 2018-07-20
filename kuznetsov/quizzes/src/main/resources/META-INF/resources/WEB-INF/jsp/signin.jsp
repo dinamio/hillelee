@@ -13,7 +13,7 @@
 <body>
 
 
-<form:form method="post" action="/signin" modelAttribute="user">
+<form:form method="post" action="/signin" modelAttribute="users">
 <table>
     <tr>
         <td><form:label path="login">Name</form:label></td>

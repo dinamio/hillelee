@@ -4,7 +4,6 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity

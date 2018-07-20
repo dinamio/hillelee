@@ -2,10 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/resources/css/quizViewTable.css">
+
 </head>
 <body>
-
+<link type="text/css" rel="stylesheet" href="static/css/quizViewTable.css">
 <table class="table table-striped table-lg">
     <thead>
     <tr>
