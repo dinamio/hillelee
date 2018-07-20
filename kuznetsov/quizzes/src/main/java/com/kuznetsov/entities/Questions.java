@@ -2,18 +2,19 @@ package com.kuznetsov.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+@Table
 @Entity
 public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Integer themeId;
+
+    private Integer theme;
     private String question;
     private Byte answer;
 
-    public Questions(Integer themeId, String question, Byte answer) {
-        this.themeId = themeId;
+    public Questions(Integer theme, String question, Byte answer) {
+        this.theme = theme;
         this.question = question;
         this.answer = answer;
     }
@@ -30,12 +31,12 @@ public class Questions {
     }
 
 
-    public Integer getThemeId() {
-        return themeId;
+    public Integer getTheme() {
+        return theme;
     }
 
-    public void setThemeId(Integer themeId) {
-        this.themeId = themeId;
+    public void setTheme(Integer theme) {
+        this.theme = theme;
     }
 
 
@@ -62,7 +63,7 @@ public class Questions {
         if (o == null || getClass() != o.getClass()) return false;
         Questions that = (Questions) o;
         return id == that.id &&
-                Objects.equals(themeId, that.themeId) &&
+                Objects.equals(theme, that.theme) &&
                 Objects.equals(question, that.question) &&
                 Objects.equals(answer, that.answer);
     }
@@ -70,6 +71,6 @@ public class Questions {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, themeId, question, answer);
+        return Objects.hash(id, theme, question, answer);
     }
 }

@@ -2,7 +2,7 @@ package com.kuznetsov.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+@Table
 @Entity
 public class Quizzes {
 

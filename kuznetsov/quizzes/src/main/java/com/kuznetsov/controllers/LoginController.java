@@ -1,12 +1,13 @@
 package com.kuznetsov.controllers;
 
 import com.kuznetsov.dao.impl.daoServices.UserDao;
-import com.kuznetsov.entities.User;
+import com.kuznetsov.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,17 +27,23 @@ public class LoginController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    @GetMapping(value = "/login")
+    public String getLogin(){
+        return "login";
+    }
+
     @RequestMapping(method = GET, value = "/signin")
     public String getSignUpPage(Model model) {
 
-        model.addAttribute("user", new User());
+        model.addAttribute("users", new Users());
         return "signin";
     }
 
     @RequestMapping(method = POST, value = "/signin")
-    private String signUpButtonAction( @ModelAttribute @Valid User user, BindingResult bindingResult) {
+     String signUpButtonAction(@ModelAttribute @Valid Users users, BindingResult bindingResult) {
 
-        if(userDao.getUserFromDB(user.getLogin()) != null){
+        if(userDao.getUsersByLogin(users.getLogin()) != null){
             bindingResult.rejectValue("login", "error.login", "login is busy");
             return "signin";
         }
@@ -44,16 +51,16 @@ public class LoginController {
             return "signin";
         }
 
-        String currentPwd = user.getPwd();
+        String currentPwd = users.getPwd();
         Pattern pattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{4,20})");
         Matcher matcher = pattern.matcher(currentPwd);
 
         if (matcher.matches()){
             String pwd = passwordEncoder.encode(currentPwd);
-            user.setPwd(pwd);
-            userDao.saveCredentialsToDB(user);
+            users.setPwd(pwd);
+            userDao.save(users);
             return "redirect:/login";
-        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase and a one lowercase letters");
+        } else bindingResult.rejectValue("pwd", "error.pwd", "Password must consist at least a one digit, a one uppercase, a one lowercase letters and symbols @#$%");
         return "signin";
     }
 }

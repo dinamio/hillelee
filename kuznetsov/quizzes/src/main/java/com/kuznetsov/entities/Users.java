@@ -9,22 +9,20 @@ import javax.validation.constraints.Size;
 @Table
 @Entity
 @Component
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
     private String login;
 
     @Size(min = 4)
-    @NotEmpty
     private String pwd;
 
     private String role;
 
-    public User() {
+    public Users() {
     }
 
     public Integer getId() {

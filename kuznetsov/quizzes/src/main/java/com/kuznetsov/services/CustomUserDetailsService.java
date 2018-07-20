@@ -1,7 +1,7 @@
 package com.kuznetsov.services;
 
 import com.kuznetsov.dao.impl.daoServices.UserDao;
-import com.kuznetsov.entities.User;
+import com.kuznetsov.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,14 +24,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userDao.getUserFromDB(s);
-        if (user == null) {
+        Users users = userDao.getUsersByLogin(s);
+        if (users == null) {
             logger.info("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPwd(),
-                true, true, true, true, getGrantedAuthorities(user.getRole()));
+        return new org.springframework.security.core.userdetails.User(users.getLogin(), users.getPwd(),
+                true, true, true, true, getGrantedAuthorities(users.getRole()));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
