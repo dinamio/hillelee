@@ -1,21 +1,34 @@
 package model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class User implements Comparable<User>{
+    public enum Role{user,admin,superadmin,banned}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotEmpty(message = "Заполните поле")
+    @Size(min=5, max=15, message = "Должно быть 5-15 символов")
     @Column(name="login")
     private String login;
 
+    @NotEmpty(message = "Заполните поле")
+    @Size(min=5, max=15, message = "Должно быть 5-25 символов")
     @Column(name="password")
     private String password;
+
+    @Column(name="role")
+    String role=Role.user.name();
 
     @Temporal(TemporalType.DATE)
     @Column(name = "regdate")
@@ -37,7 +50,7 @@ public class User implements Comparable<User>{
     List<Quiz> quizzes = new ArrayList<>();
 
 
-    User(){}
+    public User(){}
 
     public User(String login, String password) {
         this.login = login;
@@ -54,6 +67,7 @@ public class User implements Comparable<User>{
         this.sex = sex;
     }
 
+    public void setRole(String role) { this.role = role; }
     public void setLogin(String login) {
         this.login = login;
     }
@@ -66,6 +80,7 @@ public class User implements Comparable<User>{
     public void setEmail(String email) { this.email = email; }
     public void setSex(boolean sex) { this.sex = sex; }
 
+    public String getRole() { return role; }
     public Integer getId() { return id; }
     public String getPassword() {
         return password;

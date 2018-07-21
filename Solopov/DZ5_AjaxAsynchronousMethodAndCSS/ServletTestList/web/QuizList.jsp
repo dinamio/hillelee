@@ -1,36 +1,36 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html>
 <head>
     <title>Quiz List</title>
-    <link href="styles.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <%@include file="parts/stylesandscripts.jsp" %>
 </head>
 <body>
 <div class="container">
+    <%@include file="parts/header.jsp" %>
 
     <div class="mainblock">
 
-
         <!--New quiz -->
-        <p>Create new quiz!</p>
+        <sec:authorize access="hasAnyAuthority('admin','superadmin','user')">
+            <h3>Создать новый опрос!</h3>
+            <form:form action="/quizlist" method="post" modelAttribute="quizToAdd">
+                <div class="form-group">
+                    <form:label path="name" for="namequiz">Название опроса: <form:errors path="name"/>
+                    </form:label>
+                    <form:input path="name" type="text" class="form-control" id="namequiz"/>
+                </div>
+                <div class="form-group">
+                    <form:label path="objective" for="objectivequiz">Предметная область: <form:errors path="objective"/>
+                    </form:label>
+                    <form:input path="objective" type="text" class="form-control" id="objectivequiz"/>
+                </div>
+                <input type="submit" value="Создать опрос">
+            </form:form>
+        </sec:authorize>
 
-<form:form action="/newquiz" method="post" modelAttribute="quizToAdd">
-        <label><b>Введите название опроса:</b></label>
-        <input name="name">
-        <p>
-            <label><b>Введите предметную область опроса:</b></label>
-            <input name="objective">
-        <p>
-            <input type="submit" value="Создать опрос">
-</form:form>
-
-<!--quiz list -->
-
-
+        <!--quiz list -->
         <table class="table_quiz">
             <caption/>
             <tbody>
@@ -45,7 +45,9 @@
                 <tr>
                     <input type="hidden" name="table_id" value="${test.getId()}"/>
                     <td> ${test.getId()}</td>
-                    <td> <a href="questions/${test.getId()}">${test.getName()}</a></td>
+                    <td>
+                        <a href="quiz/${test.getId()}/">${test.getName()}</a>
+                    </td>
                     <td> ${test.getObjective()} </td>
                     <td> ${test.getCreator().getLogin()} </td>
                     <td class="deleteRow">Delete</td>
