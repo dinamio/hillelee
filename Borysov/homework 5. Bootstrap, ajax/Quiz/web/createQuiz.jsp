@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <%@include file="/head.jsp"%>
 <body>
@@ -24,16 +25,40 @@
             <h3><a href="/logout">Log out</a></h3>
         </div>
         <div id="content">
-            <form method="post" action="/addQuiz">
+<%--            <form:form method="post" action="/addQuiz" modelAttribute="quiz">
                 <h3>Subject</h3>
-                <input required type="text" name="subject_field"
+                <input required type="text" name="nameOfSubject"
                        value="Math"/>
+
+               <p><form:errors path="nameOfSubject"/></p>
+
                 <h3>Theme</h3>
-                <input required type="text" name="theme_field"
+                <input required type="text" name="theme"
                        value="Numbers "/>
                 <input type="submit" class="btn" value="Create"/>
 
-            </form>
+            </form:form>--%>
+
+
+            <form:form method="post" action="addQuiz" modelAttribute="quiz">
+                <table>
+                    <tr>
+                        <td><form:label path="nameOfSubject">Name</form:label></td>
+                        <td><form:input path="nameOfSubject"/></td>
+                        <td><form:errors path="nameOfSubject"/></td>
+                    </tr>
+                    <tr>
+                        <td><form:label path="theme">Description</form:label></td>
+                        <td><form:input path="theme"/></td>
+                        <td><form:errors path="theme"/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Submit"/></td>
+                    </tr>
+                </table>
+
+            </form:form>
+
             <a href="mainPage.jsp">Cancel</a>
 
         </div>

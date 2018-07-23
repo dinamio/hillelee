@@ -28,7 +28,7 @@
       <div id="content">
 
         <ul class="menu">
-          <li><h1><a href="createQuiz.jsp">Create quiz</a></h1></li>
+          <li><h1><a href="/createQuiz">Create quiz</a></h1></li>
           <li><h1><a href="/showQuizzes">Show quizzes</a></h1></li>
         </ul>
           <sec:authorize access="hasAuthority('admin')">

@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.sql.DataSource;
+import java.util.Locale;
 
 @Configuration
 @ComponentScan(basePackages = "borysov.*")
@@ -20,7 +24,7 @@ public class QuizConfiguration {
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setPackagesToScan(new String[] {"borysov.entity", "borysov.dao", "borysov.service"});
+        sessionFactoryBean.setPackagesToScan(new String[]{"borysov.entity", "borysov.dao", "borysov.service"});
         sessionFactoryBean.setDataSource(dataSource());
         return sessionFactoryBean;
     }
@@ -42,5 +46,4 @@ public class QuizConfiguration {
         manager.setSessionFactory(sessionFactory);
         return manager;
     }
-
 }

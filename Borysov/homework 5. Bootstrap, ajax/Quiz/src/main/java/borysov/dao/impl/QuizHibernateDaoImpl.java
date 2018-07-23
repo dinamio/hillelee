@@ -58,8 +58,9 @@ public class QuizHibernateDaoImpl implements QuizDao {
         Query query = session.createQuery("delete from Quiz where id=:quizId");
         query.setParameter("quizId", id);
         query.executeUpdate();
-        session.flush();
+
         transaction.commit();
+        session.flush();
     }
 
     public void addQuestionToDB(Integer quizId, String questionText) {
