@@ -6,14 +6,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -34,6 +33,11 @@ public class QuizController {
         model.addAttribute("listOfQuizzes", service.getListOfQuizzes());
         return "showQuizzes";
     }
+    @GetMapping(value = "createQuiz")
+    public String createQuiz(Model model) {
+        model.addAttribute("quiz", new Quiz());
+        return "createQuiz";
+    }
 
     @DeleteMapping(value = "delete/{id}")
     public String getDelete(@PathVariable("id") int id) {
@@ -43,15 +47,15 @@ public class QuizController {
         return "redirect:showQuizzes";
     }
 
+
     @RequestMapping(method = POST, value = "addQuiz")
-    public String addQuiz(WebRequest req, HttpSession session, Principal principal) {
-        LOGGER.info("AddQuiz");
-
-        String subject = req.getParameter("subject_field");
-        String theme = req.getParameter("theme_field");
-        User author = (User) session.getAttribute("currentUser");
-
-        Quiz quiz = new Quiz(subject, theme, principal.getName());
+    public String addQuiz(@ModelAttribute("quiz")  @Valid Quiz quiz, BindingResult bindingResult, Principal principal) {
+        if(bindingResult.hasErrors())
+        {
+            return "createQuiz";
+        }
+        LOGGER.info("AddQuiz" + principal.getName());
+        quiz.setAuthor(principal.getName());
         service.addQuiz(quiz);
 
         return "redirect:showQuizzes";

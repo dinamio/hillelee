@@ -1,6 +1,9 @@
 package borysov.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "questions")
@@ -12,6 +15,8 @@ public class Question {
     private int idOfQuiz;
 
     @Column(name = "text_question")
+    @NotEmpty
+    @Size(min = 5, max = 100)
     private String textOfQuestion;
 
     public int getId() {
