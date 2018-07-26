@@ -26,7 +26,7 @@ public class User {
     private String name;
 
     @Column(name = "email")
-//    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$", message = "email is not correct")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "email is not correct")
     private String email;
 
     @ManyToOne

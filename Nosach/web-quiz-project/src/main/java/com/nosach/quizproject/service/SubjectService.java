@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Component
-@Transactional
 public class SubjectService {
 
     @Autowired
     SubjectDAO subjectDAO;
 
+    @Transactional
     public int addSubject(Subject subject) {
         Subject subj = subjectDAO.save(subject);
         return subj.getId();

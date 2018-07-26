@@ -22,7 +22,6 @@ public class LoggerFilter implements Filter{
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse res = (HttpServletResponse) servletResponse;
 
         logger.info("Request URL: "+ req.getRequestURL());
         filterChain.doFilter(servletRequest, servletResponse);
