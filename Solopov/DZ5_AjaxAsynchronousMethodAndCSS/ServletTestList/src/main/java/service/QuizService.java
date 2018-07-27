@@ -7,9 +7,7 @@ import java.util.Set;
 
 @Service
 public class QuizService {
-    Quiz currentQuiz;
-
-    public boolean removeQuestion(Set<Quiz> quizSet, int id) {
+    public boolean removeQuiz(Set<Quiz> quizSet, int id) {
         Quiz quiz = null;
         for (Quiz currQuiz : quizSet)
             if (currQuiz.getId() == id) {
@@ -17,13 +15,5 @@ public class QuizService {
                 break;
             }
         return quizSet.remove(quiz);
-    }
-
-    public Quiz getCurrentQuiz() {
-        return currentQuiz;
-    }
-
-    public void setCurrentQuiz(Quiz currentQuiz) {
-        this.currentQuiz = currentQuiz;
     }
 }

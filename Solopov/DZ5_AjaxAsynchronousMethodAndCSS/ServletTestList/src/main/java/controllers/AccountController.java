@@ -4,12 +4,15 @@ import dao.UserDAOReal;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import java.util.logging.Logger;
 
@@ -27,18 +30,17 @@ public class AccountController {
 
 
     @RequestMapping(method = GET, value = "/auth")
-    public String getAuthorization() {
+    public String authorization() {
         return "Authorization";
     }
 
     @RequestMapping(method = POST, value = "/auth")
-    public String postAuthorization(@RequestParam("login") String login,
+    public String authorization(@RequestParam("login") String login,
                                     @RequestParam("password") String password,
                                     HttpSession session) {
         log.info("Current login:" + login + " Current password:" + password);
-        if ((login != null || password != null) && (userService.authorizate(login,password))) {
+        if (userService.authorizate(login,password)) {
             User user= userDAO.findByLogin(login);
-            userService.setCurrentUser(user);
             session.setAttribute("login", user.getLogin());
             return "redirect:/quizlist";
         }
@@ -46,27 +48,24 @@ public class AccountController {
     }
 
     @RequestMapping(method = GET, value = "/reg")
-    public String getRegistration() {
-        return "Registration";
+    public ModelAndView registration() {
+        return new ModelAndView("Registration","userReg",new User());
     }
 
     @RequestMapping(method = POST, value = "/reg")
-    public String postRegistration(@ModelAttribute("userReg") User user,
-                                   HttpSession session) {
-        if (user.getLogin() == null || user.getPassword() == null) return "Registration";
-        if (session.getAttribute("login") != null) session.setAttribute("login", null);
+    public String registration(@ModelAttribute("userReg") @Valid User user, BindingResult bindingResult,
+                               HttpSession session) {
+        if(bindingResult.hasErrors()) return "Registration";
         if (userDAO.findByLogin(user.getLogin()) == null) {
             userDAO.persist(user);
-            userService.setCurrentUser(user);
             session.setAttribute("login", user.getLogin());
-            return "redirect:/quizlist";
+            return "welcomepage";
         }
         return "Registration";
     }
 
     @RequestMapping(method = GET, value = "logout")
-    public String getLogout(HttpSession session) {
-        userService.setCurrentUser(null);
+    public String logout(HttpSession session) {
         session.setAttribute("login", null);
         session.removeAttribute("login");
         return "Authorization";

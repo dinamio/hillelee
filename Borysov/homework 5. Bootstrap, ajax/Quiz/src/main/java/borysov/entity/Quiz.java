@@ -1,6 +1,10 @@
 package borysov.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "quizzes")
@@ -10,8 +14,11 @@ public class Quiz {
     private int id;
 
     @Column(name = "subject")
+    @NotNull(message = "nameOfSubject required")
+    @Size(min = 5)
     private String nameOfSubject;
-
+    @NotNull(message = "theme required")
+    @NotEmpty
     private String theme;
     private String author;
 

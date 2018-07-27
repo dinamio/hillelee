@@ -1,31 +1,32 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  language="java" %>
 <html>
 <head>
     <title>Авторизация</title>
-    <c:set var="root" value="${pageContext.request.contextPath}"/>
-    <link type="text/css" rel="stylesheet" href="styles.css"/>
-    <link href="<c:url value="styles.css"/>" rel="stylesheet" type="text/css"/>
-
+    <%@include file="parts/stylesandscripts.jsp" %>
 </head>
 <body>
 <div class="container">
-    <div class="mainblock">
+    <%@include file="parts/header.jsp" %>
 
-        <form action="/auth" method="post">
-        <label><b>Введите логин:</b></label>
-        <input name="login">
-        <p>
-            <label><b>Введите пароль:</b></label>
-            <input name="password">
-        <p>
-            <input type="submit" value="Авторизироваться">
-            </form>
+    <div class="mainblock"> <center>
+
+    <form class="form-auth" method="post" action="/auth">
+            <h2 class="form-signin-heading">Пожалуйста авторизируйтесь</h2>
+            <table>
+
+                    <td> <input type="text" class="form-control"  placeholder="Введите логин" name="login"></td>
+
+                <tr>
+                    <td><input type="password" class="form-control" placeholder="Введите пароль" name="password"></td>
+                </tr>
+            </table>
+        <p><p><button class="btn btn-lg btn-primary" type="submit">Авторизироваться</button></p>
+    </form>
+
         <p>Не создали аккаунт?
             <a href="/reg">Зарегистрироваться</a>
-        </p>
-    </div>
+
+        </center> </div>
 </div>
 </body>
 </html>

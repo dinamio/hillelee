@@ -1,0 +1,21 @@
+
+body {
+  padding-top: 50px;
+}
+
+.table td{
+  word-wrap:break-word;
+}
+
+h2 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+.add {
+  margin: 3% auto;
+  width: 100px;
+}
+

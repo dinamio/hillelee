@@ -1,24 +1,24 @@
-<%--
-Created by IntelliJ IDEA.
-User: Username
-Date: 23.04.2018
-Time: 15:55
-To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<%@ page contentType="text/html;charset=UTF-8"  language="java" %>
 <html>
 <head>
-    <title>Title</title>
-    <link href="styles.css" rel="stylesheet">
+    <title>Main Page!</title>
+    <%@include file="parts/stylesandscripts.jsp" %>
+    <style>
+        h3 {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
+    <%@include file="parts/header.jsp" %>
     <div class="mainblock">
-
-<h2>Привет <%=session.getAttribute("login")%>,Рад видеть тебя на веб-сайте.</h2>
-        <p>Выбери понравившуюся тебе ссылку
-           <p><a href="/auth">Авторизация</a>
-           <p><a href="/quizlist">Главная страница с опросами</a>
+        <h3><%=session.getAttribute("login")%> <spring:message code="mainpage.notification"/></h3>
+        <p> <spring:message code="mainpage.language"/>:  <a href="?locale=en">English language</a> <a href="?locale=ru">Русский язык</a>
     </div>
 </div>
 </body>
