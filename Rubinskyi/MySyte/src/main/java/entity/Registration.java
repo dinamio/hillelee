@@ -1,9 +1,25 @@
-package Entities;
+package entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
 public class Registration {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "login")
     private String login;
+
+    @Column(name = "password")
     private String password;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
+    private List<QuizTopic> quizTopicList;
 
     public Registration() { }
 
@@ -12,17 +28,17 @@ public class Registration {
         this.password = password;
     }
 
-    public Registration(int id, String login, String password) {
+    public Registration(Integer id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

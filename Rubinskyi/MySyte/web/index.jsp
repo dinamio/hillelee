@@ -27,35 +27,37 @@
     </div>
 
     <div class="main_content">
-        <form:form class = "sending_form" method="post" action = "send">
-            <p>Subject:<br>
-                <input type="text" name="Subject" size="40">
+        <form:form  class = "sending_form" method="post" action = "send"  modelAttribute="quizToAdd">
+            <p>Topic:<br>
+                <input type="text" name="Topic" size="40">
             </p>
             <p>Theme:<br>
                 <input type="text" name="Theme" size="40">
             </p>
             <button class="btn btn-primary" type="submit">Create a quiz</button>
-
         </form:form>
 
+        <div class="table-wrapper">
         <table>
             <tr>
                 <td>Id</td>
+                <td>Topic</td>
                 <td>Theme</td>
-                <td>Subject</td>
                 <td>Creator</td>
                 <td>Actions</td>
             </tr>
-            <c:forEach items="${all_questions}" var="QuizTopicBean">
+            <c:forEach items="${all_questions}" var="QuizTopic">
                 <tr class="table">
-                    <td class="table"> ${QuizTopicBean.id}</td>
-                    <td class="table"> ${QuizTopicBean.quizSubject}</td>
-                    <td class="table"> ${QuizTopicBean.quizTopic}</td>
-                    <td class="table"> ${QuizTopicBean.idCreator}</td>
-                    <td><input type="button" class="delete-button btn-danger" delete-id = ${QuizTopicBean.id} value="Delete"></td>
+                    <td class="table"> ${QuizTopic.id}</td>
+                    <td class="table"> ${QuizTopic.topic}</td>
+                    <td class="table"> ${QuizTopic.theme}</td>
+                    <td class="table"> ${QuizTopic.creator.login}</td>
+                    <td><input type="button" class="delete-button btn-danger" delete-id = ${QuizTopic.id} value="Delete">
+                        <a href="/quiz/${QuizTopic.id}/edit" class="btn btn-primary">Edit</a></td>
                 </tr>
             </c:forEach>
         </table>
+        </div>
 
         <script>
             $(document).ready(function () {

@@ -1,9 +1,9 @@
 package controllers;
 
-import Entities.Pages;
-import Entities.QuizTopic;
-import Entities.Registration;
-import Services.QuizService;
+import entity.QuizTopic;
+import entity.Registration;
+import org.springframework.beans.factory.annotation.Qualifier;
+import service.QuizService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +15,14 @@ import javax.servlet.http.HttpSession;
 @Controller
 //@RequestMapping("/quizes")
 public class QuizController {
+    private final Logger logger = Logger.getLogger(this.getClass());
+
+    private final QuizService quizService;
 
     @Autowired
-    QuizService quizService;
-
-   private final Logger logger = Logger.getLogger(this.getClass());
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "show_all")
     public String showQuizes(Model model){
@@ -29,6 +32,7 @@ public class QuizController {
 
     @RequestMapping(method = RequestMethod.POST, value = "send")
     public String addQuizTopic (@ModelAttribute("quizToAdd")QuizTopic quizTopic, HttpSession session){
+        logger.info(quizTopic.toString());
         quizService.addQuiz(quizTopic, (Registration) session.getAttribute("user"));
         return "redirect:/show_all";
     }

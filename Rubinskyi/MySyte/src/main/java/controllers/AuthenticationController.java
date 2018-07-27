@@ -1,13 +1,11 @@
 
 package controllers;
 
-import Entities.Registration;
-import Services.QuizService;
-import Services.RegistrationService;
+import entity.Registration;
+import service.RegistrationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,7 +33,6 @@ public class AuthenticationController {
     @RequestMapping(method = RequestMethod.POST, value = "login")
     public String login (@ModelAttribute("userToLogin") Registration registration, HttpSession session){
         logger.info(registration.toString());
-        System.out.println(registration.toString());
         if (registrationService.checkLoginAndPassword(registration.getLogin(), registration.getPassword())) {
             session.setAttribute("login", registration.getLogin());
             session.setAttribute("password", registration.getPassword());

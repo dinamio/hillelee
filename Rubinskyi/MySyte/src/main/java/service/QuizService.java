@@ -1,10 +1,10 @@
-package Services;
+package service;
 
-import Entities.QuizTopic;
-import Entities.Registration;
+import entity.QuizTopic;
+import entity.Registration;
 import dao.QuizDao;
-import dao.impl.QuizDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -13,13 +13,13 @@ import java.util.List;
 @Service
 public class QuizService {
 
-    /* TODO DAFAQ is this and why isn't it working with simple Autowired quizDAO? */
-    private QuizDao quizDao;
+    private final QuizDao quizDao;
 
     @Autowired
-    public QuizService(QuizDao quizDao) {
+    public QuizService(@Qualifier("hibernate") QuizDao quizDao) {
         this.quizDao = quizDao;
     }
+
 
     public List<QuizTopic> getListQuiz() {
         List<QuizTopic> result;
@@ -27,9 +27,6 @@ public class QuizService {
         return result;
     }
 
-    public void addQuiz(QuizTopic quizTopic){
-        quizDao.insertQuiz(quizTopic);
-    }
 
     public void addQuiz(QuizTopic quizTopic, Registration currentUser){
         quizDao.insertQuiz(quizTopic, currentUser);

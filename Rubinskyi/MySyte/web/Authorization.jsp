@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/Authorization.css"/>
 </head>
-<%--<body>--%>
-
 <body class="text-center">
 <form:form method="post" action = "login" class="form-signin" modelAttribute="userToLogin">
     <img class="mb-4" src="resources/img/Question.png" alt="" width="72" height="72">
@@ -29,16 +27,4 @@
     <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
 </form:form>
 </body>
-
-
-<%--<form method="post" action = "login">
-    <p>login:<br>
-        <input type="text" name="login" placeholder="Enter login">
-    </p>
-    <p>password:<br>
-        <input type="password" name="password" placeholder="Enter password">
-    </p>
-    <button type="submit">Log in</button>
-</form>
-</body>--%>
 </html>

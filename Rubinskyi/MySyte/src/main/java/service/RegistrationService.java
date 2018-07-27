@@ -1,10 +1,9 @@
-package Services;
+package service;
 
-import Entities.Registration;
+import entity.Registration;
 import dao.UsersDao;
-import dao.impl.UsersDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +11,13 @@ import java.util.Objects;
 
 @Service
 public class RegistrationService {
+
+    private final UsersDao usersDao;
+
     @Autowired
-    private UsersDao usersDao;
+    public RegistrationService(@Qualifier("hibernate") UsersDao usersDao) {
+        this.usersDao = usersDao;
+    }
 
     public  boolean checkLoginIsUntaken(String login) {
         List<Registration> listRegistration = usersDao.getAllUsers();
