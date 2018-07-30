@@ -8,6 +8,7 @@ import com.kuznetsov.dao.impl.daoServices.UserDao;
 import com.kuznetsov.entities.QuizDataFromForm;
 import com.kuznetsov.entities.Quizzes;
 import com.kuznetsov.entities.Themes;
+import com.kuznetsov.entities.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,9 +38,9 @@ public class QuizServices {
         quizzesEntities.forEach(quizzes -> {
             QuizDataFromForm quizDataFromForm = new QuizDataFromForm(
                     String.valueOf(quizzes.getId()),
-                    userDao.getUsersById(quizzes.getLogin()).getLogin(),
-                    subjectsDao.getSubjectsById(quizzes.getSubject()).getSubject(),
-                    themesDao.getThemesById(quizzes.getTheme()).getTheme(),
+                    userDao.findById(quizzes.getLogin()).get().getLogin(),
+                    subjectsDao.findById(quizzes.getSubject()).get().getSubject(),
+                    themesDao.findById(quizzes.getTheme()).get().getTheme(),
                     questionHandler.getQuestions(quizzes.getTheme()));
 
             quizDataFromForms.add(quizDataFromForm);
@@ -58,7 +59,7 @@ public class QuizServices {
     }
 
     public void removeQuizById(int id) {
-        quizDao.removeQuizzesById(id);
+        quizDao.deleteById(id);
     }
 }
 
