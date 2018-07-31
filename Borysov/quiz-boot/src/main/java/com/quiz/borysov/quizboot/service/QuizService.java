@@ -28,10 +28,8 @@ public class QuizService {
         return (List<Quiz>) quizDao.findAll();
     }
 
-
     public void addQuiz(Quiz quiz){
             quizDao.save(quiz);
-
     }
 
     public void removeQuizById(int id) {

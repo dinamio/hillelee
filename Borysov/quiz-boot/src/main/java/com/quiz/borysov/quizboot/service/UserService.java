@@ -30,4 +30,6 @@ public class UserService {
         newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userDao.save(newUser);
     }
+
+
 }
