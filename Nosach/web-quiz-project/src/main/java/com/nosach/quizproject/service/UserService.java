@@ -10,16 +10,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@Transactional
 public class UserService {
 
     @Autowired
     UserDAO userDAO;
 
+    @Transactional
     public boolean addUser(User user) {
+        if(user == null){
+            return false;
+        }
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
-        userDAO.save(user);
+        User savedUser = userDAO.save(user);
         return true;
     }
 

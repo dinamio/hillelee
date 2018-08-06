@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@Transactional
 public class QuizService {
 
     @Autowired
     QuizDAO quizDAO;
 
+    @Transactional
     public int addQuiz(Quiz quiz){
          Quiz quizz = quizDAO.save(quiz);
          return quizz.getId();
@@ -32,6 +32,7 @@ public class QuizService {
         return (List<Quiz>) quizDAO.findAll();
     }
 
+    @Transactional
     public void deleteQuiz (int id){
         quizDAO.deleteById(id);
     }

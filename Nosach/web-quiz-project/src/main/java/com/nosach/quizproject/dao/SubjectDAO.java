@@ -15,8 +15,5 @@ public interface SubjectDAO extends CrudRepository<Subject, Integer>{
     public Subject findBySubjectName(String subject);
 
     public Subject findSubjectById(Integer id);
-//    public int addSubject(Subject subject);
-//    public Subject getSubject(int id);
-//    public List<Subject> getAllSubjects();
-//    public int getIdByName(String subj);
+
 }

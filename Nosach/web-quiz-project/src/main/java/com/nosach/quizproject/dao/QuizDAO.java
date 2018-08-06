@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface QuizDAO extends CrudRepository<Quiz, Integer> {
 
-//    public Quiz getById(Integer id);
-
 }
