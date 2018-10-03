@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends CrudRepository<Users, Integer> {
 
     Users getUsersByLogin(String sessionLogin);
-
-    Users getUsersById(Integer id);
 }

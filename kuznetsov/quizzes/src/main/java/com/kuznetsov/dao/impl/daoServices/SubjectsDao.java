@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubjectsDao extends CrudRepository<Subjects, Integer> {
     Subjects getSubjectsBySubject(String subject);
-
-    Subjects getSubjectsById(Integer id) ;
-
 }

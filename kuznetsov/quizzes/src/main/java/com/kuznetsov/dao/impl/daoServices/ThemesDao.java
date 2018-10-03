@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ThemesDao extends CrudRepository<Themes, Integer> {
-
-    Themes getThemesById(Integer id);
 }

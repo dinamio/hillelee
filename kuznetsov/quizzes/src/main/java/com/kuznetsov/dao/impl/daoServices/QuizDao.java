@@ -9,10 +9,5 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface QuizDao extends CrudRepository<Quizzes, Integer> {
-
-    @Transactional
-    @Modifying
-    void removeQuizzesById(int id);
-
 }
 
