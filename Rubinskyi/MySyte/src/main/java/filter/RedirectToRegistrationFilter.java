@@ -1,6 +1,6 @@
-package Filters;
+package filter;
 
-import Entities.Pages;
+import entity.Pages;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

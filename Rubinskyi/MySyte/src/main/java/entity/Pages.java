@@ -1,4 +1,4 @@
-package Entities;
+package entity;
 
 public enum Pages {
     FIST_PAGE("index.jsp"),
